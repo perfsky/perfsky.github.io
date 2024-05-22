@@ -1,9 +1,9 @@
 ---
-title: My Site
+title: Sakuya's Blog
 toc: false
 ---
 
-This is the landing page.
+## Stay Hungry, Stay Foolish
 
 ## Explore
 
