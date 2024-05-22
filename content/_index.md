@@ -1,17 +1,14 @@
 ---
-title: My Site
+title: Sakuya's Blog
 toc: false
 ---
 
-This is the landing page.
+Stay Hungry, Stay foolish.
 
 ## Explore
 
-{{< cards >}}
-  {{< card link="docs" title="Docs" icon="book-open" >}}
-  {{< card link="about" title="About" icon="user" >}}
-{{< /cards >}}
+- placeholder
 
 ## Documentation
 
-For more information, visit [Hextra](https://imfing.github.io/hextra).
+For more information, visit [My Profile](https://github.com/HIBIKl).
