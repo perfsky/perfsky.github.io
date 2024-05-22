@@ -1,9 +1,9 @@
 ---
-title: My Site
+title: Sakuya's Blog
 toc: false
 ---
 
-Stay Hungry, Stay Foolish.
+## Stay Hungry, Stay Foolish.
 
 ## Explore
 
