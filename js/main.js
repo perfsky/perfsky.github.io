@@ -1,6 +1,6 @@
 // Light / Dark theme toggle
 (function () {
-  const defaultTheme = 'dark'
+  const defaultTheme = 'system'
 
   const themeToggleButtons = document.querySelectorAll(".theme-toggle");
 
