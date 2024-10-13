@@ -18,7 +18,7 @@ document.addEventListener("DOMContentLoaded", function () {
 // 
 
 (function () {
-  const searchDataURL = '/en.search-data.json';
+  const searchDataURL = '/zh-cn.search-data.json';
 
   const inputElements = document.querySelectorAll('.search-input');
   for (const el of inputElements) {
@@ -343,7 +343,7 @@ document.addEventListener("DOMContentLoaded", function () {
     if (!resultsElement) return;
 
     if (!results.length) {
-      resultsElement.innerHTML = `<span class="no-result">No results found.</span>`;
+      resultsElement.innerHTML = `<span class="no-result">无结果</span>`;
       return;
     }
 
