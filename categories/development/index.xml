@@ -1,13 +1,13 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Sakuya&#39;s Blog – Blog List</title>
-    <link>https://perfsky.github.io/blogs/</link>
-    <description>Recent content in Blog List on Sakuya&#39;s Blog</description>
+    <title>Sakuya&#39;s Blog – Development</title>
+    <link>http://localhost:1313/categories/development/</link>
+    <description>Recent content in Development on Sakuya&#39;s Blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-CN</language>
-    <lastBuildDate>Fri, 11 Oct 2024 21:11:58 +0800</lastBuildDate>
+    <lastBuildDate>Sun, 13 Oct 2024 00:00:00 +0000</lastBuildDate>
     
-	  <atom:link href="https://perfsky.github.io/blogs/index.xml" rel="self" type="application/rss+xml" />
+	  <atom:link href="http://localhost:1313/categories/development/index.xml" rel="self" type="application/rss+xml" />
     
     
       
@@ -17,10 +17,10 @@
     
     <item>
       <title>博客搭建指南</title>
-      <link>https://perfsky.github.io/blogs/hextra-setup-tutorial/</link>
+      <link>http://localhost:1313/blogs/hextra-setup-tutorial/</link>
       <pubDate>Sun, 13 Oct 2024 00:00:00 +0000</pubDate>
       
-      <guid>https://perfsky.github.io/blogs/hextra-setup-tutorial/</guid>
+      <guid>http://localhost:1313/blogs/hextra-setup-tutorial/</guid>
       <description>
         
         
