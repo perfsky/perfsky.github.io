@@ -16,17 +16,912 @@
     
     
     <item>
-      <title>【CTF】MISC常用工具集锦/使用方法简介</title>
+      <title>博客搭建指南</title>
+      <link>https://perfsky.github.io/blogs/hextra-setup-tutorial/</link>
+      <pubDate>Sun, 13 Oct 2024 00:00:00 +0000</pubDate>
+      
+      <guid>https://perfsky.github.io/blogs/hextra-setup-tutorial/</guid>
+      <description>
+        
+        
+        &lt;blockquote&gt;
+&lt;p&gt;以Hextra主题为例的Hugo博客搭建指南&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;h2&gt;准备工作&lt;span class=&#34;hx-absolute -hx-mt-20&#34; id=&#34;准备工作&#34;&gt;&lt;/span&gt;
+    &lt;a href=&#34;#%e5%87%86%e5%a4%87%e5%b7%a5%e4%bd%9c&#34; class=&#34;subheading-anchor&#34; aria-label=&#34;Permalink for this section&#34;&gt;&lt;/a&gt;&lt;/h2&gt;&lt;ul&gt;
+&lt;li&gt;安装好Go和Hugo(extended version)&lt;/li&gt;
+&lt;li&gt;配置好Git&lt;/li&gt;
+&lt;li&gt;拥有一个域名(可选)&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2&gt;速通&lt;span class=&#34;hx-absolute -hx-mt-20&#34; id=&#34;速通&#34;&gt;&lt;/span&gt;
+    &lt;a href=&#34;#%e9%80%9f%e9%80%9a&#34; class=&#34;subheading-anchor&#34; aria-label=&#34;Permalink for this section&#34;&gt;&lt;/a&gt;&lt;/h2&gt;
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+&lt;div class=&#34;hx-overflow-x-auto hx-mt-6 hx-flex hx-rounded-lg hx-border hx-py-2 ltr:hx-pr-4 rtl:hx-pl-4 contrast-more:hx-border-current contrast-more:dark:hx-border-current hx-border-blue-200 hx-bg-blue-100 hx-text-blue-900 dark:hx-border-blue-200/30 dark:hx-bg-blue-900/30 dark:hx-text-blue-200&#34;&gt;
+  &lt;div class=&#34;ltr:hx-pl-3 ltr:hx-pr-2 rtl:hx-pr-3 rtl:hx-pl-2&#34;&gt;&lt;div class=&#34;hx-select-none hx-text-xl&#34; style=&#34;font-family: &#39;Apple Color Emoji&#39;, &#39;Segoe UI Emoji&#39;, &#39;Segoe UI Symbol&#39;;&#34;&gt;
+        ℹ️
+      &lt;/div&gt;&lt;/div&gt;
+
+  &lt;div class=&#34;hx-w-full hx-min-w-0 hx-leading-7&#34;&gt;
+    &lt;div class=&#34;hx-mt-6 hx-leading-7 first:hx-mt-0&#34;&gt;
+      施工中
+    &lt;/div&gt;
+  &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;ol&gt;
+&lt;li&gt;建立两个仓库，分别存放源代码和生成的静态文件&lt;/li&gt;
+&lt;li&gt;Hugo初始化博客，目标文件夹与源代码仓库同名&lt;/li&gt;
+&lt;li&gt;拉取Hextra主题到./themes/hextra，拉取静态文件仓库到./public（使用&lt;code&gt;git submodule&lt;/code&gt;）&lt;/li&gt;
+&lt;li&gt;配置hugo.yaml，参考exampleSite&lt;/li&gt;
+&lt;li&gt;写一点东西&lt;/li&gt;
+&lt;li&gt;生成静态文件，检查，推送到远程仓库&lt;/li&gt;
+&lt;li&gt;配置Github Pages到静态文件仓库中&lt;/li&gt;
+&lt;li&gt;(可选) CLoudflare 绑定域名解析&lt;/li&gt;
+&lt;/ol&gt;
+&lt;h2&gt;一些容易踩的坑&lt;span class=&#34;hx-absolute -hx-mt-20&#34; id=&#34;一些容易踩的坑&#34;&gt;&lt;/span&gt;
+    &lt;a href=&#34;#%e4%b8%80%e4%ba%9b%e5%ae%b9%e6%98%93%e8%b8%a9%e7%9a%84%e5%9d%91&#34; class=&#34;subheading-anchor&#34; aria-label=&#34;Permalink for this section&#34;&gt;&lt;/a&gt;&lt;/h2&gt;&lt;h3&gt;文件完整性校验不通过导致博客功能失效&lt;sup id=&#34;fnref:1&#34;&gt;&lt;a href=&#34;#fn:1&#34; class=&#34;footnote-ref&#34; role=&#34;doc-noteref&#34;&gt;1&lt;/a&gt;&lt;/sup&gt;&lt;span class=&#34;hx-absolute -hx-mt-20&#34; id=&#34;文件完整性校验不通过导致博客功能失效1&#34;&gt;&lt;/span&gt;
+    &lt;a href=&#34;#%e6%96%87%e4%bb%b6%e5%ae%8c%e6%95%b4%e6%80%a7%e6%a0%a1%e9%aa%8c%e4%b8%8d%e9%80%9a%e8%bf%87%e5%af%bc%e8%87%b4%e5%8d%9a%e5%ae%a2%e5%8a%9f%e8%83%bd%e5%a4%b1%e6%95%881&#34; class=&#34;subheading-anchor&#34; aria-label=&#34;Permalink for this section&#34;&gt;&lt;/a&gt;&lt;/h3&gt;&lt;p&gt;
+    &lt;figure&gt;
+    &lt;img src=&#34;.././hextra-setup-tutorial/hextra-setup-tutorial_blocked-js-css.png&#34; title=&#34;如图&#34; alt=&#34;landscape&#34; loading=&#34;lazy&#34; /&gt;
+    &lt;figcaption&gt;如图&lt;/figcaption&gt;
+  &lt;/figure&gt;
+为确保脚本或者样式表不被恶意篡改，网页会使用&lt;code&gt;integrity&lt;/code&gt;来校验文件完整性，如果计算的SHA-256值和指定的不匹配，则浏览器拒绝加载此资源。
+而在hugo生成静态资源后，如果尝试将其上传到github，有可能文件中的换行符会被git自动转换，导致本地文件和云端文件校验值不同。
+解决方法是关闭git自带的CRLF&amp;lt;&amp;ndash;&amp;gt;LF转换：&lt;/p&gt;
+&lt;div class=&#34;hextra-code-block hx-relative hx-mt-6 first:hx-mt-0 hx-group/code&#34;&gt;
+  
+
+&lt;div&gt;&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;git config --global core.autocrlf false&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;&lt;div class=&#34;hextra-code-copy-btn-container hx-opacity-0 hx-transition group-hover/code:hx-opacity-100 hx-flex hx-gap-1 hx-absolute hx-m-[11px] hx-right-0 hx-top-0&#34;&gt;
+  &lt;button
+    class=&#34;hextra-code-copy-btn hx-group/copybtn hx-transition-all active:hx-opacity-50 hx-bg-primary-700/5 hx-border hx-border-black/5 hx-text-gray-600 hover:hx-text-gray-900 hx-rounded-md hx-p-1.5 dark:hx-bg-primary-300/10 dark:hx-border-white/10 dark:hx-text-gray-400 dark:hover:hx-text-gray-50&#34;
+    title=&#34;Copy code&#34;
+  &gt;
+    &lt;div class=&#34;copy-icon group-[.copied]/copybtn:hx-hidden hx-pointer-events-none hx-h-4 hx-w-4&#34;&gt;&lt;/div&gt;
+    &lt;div class=&#34;success-icon hx-hidden group-[.copied]/copybtn:hx-block hx-pointer-events-none hx-h-4 hx-w-4&#34;&gt;&lt;/div&gt;
+  &lt;/button&gt;
+&lt;/div&gt;
+
+  
+&lt;/div&gt;
+&lt;p&gt;或者&lt;a href=&#34;https://docs.github.com/zh/get-started/getting-started-with-git/configuring-git-to-handle-line-endings#per-repository-settings&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;指定某个仓库不转换&lt;/a&gt;&lt;/p&gt;
+&lt;h3&gt;Cloudflare Pages自动构建过程出错&lt;span class=&#34;hx-absolute -hx-mt-20&#34; id=&#34;cloudflare-pages自动构建过程出错&#34;&gt;&lt;/span&gt;
+    &lt;a href=&#34;#cloudflare-pages%e8%87%aa%e5%8a%a8%e6%9e%84%e5%bb%ba%e8%bf%87%e7%a8%8b%e5%87%ba%e9%94%99&#34; class=&#34;subheading-anchor&#34; aria-label=&#34;Permalink for this section&#34;&gt;&lt;/a&gt;&lt;/h3&gt;&lt;p&gt;暂时未找到解决方法，替代品是直接让它部署生成后的静态页面&lt;/p&gt;
+&lt;h2&gt;参考资料&lt;span class=&#34;hx-absolute -hx-mt-20&#34; id=&#34;参考资料&#34;&gt;&lt;/span&gt;
+    &lt;a href=&#34;#%e5%8f%82%e8%80%83%e8%b5%84%e6%96%99&#34; class=&#34;subheading-anchor&#34; aria-label=&#34;Permalink for this section&#34;&gt;&lt;/a&gt;&lt;/h2&gt;&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;https://imfing.github.io/hextra/zh-cn/docs/getting-started/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;Hextra&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://www.gohugo.org&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;Hugo&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://www.gohugo.org/doc/content/front-matter/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;头部自定义参数&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;div class=&#34;footnotes&#34; role=&#34;doc-endnotes&#34;&gt;
+&lt;hr&gt;
+&lt;ol&gt;
+&lt;li id=&#34;fn:1&#34;&gt;
+&lt;p&gt;&lt;a href=&#34;https://github.com/kubernetes/website/issues/25414&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;Issue&lt;/a&gt;&amp;#160;&lt;a href=&#34;#fnref:1&#34; class=&#34;footnote-backref&#34; role=&#34;doc-backlink&#34;&gt;&amp;#x21a9;&amp;#xfe0e;&lt;/a&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;/div&gt;
+
+      </description>
+    </item>
+    
+    <item>
+      <title>CTF CheatSheet之WebShell流量分析</title>
+      <link>https://perfsky.github.io/blogs/ctf-cheatsheet-traffic-analysis/</link>
+      <pubDate>Fri, 24 May 2024 00:00:00 +0000</pubDate>
+      
+      <guid>https://perfsky.github.io/blogs/ctf-cheatsheet-traffic-analysis/</guid>
+      <description>
+        
+        
+        &lt;blockquote&gt;
+&lt;p&gt;三种WebShell的特征，供流量分析用，AWD也可以参考&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;h2&gt;菜刀&lt;span class=&#34;hx-absolute -hx-mt-20&#34; id=&#34;菜刀&#34;&gt;&lt;/span&gt;
+    &lt;a href=&#34;#%e8%8f%9c%e5%88%80&#34; class=&#34;subheading-anchor&#34; aria-label=&#34;Permalink for this section&#34;&gt;&lt;/a&gt;&lt;/h2&gt;&lt;h3&gt;特征&lt;span class=&#34;hx-absolute -hx-mt-20&#34; id=&#34;特征&#34;&gt;&lt;/span&gt;
+    &lt;a href=&#34;#%e7%89%b9%e5%be%81&#34; class=&#34;subheading-anchor&#34; aria-label=&#34;Permalink for this section&#34;&gt;&lt;/a&gt;&lt;/h3&gt;&lt;p&gt;菜刀的木马就是一句话木马&lt;/p&gt;
+&lt;p&gt;2014 以前的版本，有的 php/jsp 都为明文传输，较好判断&lt;/p&gt;
+&lt;p&gt;2016 后做了加密和混淆，但是有些关键函数还是没有被加密的，比如 &lt;code&gt;/ini_set&lt;/code&gt;，&lt;code&gt;z0&lt;/code&gt;，&lt;code&gt;eval&lt;/code&gt;，&lt;code&gt;assert&lt;/code&gt;等。 菜刀的&lt;code&gt;$_POST&lt;/code&gt;也可能会被&lt;code&gt;$_GET&lt;/code&gt;和$&lt;code&gt;_REQUEST&lt;/code&gt;替代。&lt;/p&gt;
+&lt;h3&gt;PHP&lt;span class=&#34;hx-absolute -hx-mt-20&#34; id=&#34;php&#34;&gt;&lt;/span&gt;
+    &lt;a href=&#34;#php&#34; class=&#34;subheading-anchor&#34; aria-label=&#34;Permalink for this section&#34;&gt;&lt;/a&gt;&lt;/h3&gt;&lt;h4&gt;请求包&lt;span class=&#34;hx-absolute -hx-mt-20&#34; id=&#34;请求包&#34;&gt;&lt;/span&gt;
+    &lt;a href=&#34;#%e8%af%b7%e6%b1%82%e5%8c%85&#34; class=&#34;subheading-anchor&#34; aria-label=&#34;Permalink for this section&#34;&gt;&lt;/a&gt;&lt;/h4&gt;&lt;p&gt;UA中存在baidu或firefox&lt;/p&gt;
+&lt;p&gt;请求体中存在&lt;code&gt;eval&lt;/code&gt;，&lt;code&gt;base64&lt;/code&gt;等特征，payload为base64编码，存在固定的编码串&lt;/p&gt;
+&lt;div class=&#34;hextra-code-block hx-relative hx-mt-6 first:hx-mt-0 hx-group/code&#34;&gt;
+  
+
+&lt;div&gt;&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-php&#34; data-lang=&#34;php&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;// base64
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;QGluaV9zZXQoImRpc3BsYXlfZXJyb3JzIiwiMCIpO0BzZXRfdGltZV9saW1pdCgwKTtpZihQSFBfVkVSU0lPTjwnNS4zLjAnKXtAc2V0X21hZ2ljX3F1b3Rlc19ydW50aW1lKDApO307ZWNobygiWEBZIik7&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;// decoded
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;@&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;ini_set&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;&amp;#34;display_errors&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;&amp;#34;0&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;);&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;@&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;set_time_limit&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;mi&#34;&gt;0&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;);&lt;/span&gt;&lt;span class=&#34;k&#34;&gt;if&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;k&#34;&gt;PHP_VERSION&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&#34;s1&#34;&gt;&amp;#39;5.3.0&amp;#39;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;){&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;@&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;set_magic_quotes_runtime&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;mi&#34;&gt;0&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;);};&lt;/span&gt;&lt;span class=&#34;k&#34;&gt;echo&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;&amp;#34;X@Y&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;);&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;&lt;div class=&#34;hextra-code-copy-btn-container hx-opacity-0 hx-transition group-hover/code:hx-opacity-100 hx-flex hx-gap-1 hx-absolute hx-m-[11px] hx-right-0 hx-top-0&#34;&gt;
+  &lt;button
+    class=&#34;hextra-code-copy-btn hx-group/copybtn hx-transition-all active:hx-opacity-50 hx-bg-primary-700/5 hx-border hx-border-black/5 hx-text-gray-600 hover:hx-text-gray-900 hx-rounded-md hx-p-1.5 dark:hx-bg-primary-300/10 dark:hx-border-white/10 dark:hx-text-gray-400 dark:hover:hx-text-gray-50&#34;
+    title=&#34;Copy code&#34;
+  &gt;
+    &lt;div class=&#34;copy-icon group-[.copied]/copybtn:hx-hidden hx-pointer-events-none hx-h-4 hx-w-4&#34;&gt;&lt;/div&gt;
+    &lt;div class=&#34;success-icon hx-hidden group-[.copied]/copybtn:hx-block hx-pointer-events-none hx-h-4 hx-w-4&#34;&gt;&lt;/div&gt;
+  &lt;/button&gt;
+&lt;/div&gt;
+
+  
+&lt;/div&gt;
+&lt;p&gt;同时可能存在部分未加密函数，比如&lt;code&gt;z0&lt;/code&gt;、&lt;code&gt;assert&lt;/code&gt;(用于拼接)等&lt;/p&gt;
+&lt;h4&gt;响应包&lt;span class=&#34;hx-absolute -hx-mt-20&#34; id=&#34;响应包&#34;&gt;&lt;/span&gt;
+    &lt;a href=&#34;#%e5%93%8d%e5%ba%94%e5%8c%85&#34; class=&#34;subheading-anchor&#34; aria-label=&#34;Permalink for this section&#34;&gt;&lt;/a&gt;&lt;/h4&gt;&lt;p&gt;明文，格式为X@Y[响应内容]X@Y&lt;/p&gt;
+&lt;h3&gt;JSP&lt;span class=&#34;hx-absolute -hx-mt-20&#34; id=&#34;jsp&#34;&gt;&lt;/span&gt;
+    &lt;a href=&#34;#jsp&#34; class=&#34;subheading-anchor&#34; aria-label=&#34;Permalink for this section&#34;&gt;&lt;/a&gt;&lt;/h3&gt;&lt;p&gt;该流量是WebShell链接流量的第一段链接流量，其中特征主要在&lt;code&gt;i=A&amp;amp;z0=GB2312&lt;/code&gt;，菜刀链接JSP木马时，第一个参数定义操作，其中参数值为A-Q，如i=A，第二个参数指定编码，其参数值为编码，如&lt;code&gt;z0=GB2312&lt;/code&gt;，有时候z0后面还会接着又z1=参数用来加入攻击载荷。&lt;/p&gt;
+&lt;h3&gt;ASP&lt;span class=&#34;hx-absolute -hx-mt-20&#34; id=&#34;asp&#34;&gt;&lt;/span&gt;
+    &lt;a href=&#34;#asp&#34; class=&#34;subheading-anchor&#34; aria-label=&#34;Permalink for this section&#34;&gt;&lt;/a&gt;&lt;/h3&gt;&lt;p&gt;其中body流量进行URL解码后 其中特征点有如下三部分&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;“Execute”，Execute函数用于执行传递的攻击payload，这是必不可少的，这个等同于php类中eval函数；&lt;/li&gt;
+&lt;li&gt;OnError ResumeNext，这部分是&lt;strong&gt;大部分ASP客户端中必有的流量&lt;/strong&gt;，能保证不管前面出任何错，继续执行以下代码。&lt;/li&gt;
+&lt;li&gt;Response.Write和Response.End是必有的，是来完善整个操作的。&lt;/li&gt;
+&lt;/ol&gt;
+&lt;h2&gt;蚁剑&lt;span class=&#34;hx-absolute -hx-mt-20&#34; id=&#34;蚁剑&#34;&gt;&lt;/span&gt;
+    &lt;a href=&#34;#%e8%9a%81%e5%89%91&#34; class=&#34;subheading-anchor&#34; aria-label=&#34;Permalink for this section&#34;&gt;&lt;/a&gt;&lt;/h2&gt;&lt;h3&gt;特征&lt;span class=&#34;hx-absolute -hx-mt-20&#34; id=&#34;特征-1&#34;&gt;&lt;/span&gt;
+    &lt;a href=&#34;#%e7%89%b9%e5%be%81-1&#34; class=&#34;subheading-anchor&#34; aria-label=&#34;Permalink for this section&#34;&gt;&lt;/a&gt;&lt;/h3&gt;&lt;p&gt;木马文件官方提供了模板，一句话木马也可以用&lt;/p&gt;
+&lt;p&gt;php中使用&lt;code&gt;assert&lt;/code&gt;，&lt;code&gt;eval&lt;/code&gt;执行；asp 使用 &lt;code&gt;execute&lt;/code&gt;，&lt;code&gt;eval&lt;/code&gt;；jsp使用的是Java类加载（ClassLoader）,同时会带有base64编码解码等字符特征&lt;/p&gt;
+&lt;p&gt;默认的蚁剑 shell，连接时会请求两次，其请求体只是经过 url 编码，其流量中也存在和蚁剑一样的代码 第一次请求，关闭报错和 &lt;code&gt;magic_quotes&lt;/code&gt;，接下来去获取主机的信息 第二次请求，会把主机目录列出来&lt;/p&gt;
+&lt;p&gt;请求头中User-Agent值是：&lt;code&gt;antSword/*&lt;/code&gt;，也有可能是：&lt;code&gt;Mozilla/5.0 (Windows NT ***) AppleWebKit/*** (KHTML, like Gecko) Chrome/***** Safari/****&lt;/code&gt;&lt;/p&gt;
+&lt;h3&gt;PHP&lt;span class=&#34;hx-absolute -hx-mt-20&#34; id=&#34;php-1&#34;&gt;&lt;/span&gt;
+    &lt;a href=&#34;#php-1&#34; class=&#34;subheading-anchor&#34; aria-label=&#34;Permalink for this section&#34;&gt;&lt;/a&gt;&lt;/h3&gt;&lt;h4&gt;请求包&lt;span class=&#34;hx-absolute -hx-mt-20&#34; id=&#34;请求包-1&#34;&gt;&lt;/span&gt;
+    &lt;a href=&#34;#%e8%af%b7%e6%b1%82%e5%8c%85-1&#34; class=&#34;subheading-anchor&#34; aria-label=&#34;Permalink for this section&#34;&gt;&lt;/a&gt;&lt;/h4&gt;&lt;p&gt;PHP类WebShell链接流量，其中body流量进行URL解码后为： 其中流量最中明显的特征为&lt;code&gt;@ini_set(&amp;quot;display_errors&amp;quot;,&amp;quot;0&amp;quot;);&lt;/code&gt; &lt;code&gt;@set_time_limit(0)&lt;/code&gt;这段代码基本是所有WebShell客户端链接PHP类WebShell都有的一种代码，但是有的客户端会将这段编码或者加密，而蚁剑是明文，所以较好发现。&lt;/p&gt;
+&lt;h4&gt;响应包&lt;span class=&#34;hx-absolute -hx-mt-20&#34; id=&#34;响应包-1&#34;&gt;&lt;/span&gt;
+    &lt;a href=&#34;#%e5%93%8d%e5%ba%94%e5%8c%85-1&#34; class=&#34;subheading-anchor&#34; aria-label=&#34;Permalink for this section&#34;&gt;&lt;/a&gt;&lt;/h4&gt;&lt;p&gt;响应包的结果返回格式为：随机数+响应内容+随机数&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;_0x......=&lt;/code&gt;，以 0x 开头的参数名。由于蚁剑中包含了很多加密、绕过插件，所以导致很多流量被加密后无法识别，但是蚁剑混淆加密后还有一个比较明显的特征，即为参数名大多以&lt;code&gt;_0x......=&lt;/code&gt;这种形式（下划线可替换为其他），以及&lt;code&gt;dirname&lt;/code&gt;、&lt;code&gt;get_current_user&lt;/code&gt;函数的字眼，后面为加密数据包&lt;/p&gt;
+&lt;h3&gt;ASP&lt;span class=&#34;hx-absolute -hx-mt-20&#34; id=&#34;asp-1&#34;&gt;&lt;/span&gt;
+    &lt;a href=&#34;#asp-1&#34; class=&#34;subheading-anchor&#34; aria-label=&#34;Permalink for this section&#34;&gt;&lt;/a&gt;&lt;/h3&gt;&lt;p&gt;body流量进行URL解码后为： 蚁剑针对ASP类的WebShell流量与菜刀的流量很像，其中特征也是相同，如&lt;code&gt;OnError ResumeNext&lt;/code&gt;、&lt;code&gt;Response.End&lt;/code&gt;、&lt;code&gt;Response.Write&lt;/code&gt;，其中&lt;code&gt;execute&lt;/code&gt;在蚁剑中被打断混淆了，变成了拼接形式&lt;code&gt;Ex&amp;quot;&amp;amp;cHr(101)&amp;amp;&amp;quot;cute&lt;/code&gt;，同时该流量中也使用了&lt;code&gt;eval&lt;/code&gt;参数，可以被认为明显特征。&lt;/p&gt;
+&lt;h2&gt;冰蝎&lt;span class=&#34;hx-absolute -hx-mt-20&#34; id=&#34;冰蝎&#34;&gt;&lt;/span&gt;
+    &lt;a href=&#34;#%e5%86%b0%e8%9d%8e&#34; class=&#34;subheading-anchor&#34; aria-label=&#34;Permalink for this section&#34;&gt;&lt;/a&gt;&lt;/h2&gt;&lt;h3&gt;静态特征&lt;span class=&#34;hx-absolute -hx-mt-20&#34; id=&#34;静态特征&#34;&gt;&lt;/span&gt;
+    &lt;a href=&#34;#%e9%9d%99%e6%80%81%e7%89%b9%e5%be%81&#34; class=&#34;subheading-anchor&#34; aria-label=&#34;Permalink for this section&#34;&gt;&lt;/a&gt;&lt;/h3&gt;&lt;p&gt;php在代码中同样会存在&lt;code&gt;eval&lt;/code&gt;或&lt;code&gt;assert&lt;/code&gt;等字符特征：&lt;/p&gt;
+&lt;p&gt;
+    &lt;img src=&#34;.././ctf-cheatsheet-traffic-analysis/behinder01.png&#34; alt=&#34;landscape&#34; loading=&#34;lazy&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;在asp中会在for循环进行一段异或处理，然后传入execute代码执行&lt;/p&gt;
+&lt;p&gt;
+    &lt;img src=&#34;.././ctf-cheatsheet-traffic-analysis/behinder02.png&#34; alt=&#34;landscape&#34; loading=&#34;lazy&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;在jsp中则利用java的反射，所以会存在&lt;code&gt;ClassLoader&lt;/code&gt;，&lt;code&gt;getClass().getClassLoader()&lt;/code&gt;等字符特征&lt;/p&gt;
+&lt;p&gt;
+    &lt;img src=&#34;.././ctf-cheatsheet-traffic-analysis/behinder03.png&#34; alt=&#34;landscape&#34; loading=&#34;lazy&#34; /&gt;&lt;/p&gt;
+&lt;h3&gt;2.0 秘钥协商 Cookie Accept&lt;span class=&#34;hx-absolute -hx-mt-20&#34; id=&#34;20-秘钥协商-cookie-accept&#34;&gt;&lt;/span&gt;
+    &lt;a href=&#34;#20-%e7%a7%98%e9%92%a5%e5%8d%8f%e5%95%86-cookie-accept&#34; class=&#34;subheading-anchor&#34; aria-label=&#34;Permalink for this section&#34;&gt;&lt;/a&gt;&lt;/h3&gt;&lt;p&gt;&lt;a href=&#34;https://zhuanlan.zhihu.com/p/571463343&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;https://zhuanlan.zhihu.com/p/571463343&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;
+    &lt;img src=&#34;.././ctf-cheatsheet-traffic-analysis/behinder04.webp&#34; alt=&#34;landscape&#34; loading=&#34;lazy&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;使用 aes 加密发起三次请求&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;第一次请求服务端产生密钥写入 session，session 和当前会话绑定，不同的客户端的密钥也是不同的&lt;/li&gt;
+&lt;li&gt;第二次请求是为了获取 key，&lt;/li&gt;
+&lt;li&gt;第三次使用 key 的 aes 加密进行通信&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;请求包存在：&lt;code&gt;Accept: text/html, image/gif, image/jpeg, ; q=.2, /; q=.2&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;冰蝎在连接之前会发送一个GET请求，服务端如果正常会响应一个16位的字符串。其实冰蝎每一次连接请求都会向服务端发送一次GET请求获取16位的密钥，这16位的字符串就是密钥，在客户端和服务端的通信过程中使用密钥进行加密以达到免杀的目的，因此只要我们能在流量中发现这样特征的流量，便可以发现隐藏在流量中的冰蝎webshell。&lt;/p&gt;
+&lt;p&gt;
+    &lt;img src=&#34;.././ctf-cheatsheet-traffic-analysis/behinder05.webp&#34; alt=&#34;landscape&#34; loading=&#34;lazy&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;建立连接，传输payload&lt;/p&gt;
+&lt;p&gt;建立连接后的cookie存在特征字符&lt;/p&gt;
+&lt;p&gt;所有请求 Cookie的格式都为: &lt;code&gt;Cookie: PHPSESSID=; path=/；&lt;/code&gt;&lt;/p&gt;
+&lt;h3&gt;3.0 UA定长 请求头&lt;span class=&#34;hx-absolute -hx-mt-20&#34; id=&#34;30-ua定长-请求头&#34;&gt;&lt;/span&gt;
+    &lt;a href=&#34;#30-ua%e5%ae%9a%e9%95%bf-%e8%af%b7%e6%b1%82%e5%a4%b4&#34; class=&#34;subheading-anchor&#34; aria-label=&#34;Permalink for this section&#34;&gt;&lt;/a&gt;&lt;/h3&gt;&lt;p&gt;&lt;a href=&#34;https://www.freebuf.com/articles/247009.html&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;https://www.freebuf.com/articles/247009.html&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;少了动态密钥的获取的请求，不再使用随机生成 key，改为取连接密码的 md5 前 16 位作为密钥 一次请求为判断是否可以建立连接，少了两次 get 获取冰蝎动态密钥的行为，第二次发送 phpinfo 等代码执行。去除了动态密钥协商机制，采用预共享密钥，全程无明文交互，密钥格式为md5(“admin”)[0:16]&lt;/p&gt;
+&lt;h4&gt;请求头&lt;span class=&#34;hx-absolute -hx-mt-20&#34; id=&#34;请求头&#34;&gt;&lt;/span&gt;
+    &lt;a href=&#34;#%e8%af%b7%e6%b1%82%e5%a4%b4&#34; class=&#34;subheading-anchor&#34; aria-label=&#34;Permalink for this section&#34;&gt;&lt;/a&gt;&lt;/h4&gt;&lt;div class=&#34;hextra-code-block hx-relative hx-mt-6 first:hx-mt-0 hx-group/code&#34;&gt;
+  
+
+&lt;div&gt;&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-html&#34; data-lang=&#34;html&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;Pragma: no-cache
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;Cache-Control: no-cache
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.9
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;// 或者
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;Cache-Control: no-cache
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;Pragma: no-cache
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;Accept: text/html, image/gif, image/jpeg, *; q=.2, */*; q=.2&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;&lt;div class=&#34;hextra-code-copy-btn-container hx-opacity-0 hx-transition group-hover/code:hx-opacity-100 hx-flex hx-gap-1 hx-absolute hx-m-[11px] hx-right-0 hx-top-0&#34;&gt;
+  &lt;button
+    class=&#34;hextra-code-copy-btn hx-group/copybtn hx-transition-all active:hx-opacity-50 hx-bg-primary-700/5 hx-border hx-border-black/5 hx-text-gray-600 hover:hx-text-gray-900 hx-rounded-md hx-p-1.5 dark:hx-bg-primary-300/10 dark:hx-border-white/10 dark:hx-text-gray-400 dark:hover:hx-text-gray-50&#34;
+    title=&#34;Copy code&#34;
+  &gt;
+    &lt;div class=&#34;copy-icon group-[.copied]/copybtn:hx-hidden hx-pointer-events-none hx-h-4 hx-w-4&#34;&gt;&lt;/div&gt;
+    &lt;div class=&#34;success-icon hx-hidden group-[.copied]/copybtn:hx-block hx-pointer-events-none hx-h-4 hx-w-4&#34;&gt;&lt;/div&gt;
+  &lt;/button&gt;
+&lt;/div&gt;
+
+  
+&lt;/div&gt;
+&lt;h4&gt;User-Agent&lt;span class=&#34;hx-absolute -hx-mt-20&#34; id=&#34;user-agent&#34;&gt;&lt;/span&gt;
+    &lt;a href=&#34;#user-agent&#34; class=&#34;subheading-anchor&#34; aria-label=&#34;Permalink for this section&#34;&gt;&lt;/a&gt;&lt;/h4&gt;&lt;p&gt;内置16个UA头，比较老旧&lt;/p&gt;
+&lt;div class=&#34;hextra-code-block hx-relative hx-mt-6 first:hx-mt-0 hx-group/code&#34;&gt;
+  
+
+&lt;div&gt;&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;Mozilla/5.0 &lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;Windows NT 6.1&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt; WOW64&lt;span class=&#34;o&#34;&gt;)&lt;/span&gt; AppleWebKit/535.1 &lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;KHTML, like Gecko&lt;span class=&#34;o&#34;&gt;)&lt;/span&gt; Chrome/14.0.835.163 Safari/535.1
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;Mozilla/5.0 &lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;Windows NT 6.1&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt; WOW64&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt; rv:6.0&lt;span class=&#34;o&#34;&gt;)&lt;/span&gt; Gecko/20100101 Firefox/6.0
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;Mozilla/5.0 &lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;Windows NT 6.1&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt; WOW64&lt;span class=&#34;o&#34;&gt;)&lt;/span&gt; AppleWebKit/534.50 &lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;KHTML, like Gecko&lt;span class=&#34;o&#34;&gt;)&lt;/span&gt; Version/5.1 Safari/534.50
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;Opera/9.80 &lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;Windows NT 6.1&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt; U&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt; zh-cn&lt;span class=&#34;o&#34;&gt;)&lt;/span&gt; Presto/2.9.168 Version/11.50
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;Mozilla/5.0 &lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;compatible&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt; MSIE 9.0&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt; Windows NT 6.1&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt; Win64&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt; x64&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt; Trident/5.0&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt; .NET CLR 2.0.50727&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt; SLCC2&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt; .NET CLR 3.5.30729&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt; .NET CLR 3.0.30729&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt; Media Center PC 6.0&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt; InfoPath.3&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt; .NET4.0C&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt; Tablet PC 2.0&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt; .NET4.0E&lt;span class=&#34;o&#34;&gt;)&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;Mozilla/4.0 &lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;compatible&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt; MSIE 8.0&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt; Windows NT 6.1&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt; WOW64&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt; Trident/4.0&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt; SLCC2&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt; .NET CLR 2.0.50727&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt; .NET CLR 3.5.30729&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt; .NET CLR 3.0.30729&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt; Media Center PC 6.0&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt; .NET4.0C&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt; InfoPath.3&lt;span class=&#34;o&#34;&gt;)&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;Mozilla/4.0 &lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;compatible&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt; MSIE 8.0&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt; Windows NT 5.1&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt; Trident/4.0&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt; GTB7.0&lt;span class=&#34;o&#34;&gt;)&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;Mozilla/4.0 &lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;compatible&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt; MSIE 7.0&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt; Windows NT 5.1&lt;span class=&#34;o&#34;&gt;)&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;Mozilla/4.0 &lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;compatible&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt; MSIE 6.0&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt; Windows NT 5.1&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt; SV1&lt;span class=&#34;o&#34;&gt;)&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;Mozilla/5.0 &lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;Windows&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt; U&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt; Windows NT 6.1&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;)&lt;/span&gt; AppleWebKit/534.12 &lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;KHTML, like Gecko&lt;span class=&#34;o&#34;&gt;)&lt;/span&gt; Maxthon/3.0 Safari/534.12
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;Mozilla/4.0 &lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;compatible&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt; MSIE 7.0&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt; Windows NT 6.1&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt; WOW64&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt; Trident/5.0&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt; SLCC2&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt; .NET CLR 2.0.50727&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt; .NET CLR 3.5.30729&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt; .NET CLR 3.0.30729&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt; Media Center PC 6.0&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt; InfoPath.3&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt; .NET4.0C&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt; .NET4.0E&lt;span class=&#34;o&#34;&gt;)&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;Mozilla/4.0 &lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;compatible&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt; MSIE 7.0&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt; Windows NT 6.1&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt; WOW64&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt; Trident/5.0&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt; SLCC2&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt; .NET CLR 2.0.50727&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt; .NET CLR 3.5.30729&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt; .NET CLR 3.0.30729&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt; Media Center PC 6.0&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt; InfoPath.3&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt; .NET4.0C&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt; .NET4.0E&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt; SE 2.X MetaSr 1.0&lt;span class=&#34;o&#34;&gt;)&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;Mozilla/5.0 &lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;Windows&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt; U&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt; Windows NT 6.1&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt; en-US&lt;span class=&#34;o&#34;&gt;)&lt;/span&gt; AppleWebKit/534.3 &lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;KHTML, like Gecko&lt;span class=&#34;o&#34;&gt;)&lt;/span&gt; Chrome/6.0.472.33 Safari/534.3 SE 2.X MetaSr 1.0
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;Mozilla/5.0 &lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;compatible&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt; MSIE 9.0&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt; Windows NT 6.1&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt; WOW64&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt; Trident/5.0&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt; SLCC2&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt; .NET CLR 2.0.50727&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt; .NET CLR 3.5.30729&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt; .NET CLR 3.0.30729&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt; Media Center PC 6.0&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt; InfoPath.3&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt; .NET4.0C&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt; .NET4.0E&lt;span class=&#34;o&#34;&gt;)&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;Mozilla/5.0 &lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;Windows NT 6.1&lt;span class=&#34;o&#34;&gt;)&lt;/span&gt; AppleWebKit/535.1 &lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;KHTML, like Gecko&lt;span class=&#34;o&#34;&gt;)&lt;/span&gt; Chrome/13.0.782.41 Safari/535.1 QQBrowser/6.9.11079.201
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;Mozilla/4.0 &lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;compatible&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt; MSIE 7.0&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt; Windows NT 6.1&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt; WOW64&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt; Trident/5.0&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt; SLCC2&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt; .NET CLR 2.0.50727&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt; .NET CLR 3.5.30729&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt; .NET CLR 3.0.30729&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt; Media Center PC 6.0&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt; InfoPath.3&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt; .NET4.0C&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt; .NET4.0E&lt;span class=&#34;o&#34;&gt;)&lt;/span&gt; QQBrowser/6.9.11079.201
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;Mozilla/5.0 &lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;compatible&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt; MSIE 9.0&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt; Windows NT 6.1&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt; WOW64&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt; Trident/5.0&lt;span class=&#34;o&#34;&gt;)&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;&lt;div class=&#34;hextra-code-copy-btn-container hx-opacity-0 hx-transition group-hover/code:hx-opacity-100 hx-flex hx-gap-1 hx-absolute hx-m-[11px] hx-right-0 hx-top-0&#34;&gt;
+  &lt;button
+    class=&#34;hextra-code-copy-btn hx-group/copybtn hx-transition-all active:hx-opacity-50 hx-bg-primary-700/5 hx-border hx-border-black/5 hx-text-gray-600 hover:hx-text-gray-900 hx-rounded-md hx-p-1.5 dark:hx-bg-primary-300/10 dark:hx-border-white/10 dark:hx-text-gray-400 dark:hover:hx-text-gray-50&#34;
+    title=&#34;Copy code&#34;
+  &gt;
+    &lt;div class=&#34;copy-icon group-[.copied]/copybtn:hx-hidden hx-pointer-events-none hx-h-4 hx-w-4&#34;&gt;&lt;/div&gt;
+    &lt;div class=&#34;success-icon hx-hidden group-[.copied]/copybtn:hx-block hx-pointer-events-none hx-h-4 hx-w-4&#34;&gt;&lt;/div&gt;
+  &lt;/button&gt;
+&lt;/div&gt;
+
+  
+&lt;/div&gt;
+&lt;h4&gt;Contetnt-Length&lt;span class=&#34;hx-absolute -hx-mt-20&#34; id=&#34;contetnt-length&#34;&gt;&lt;/span&gt;
+    &lt;a href=&#34;#contetnt-length&#34; class=&#34;subheading-anchor&#34; aria-label=&#34;Permalink for this section&#34;&gt;&lt;/a&gt;&lt;/h4&gt;&lt;p&gt;命令执行时，请求包中&lt;code&gt;content-length&lt;/code&gt;为5740或5720（可能会根据Java版本而改变）&lt;/p&gt;
+&lt;h3&gt;4.0 Accept/Content-Length/User-Agent&lt;span class=&#34;hx-absolute -hx-mt-20&#34; id=&#34;40-acceptcontent-lengthuser-agent&#34;&gt;&lt;/span&gt;
+    &lt;a href=&#34;#40-acceptcontent-lengthuser-agent&#34; class=&#34;subheading-anchor&#34; aria-label=&#34;Permalink for this section&#34;&gt;&lt;/a&gt;&lt;/h3&gt;&lt;p&gt;&lt;a href=&#34;https://www.freebuf.com/articles/network/345803.html&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;https://www.freebuf.com/articles/network/345803.html&lt;/a&gt;&lt;/p&gt;
+&lt;h4&gt;HTTP头特征&lt;span class=&#34;hx-absolute -hx-mt-20&#34; id=&#34;http头特征&#34;&gt;&lt;/span&gt;
+    &lt;a href=&#34;#http%e5%a4%b4%e7%89%b9%e5%be%81&#34; class=&#34;subheading-anchor&#34; aria-label=&#34;Permalink for this section&#34;&gt;&lt;/a&gt;&lt;/h4&gt;&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;Accept 头通常固定&lt;/strong&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;div class=&#34;hextra-code-block hx-relative hx-mt-6 first:hx-mt-0 hx-group/code&#34;&gt;
+  
+
+&lt;div&gt;&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;Accept: application/json, text/javascript, */*&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt; &lt;span class=&#34;nv&#34;&gt;q&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;0.01 意思是浏览器可接受任何文件，但最倾向application/json 和 text/javascript。
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;Accept-Encoding: identity
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;Accept-Language: zh-CN,zh&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt;&lt;span class=&#34;nv&#34;&gt;q&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;0.9,en-US&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt;&lt;span class=&#34;nv&#34;&gt;q&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;0.8,en&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt;&lt;span class=&#34;nv&#34;&gt;q&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;0.7&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;&lt;div class=&#34;hextra-code-copy-btn-container hx-opacity-0 hx-transition group-hover/code:hx-opacity-100 hx-flex hx-gap-1 hx-absolute hx-m-[11px] hx-right-0 hx-top-0&#34;&gt;
+  &lt;button
+    class=&#34;hextra-code-copy-btn hx-group/copybtn hx-transition-all active:hx-opacity-50 hx-bg-primary-700/5 hx-border hx-border-black/5 hx-text-gray-600 hover:hx-text-gray-900 hx-rounded-md hx-p-1.5 dark:hx-bg-primary-300/10 dark:hx-border-white/10 dark:hx-text-gray-400 dark:hover:hx-text-gray-50&#34;
+    title=&#34;Copy code&#34;
+  &gt;
+    &lt;div class=&#34;copy-icon group-[.copied]/copybtn:hx-hidden hx-pointer-events-none hx-h-4 hx-w-4&#34;&gt;&lt;/div&gt;
+    &lt;div class=&#34;success-icon hx-hidden group-[.copied]/copybtn:hx-block hx-pointer-events-none hx-h-4 hx-w-4&#34;&gt;&lt;/div&gt;
+  &lt;/button&gt;
+&lt;/div&gt;
+
+  
+&lt;/div&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;Content-Length 较大&lt;/strong&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;code&gt;Content-Length: 8244&lt;/code&gt; 作为辅助特征&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;默认使用长连接&lt;/strong&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;code&gt;Connection: Keep-Alive&lt;/code&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;Content-Type&lt;/strong&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;PHP站点：&lt;code&gt;Content-type: Application/x-www-form-urlencoded&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;ASP站点：&lt;code&gt;Content-type: Application/octet-stream&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;可以把这个字段作为一个弱特征，辅助其他特征来检测&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;User-agent&lt;/strong&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;冰蝎设置了10种User-Agent,每次连接shell时会随机选择一个进行使用。&lt;/p&gt;
+&lt;p&gt;
+    &lt;img src=&#34;.././ctf-cheatsheet-traffic-analysis/behinder06.jpg&#34; alt=&#34;landscape&#34; loading=&#34;lazy&#34; /&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;响应头字段&lt;/strong&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;div class=&#34;hextra-code-block hx-relative hx-mt-6 first:hx-mt-0 hx-group/code&#34;&gt;
+  
+
+&lt;div&gt;&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;Set-Cookie: &lt;span class=&#34;nv&#34;&gt;PHPSESSID&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;a59734f13f1fe73947e0b3b01ea2aabe&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt; &lt;span class=&#34;nv&#34;&gt;path&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;/
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;Pragma: no-cache&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;&lt;div class=&#34;hextra-code-copy-btn-container hx-opacity-0 hx-transition group-hover/code:hx-opacity-100 hx-flex hx-gap-1 hx-absolute hx-m-[11px] hx-right-0 hx-top-0&#34;&gt;
+  &lt;button
+    class=&#34;hextra-code-copy-btn hx-group/copybtn hx-transition-all active:hx-opacity-50 hx-bg-primary-700/5 hx-border hx-border-black/5 hx-text-gray-600 hover:hx-text-gray-900 hx-rounded-md hx-p-1.5 dark:hx-bg-primary-300/10 dark:hx-border-white/10 dark:hx-text-gray-400 dark:hover:hx-text-gray-50&#34;
+    title=&#34;Copy code&#34;
+  &gt;
+    &lt;div class=&#34;copy-icon group-[.copied]/copybtn:hx-hidden hx-pointer-events-none hx-h-4 hx-w-4&#34;&gt;&lt;/div&gt;
+    &lt;div class=&#34;success-icon hx-hidden group-[.copied]/copybtn:hx-block hx-pointer-events-none hx-h-4 hx-w-4&#34;&gt;&lt;/div&gt;
+  &lt;/button&gt;
+&lt;/div&gt;
+
+  
+&lt;/div&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;流量特征&lt;/strong&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;ol&gt;
+&lt;li&gt;默认密钥&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;默认时，所有冰蝎4.0 webshell都有&lt;code&gt;e45e329feb5d925b&lt;/code&gt; 一串密钥。该密钥为连接密码32位md5值的前16位，默认连接密码&lt;code&gt;rebeyond&lt;/code&gt;&lt;/p&gt;
+&lt;ol start=&#34;2&#34;&gt;
+&lt;li&gt;端口&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;冰蝎与webshell建立连接的同时，javaw也与目的主机建立tcp连接，每次连接使用本地端口在&lt;code&gt;49700&lt;/code&gt;左右，每连接一次，每建立一次新的连接，端口就依次增加。&lt;/p&gt;
+&lt;ol start=&#34;3&#34;&gt;
+&lt;li&gt;PHP webshell 中存在固定代码&lt;/li&gt;
+&lt;/ol&gt;
+&lt;div class=&#34;hextra-code-block hx-relative hx-mt-6 first:hx-mt-0 hx-group/code&#34;&gt;
+  
+
+&lt;div&gt;&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-php&#34; data-lang=&#34;php&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;nv&#34;&gt;$post&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;Decrypt&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;file_get_contents&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;&amp;#34;php://input&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;));&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;k&#34;&gt;eval&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;nv&#34;&gt;$post&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;);&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;&lt;div class=&#34;hextra-code-copy-btn-container hx-opacity-0 hx-transition group-hover/code:hx-opacity-100 hx-flex hx-gap-1 hx-absolute hx-m-[11px] hx-right-0 hx-top-0&#34;&gt;
+  &lt;button
+    class=&#34;hextra-code-copy-btn hx-group/copybtn hx-transition-all active:hx-opacity-50 hx-bg-primary-700/5 hx-border hx-border-black/5 hx-text-gray-600 hover:hx-text-gray-900 hx-rounded-md hx-p-1.5 dark:hx-bg-primary-300/10 dark:hx-border-white/10 dark:hx-text-gray-400 dark:hover:hx-text-gray-50&#34;
+    title=&#34;Copy code&#34;
+  &gt;
+    &lt;div class=&#34;copy-icon group-[.copied]/copybtn:hx-hidden hx-pointer-events-none hx-h-4 hx-w-4&#34;&gt;&lt;/div&gt;
+    &lt;div class=&#34;success-icon hx-hidden group-[.copied]/copybtn:hx-block hx-pointer-events-none hx-h-4 hx-w-4&#34;&gt;&lt;/div&gt;
+  &lt;/button&gt;
+&lt;/div&gt;
+
+  
+&lt;/div&gt;
+&lt;p&gt;固定的请求头和响应头&lt;/p&gt;
+&lt;p&gt;请求字节头：&lt;code&gt;dFAXQV1LORcHRQtLRlwMAhwFTAg/M&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;响应字节头：&lt;code&gt;TxcWR1NNExZAD0ZaAWMIPAZjH1BFBFtHThcJSlUXWEd&lt;/code&gt;&lt;/p&gt;
+&lt;h2&gt;哥斯拉&lt;span class=&#34;hx-absolute -hx-mt-20&#34; id=&#34;哥斯拉&#34;&gt;&lt;/span&gt;
+    &lt;a href=&#34;#%e5%93%a5%e6%96%af%e6%8b%89&#34; class=&#34;subheading-anchor&#34; aria-label=&#34;Permalink for this section&#34;&gt;&lt;/a&gt;&lt;/h2&gt;&lt;h3&gt;静态特征&lt;span class=&#34;hx-absolute -hx-mt-20&#34; id=&#34;静态特征-1&#34;&gt;&lt;/span&gt;
+    &lt;a href=&#34;#%e9%9d%99%e6%80%81%e7%89%b9%e5%be%81-1&#34; class=&#34;subheading-anchor&#34; aria-label=&#34;Permalink for this section&#34;&gt;&lt;/a&gt;&lt;/h3&gt;&lt;p&gt;在默认脚本编码的情况下，&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;php、asp为普通的一句话木马&lt;/li&gt;
+&lt;li&gt;jsp会出现xc、pass字符和Java反射(ClassLoader，getClass().getClassLoader())，base64加解码等特征&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3&gt;动态特征&lt;span class=&#34;hx-absolute -hx-mt-20&#34; id=&#34;动态特征&#34;&gt;&lt;/span&gt;
+    &lt;a href=&#34;#%e5%8a%a8%e6%80%81%e7%89%b9%e5%be%81&#34; class=&#34;subheading-anchor&#34; aria-label=&#34;Permalink for this section&#34;&gt;&lt;/a&gt;&lt;/h3&gt;&lt;p&gt;哥斯拉&lt;strong&gt;支持多种加密方式&lt;/strong&gt;，采用了和冰蝎 2.0 类似的密钥交换方式。它的webshell需要动态生成，可以根据需求选择不同的加密方式。哥斯拉建立连接时会发起三次请求，第一次请求数据超级长，建立 session，第二三次请求确认连接&lt;/p&gt;
+&lt;p&gt;请求中的Accept头（弱特征）是&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;Accept:text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,/;q=0.8&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;相应头中的Cache-Control头（弱特征）是&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;Cache-Control: no-store, no-cache, must-revalidate&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;Cookie的结尾有分号&lt;/p&gt;
+&lt;h2&gt;参考&lt;span class=&#34;hx-absolute -hx-mt-20&#34; id=&#34;参考&#34;&gt;&lt;/span&gt;
+    &lt;a href=&#34;#%e5%8f%82%e8%80%83&#34; class=&#34;subheading-anchor&#34; aria-label=&#34;Permalink for this section&#34;&gt;&lt;/a&gt;&lt;/h2&gt;&lt;p&gt;&lt;a href=&#34;https://zhuanlan.zhihu.com/p/637348549&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;知乎 - WebShell流量特征&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;a href=&#34;https://www.yuque.com/zeobijane/vhwogy/zsqbk586wrmcbs49?singleDoc#&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;语雀 - Webshell相关知识&lt;/a&gt;&lt;/p&gt;
+
+      </description>
+    </item>
+    
+    <item>
+      <title>看了也不会的GDB CheatSheet</title>
+      <link>https://perfsky.github.io/blogs/useless-gdb-cheatsheet/</link>
+      <pubDate>Thu, 23 May 2024 00:00:00 +0000</pubDate>
+      
+      <guid>https://perfsky.github.io/blogs/useless-gdb-cheatsheet/</guid>
+      <description>
+        
+        
+        &lt;h2&gt;基本命令&lt;span class=&#34;hx-absolute -hx-mt-20&#34; id=&#34;基本命令&#34;&gt;&lt;/span&gt;
+    &lt;a href=&#34;#%e5%9f%ba%e6%9c%ac%e5%91%bd%e4%bb%a4&#34; class=&#34;subheading-anchor&#34; aria-label=&#34;Permalink for this section&#34;&gt;&lt;/a&gt;&lt;/h2&gt;&lt;h3&gt;1. disassemble&lt;span class=&#34;hx-absolute -hx-mt-20&#34; id=&#34;1-disassemble&#34;&gt;&lt;/span&gt;
+    &lt;a href=&#34;#1-disassemble&#34; class=&#34;subheading-anchor&#34; aria-label=&#34;Permalink for this section&#34;&gt;&lt;/a&gt;&lt;/h3&gt;&lt;p&gt;输出当前函数的汇编代码&lt;/p&gt;
+&lt;p&gt;默认为AT&amp;amp;T格式，用&lt;code&gt;set disassembly-flavor intel&lt;/code&gt;来改为Intel汇编格式&lt;/p&gt;
+&lt;p&gt;可以用&lt;code&gt;layout asm&lt;/code&gt;，在上方代码区显示汇编码&lt;/p&gt;
+&lt;h3&gt;2. run&lt;span class=&#34;hx-absolute -hx-mt-20&#34; id=&#34;2-run&#34;&gt;&lt;/span&gt;
+    &lt;a href=&#34;#2-run&#34; class=&#34;subheading-anchor&#34; aria-label=&#34;Permalink for this section&#34;&gt;&lt;/a&gt;&lt;/h3&gt;&lt;p&gt;用&lt;code&gt;run&lt;/code&gt;（简写r）开始执行程序，直到遇到断点停止。也可用Ctrl+C手动中断。执行过程再次使用run即可重启程序。&lt;/p&gt;
+&lt;h3&gt;3. continue&lt;span class=&#34;hx-absolute -hx-mt-20&#34; id=&#34;3-continue&#34;&gt;&lt;/span&gt;
+    &lt;a href=&#34;#3-continue&#34; class=&#34;subheading-anchor&#34; aria-label=&#34;Permalink for this section&#34;&gt;&lt;/a&gt;&lt;/h3&gt;&lt;p&gt;触发断点或者用Ctrl+C中断后，用&lt;code&gt;continue&lt;/code&gt;（简写c）继续，程序会执行直到遇到另一个断点。&lt;/p&gt;
+&lt;h3&gt;4. break&lt;span class=&#34;hx-absolute -hx-mt-20&#34; id=&#34;4-break&#34;&gt;&lt;/span&gt;
+    &lt;a href=&#34;#4-break&#34; class=&#34;subheading-anchor&#34; aria-label=&#34;Permalink for this section&#34;&gt;&lt;/a&gt;&lt;/h3&gt;&lt;p&gt;用&lt;code&gt;break&lt;/code&gt;（简写b）添加断点。&lt;/p&gt;
+&lt;div class=&#34;hextra-code-block hx-relative hx-mt-6 first:hx-mt-0 hx-group/code&#34;&gt;
+  
+
+&lt;div&gt;&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;## 在函数名为functionname的入口处添加一个断点（比如main）&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;nb&#34;&gt;break&lt;/span&gt; functionname
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;## 在当前文件行号为LineNo处添加一个断点&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;nb&#34;&gt;break&lt;/span&gt; LineNo
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;## 在filename文件行号为LineNo处添加一个断点&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;nb&#34;&gt;break&lt;/span&gt; filename:LineNo&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;&lt;div class=&#34;hextra-code-copy-btn-container hx-opacity-0 hx-transition group-hover/code:hx-opacity-100 hx-flex hx-gap-1 hx-absolute hx-m-[11px] hx-right-0 hx-top-0&#34;&gt;
+  &lt;button
+    class=&#34;hextra-code-copy-btn hx-group/copybtn hx-transition-all active:hx-opacity-50 hx-bg-primary-700/5 hx-border hx-border-black/5 hx-text-gray-600 hover:hx-text-gray-900 hx-rounded-md hx-p-1.5 dark:hx-bg-primary-300/10 dark:hx-border-white/10 dark:hx-text-gray-400 dark:hover:hx-text-gray-50&#34;
+    title=&#34;Copy code&#34;
+  &gt;
+    &lt;div class=&#34;copy-icon group-[.copied]/copybtn:hx-hidden hx-pointer-events-none hx-h-4 hx-w-4&#34;&gt;&lt;/div&gt;
+    &lt;div class=&#34;success-icon hx-hidden group-[.copied]/copybtn:hx-block hx-pointer-events-none hx-h-4 hx-w-4&#34;&gt;&lt;/div&gt;
+  &lt;/button&gt;
+&lt;/div&gt;
+
+  
+&lt;/div&gt;
+&lt;h3&gt;5. tbreak&lt;span class=&#34;hx-absolute -hx-mt-20&#34; id=&#34;5-tbreak&#34;&gt;&lt;/span&gt;
+    &lt;a href=&#34;#5-tbreak&#34; class=&#34;subheading-anchor&#34; aria-label=&#34;Permalink for this section&#34;&gt;&lt;/a&gt;&lt;/h3&gt;&lt;p&gt;&lt;code&gt;tbreak&lt;/code&gt;和&lt;code&gt;break&lt;/code&gt;用法相同，不过用此命令添加的断点触发一次之后即被删除。&lt;/p&gt;
+&lt;h3&gt;6. info break/enable/disable/delete&lt;span class=&#34;hx-absolute -hx-mt-20&#34; id=&#34;6-info-breakenabledisabledelete&#34;&gt;&lt;/span&gt;
+    &lt;a href=&#34;#6-info-breakenabledisabledelete&#34; class=&#34;subheading-anchor&#34; aria-label=&#34;Permalink for this section&#34;&gt;&lt;/a&gt;&lt;/h3&gt;&lt;p&gt;&lt;code&gt;info break&lt;/code&gt;查看添加的所有断点&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;enable/disable + 断点编号&lt;/code&gt;可启用/禁用断点。若不加编号，默认对所有断点进行处理&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;delete + 断点编号&lt;/code&gt;永久删除断点。若不加编号，默认对所有断点进行处理&lt;/p&gt;
+&lt;h3&gt;7. backtrace/frame&lt;span class=&#34;hx-absolute -hx-mt-20&#34; id=&#34;7-backtraceframe&#34;&gt;&lt;/span&gt;
+    &lt;a href=&#34;#7-backtraceframe&#34; class=&#34;subheading-anchor&#34; aria-label=&#34;Permalink for this section&#34;&gt;&lt;/a&gt;&lt;/h3&gt;&lt;p&gt;&lt;code&gt;backtrace (bt)&lt;/code&gt;查看当前线程的调用堆栈&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;frame + 堆栈编号&lt;/code&gt;可切换到其他堆栈&lt;/p&gt;
+&lt;h3&gt;8. list&lt;span class=&#34;hx-absolute -hx-mt-20&#34; id=&#34;8-list&#34;&gt;&lt;/span&gt;
+    &lt;a href=&#34;#8-list&#34; class=&#34;subheading-anchor&#34; aria-label=&#34;Permalink for this section&#34;&gt;&lt;/a&gt;&lt;/h3&gt;&lt;p&gt;&lt;code&gt;list (l)&lt;/code&gt;查看当前断点附近的代码。一般显示断点前后10行代码&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;list + [加号]&lt;/code&gt; 向下显示10行代码， list+[减号] 向上显示10行代码&lt;/p&gt;
+&lt;h3&gt;9. print/ptype&lt;span class=&#34;hx-absolute -hx-mt-20&#34; id=&#34;9-printptype&#34;&gt;&lt;/span&gt;
+    &lt;a href=&#34;#9-printptype&#34; class=&#34;subheading-anchor&#34; aria-label=&#34;Permalink for this section&#34;&gt;&lt;/a&gt;&lt;/h3&gt;&lt;ul&gt;
+&lt;li&gt;print&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;code&gt;print (p)&lt;/code&gt; 可方便输出/修改变量的值&lt;/p&gt;
+&lt;p&gt;同时支持输出表达式（解引用*，算术+-*/，打印错误码对应文字信息&lt;code&gt;strerror(errno)&lt;/code&gt; ）&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;print variable = value&lt;/code&gt; 即可修改变量的值&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;print /format variable&lt;/code&gt; 指定输出格式&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;ptype&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;code&gt;ptype variable&lt;/code&gt; 输出变量类型（支持结构体）&lt;/p&gt;
+&lt;h3&gt;10. info/thread&lt;span class=&#34;hx-absolute -hx-mt-20&#34; id=&#34;10-infothread&#34;&gt;&lt;/span&gt;
+    &lt;a href=&#34;#10-infothread&#34; class=&#34;subheading-anchor&#34; aria-label=&#34;Permalink for this section&#34;&gt;&lt;/a&gt;&lt;/h3&gt;&lt;p&gt;&lt;code&gt;info&lt;/code&gt;用于查看各种信息，比如&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;info thread&lt;/code&gt; 查看所有线程&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;info args&lt;/code&gt; 查看当前函数的参数值&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;thread + 线程编号&lt;/code&gt; 切换到指定线程&lt;/p&gt;
+&lt;h3&gt;11. next/step/until/finish/return/jump&lt;span class=&#34;hx-absolute -hx-mt-20&#34; id=&#34;11-nextstepuntilfinishreturnjump&#34;&gt;&lt;/span&gt;
+    &lt;a href=&#34;#11-nextstepuntilfinishreturnjump&#34; class=&#34;subheading-anchor&#34; aria-label=&#34;Permalink for this section&#34;&gt;&lt;/a&gt;&lt;/h3&gt;&lt;p&gt;&lt;code&gt;next (n)&lt;/code&gt;跳到下一行（单步步过step over，遵循代码逻辑）&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;step (s)&lt;/code&gt;会进入函数内部（单步步入step into）&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;until (u) + &amp;lt;lineno&amp;gt;&lt;/code&gt; 直接执行到行数停止&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;return &amp;lt;value&amp;gt;&lt;/code&gt; 直接让函数用value返回值返回&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;jump &amp;lt;lineno/location&amp;gt;&lt;/code&gt; 直接跳到行数或者函数地址（不停止，需要自行设置断点）&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;GDB空行直接回车默认为执行最近一次的命令。&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;h3&gt;12. set args/show args&lt;span class=&#34;hx-absolute -hx-mt-20&#34; id=&#34;12-set-argsshow-args&#34;&gt;&lt;/span&gt;
+    &lt;a href=&#34;#12-set-argsshow-args&#34; class=&#34;subheading-anchor&#34; aria-label=&#34;Permalink for this section&#34;&gt;&lt;/a&gt;&lt;/h3&gt;&lt;p&gt;在使用run命令之前，使用&lt;code&gt;set args&lt;/code&gt;命令行参数来指定.&lt;/p&gt;
+&lt;p&gt;可以使用文件，也可以直接輸入參數。有空格可以用雙引號包裹起來。&lt;/p&gt;
+&lt;p&gt;清除参数，用&lt;code&gt;set args&lt;/code&gt;不加参数即可&lt;/p&gt;
+&lt;h3&gt;13. watch/display&lt;span class=&#34;hx-absolute -hx-mt-20&#34; id=&#34;13-watchdisplay&#34;&gt;&lt;/span&gt;
+    &lt;a href=&#34;#13-watchdisplay&#34; class=&#34;subheading-anchor&#34; aria-label=&#34;Permalink for this section&#34;&gt;&lt;/a&gt;&lt;/h3&gt;&lt;p&gt;watch监视一个变量或者一段内存，如果发生变化就会中断。会产生一个watch point 观察点（数据断点）&lt;/p&gt;
+&lt;p&gt;display监视变量或者内存值，每次 gdb 中断下来都会自动输出这些被监视变量或内存的值&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;nfo display&lt;/code&gt;查看当前已经监视了哪些值，使用&lt;code&gt;delete display&lt;/code&gt;清除全部被监视的变量，使用&lt;code&gt;delete display + 编号&lt;/code&gt;移除对指定变量的监视&lt;/p&gt;
+&lt;h3&gt;14. dir&lt;span class=&#34;hx-absolute -hx-mt-20&#34; id=&#34;14-dir&#34;&gt;&lt;/span&gt;
+    &lt;a href=&#34;#14-dir&#34; class=&#34;subheading-anchor&#34; aria-label=&#34;Permalink for this section&#34;&gt;&lt;/a&gt;&lt;/h3&gt;&lt;p&gt;gcc/g++编译出来的可执行程序并不包含完整源码，在不同环境里调试时可能不能匹配，dir可以让被调试的可执行程序匹配源代码&lt;/p&gt;
+&lt;div class=&#34;hextra-code-block hx-relative hx-mt-6 first:hx-mt-0 hx-group/code&#34;&gt;
+  
+
+&lt;div&gt;&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# 加一个源文件路径到当前路径的前面,指定多个路径为源码目录，可以使用引号”:”&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;dir SourcePath1:SourcePath2:SourcePath&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;&lt;div class=&#34;hextra-code-copy-btn-container hx-opacity-0 hx-transition group-hover/code:hx-opacity-100 hx-flex hx-gap-1 hx-absolute hx-m-[11px] hx-right-0 hx-top-0&#34;&gt;
+  &lt;button
+    class=&#34;hextra-code-copy-btn hx-group/copybtn hx-transition-all active:hx-opacity-50 hx-bg-primary-700/5 hx-border hx-border-black/5 hx-text-gray-600 hover:hx-text-gray-900 hx-rounded-md hx-p-1.5 dark:hx-bg-primary-300/10 dark:hx-border-white/10 dark:hx-text-gray-400 dark:hover:hx-text-gray-50&#34;
+    title=&#34;Copy code&#34;
+  &gt;
+    &lt;div class=&#34;copy-icon group-[.copied]/copybtn:hx-hidden hx-pointer-events-none hx-h-4 hx-w-4&#34;&gt;&lt;/div&gt;
+    &lt;div class=&#34;success-icon hx-hidden group-[.copied]/copybtn:hx-block hx-pointer-events-none hx-h-4 hx-w-4&#34;&gt;&lt;/div&gt;
+  &lt;/button&gt;
+&lt;/div&gt;
+
+  
+&lt;/div&gt;
+&lt;p&gt;&lt;code&gt;show dir&lt;/code&gt;可以查看当前设置的源码路径&lt;/p&gt;
+&lt;p&gt;dir不加参数则初始化搜索路径为空&lt;/p&gt;
+&lt;h2&gt;参考&lt;span class=&#34;hx-absolute -hx-mt-20&#34; id=&#34;参考&#34;&gt;&lt;/span&gt;
+    &lt;a href=&#34;#%e5%8f%82%e8%80%83&#34; class=&#34;subheading-anchor&#34; aria-label=&#34;Permalink for this section&#34;&gt;&lt;/a&gt;&lt;/h2&gt;&lt;p&gt;&lt;a href=&#34;https://cppguide.cn/pages/68d9ed/#_2-5-1-gdb%E5%B8%B8%E7%94%A8%E8%B0%83%E8%AF%95%E5%91%BD%E4%BB%A4%E6%A6%82%E8%A7%88%E5%92%8C%E8%AF%B4%E6%98%8E&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;GDB常用命令详解——利用GDB调试Redis&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;a href=&#34;https://quickref.cn/docs/gdb.html&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;GDB 备忘清单 &amp;amp; gdb cheatsheet &amp;amp; Quick Reference&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;a href=&#34;G[DB-cheat-sheet.pdf]%28https://www.sourceware.org/gdb/download/onlinedocs/refcard.pdf%29&#34; &gt;CheatSheet PDF&lt;/a&gt;&lt;/p&gt;
+
+      </description>
+    </item>
+    
+    <item>
+      <title>[西湖论剑2024初赛] MISC3-easy_rawraw WriteUp</title>
+      <link>https://perfsky.github.io/blogs/xihu2024-initial-misc/</link>
+      <pubDate>Thu, 01 Feb 2024 00:00:00 +0000</pubDate>
+      
+      <guid>https://perfsky.github.io/blogs/xihu2024-initial-misc/</guid>
+      <description>
+        
+        
+        &lt;blockquote&gt;
+&lt;p&gt;easy raw! many passwords!&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;
+    &lt;img src=&#34;.././xihu2024-initial-misc/00.png&#34; alt=&#34;image&#34; loading=&#34;lazy&#34; /&gt;
+首先用volatility+mimikatz可以爆出windows账户密码das123admin321
+&lt;code&gt;vol.py --plugins=./plugins -f ./rawraw.raw --profile=Win7SP1x64 mimikatz&lt;/code&gt;
+
+    &lt;img src=&#34;.././xihu2024-initial-misc/01.png&#34; alt=&#34;image&#34; loading=&#34;lazy&#34; /&gt;
+剪贴板中，有另一个密码DasrIa456sAdmIn987，用来解压mysecretfile.rar
+&lt;code&gt;vol.py --plugins=./plugins -f ./rawraw.raw --profile=Win7SP1x64 clipboard&lt;/code&gt;
+
+    &lt;img src=&#34;.././xihu2024-initial-misc/02.png&#34; alt=&#34;image&#34; loading=&#34;lazy&#34; /&gt;
+mysecretfile用了veracrypt加密，需要另一个密码，所以继续找线索
+搜索相关文件，可以发现pass.zip，并用dumpfiles提取
+&lt;code&gt;vol.py --plugins=./plugins -f ./rawraw.raw --profile=Win7SP1x64 filescan | grep -E ‘png|jpg|gif|zip|rar|7z|pdf|txt|doc’&lt;/code&gt;
+&lt;code&gt;vol.py --plugins=./plugins -f ./rawraw.raw --profile=Win7SP1x64 dumpfiles -Q 0x000000003df8b650 -D .\&lt;/code&gt;
+图片末尾提取出加密压缩包，ARCHPR爆破得密码20240210，解压得到pass.txt，挂载之后有一个隐藏文件.xlsx，也要密码，试出来就是之前得到的账户密码das123admin321
+
+    &lt;img src=&#34;.././xihu2024-initial-misc/03.png&#34; alt=&#34;image&#34; loading=&#34;lazy&#34; /&gt;
+打开发现第10行被隐藏了，flag就在其中&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;&amp;ldquo;DASCTF{5476d4c4ade0918c151aa6dcac12d130}&amp;rdquo;&lt;/p&gt;
+&lt;/blockquote&gt;
+
+      </description>
+    </item>
+    
+    <item>
+      <title>[HITCTF2023] MISC1&amp;2 WP</title>
+      <link>https://perfsky.github.io/blogs/hitctf2023-misc/</link>
+      <pubDate>Sun, 26 Nov 2023 00:00:00 +0000</pubDate>
+      
+      <guid>https://perfsky.github.io/blogs/hitctf2023-misc/</guid>
+      <description>
+        
+        
+        &lt;h2&gt;MISC1 - leftover file&lt;span class=&#34;hx-absolute -hx-mt-20&#34; id=&#34;misc1---leftover-file&#34;&gt;&lt;/span&gt;
+    &lt;a href=&#34;#misc1---leftover-file&#34; class=&#34;subheading-anchor&#34; aria-label=&#34;Permalink for this section&#34;&gt;&lt;/a&gt;&lt;/h2&gt;&lt;blockquote&gt;
+&lt;p&gt;There is traffic packet captured by engineers on the intranet on the controlled machine. Please analyze the traffic packet and obtain the flag.&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;拿到一个捕获文件，有大量Modbus/TCP协议的流量，并且从192.168.181.132 &amp;lt;&amp;ndash;&amp;gt; 192.168.181.5的最多。
+应用过滤：(modbus) &amp;amp;&amp;amp;(ip.src==192.168.181.132)&amp;amp;&amp;amp;(modbus.func_code==3)，这个的意思是过滤modbus协议，ip来源为192.168.181.132，且功能码为读保持的流量。
+
+    &lt;img src=&#34;.././hitctf2023-misc/00.png&#34; alt=&#34;image&#34; loading=&#34;lazy&#34; /&gt;
+追踪流没发现什么线索，最后发现每条流量的最后部分，都会有规律地刷新：
+
+    &lt;img src=&#34;.././hitctf2023-misc/01.gif&#34; alt=&#34;image&#34; loading=&#34;lazy&#34; /&gt;
+提取这一部分的字符串：
+GGQ?O@+())pA#VSebM`[J]XGZUDIDUZ]
+用工具解密得到flag
+
+    &lt;img src=&#34;.././hitctf2023-misc/02.png&#34; alt=&#34;image&#34; loading=&#34;lazy&#34; /&gt;&lt;/p&gt;
+&lt;h2&gt;MISC2 - H1F1&lt;span class=&#34;hx-absolute -hx-mt-20&#34; id=&#34;misc2---h1f1&#34;&gt;&lt;/span&gt;
+    &lt;a href=&#34;#misc2---h1f1&#34; class=&#34;subheading-anchor&#34; aria-label=&#34;Permalink for this section&#34;&gt;&lt;/a&gt;&lt;/h2&gt;&lt;blockquote&gt;
+&lt;p&gt;Some audiophiles claim they can hear the difference between 320K mp3 and lossless audio.
+&lt;del&gt;无损听不出来，但是192k和320k的mp3还是很容易分辨的&lt;/del&gt;&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;给了一首歌的flac和mp3版本，根据描述应该是让我们从两个音频的差别来找线索
+首先用audition将其中一首反相，再和另外一首进行混音，预览页面可以看到频谱有异常部分，并且左右耳能听到规律性的“嘟”声。
+
+    &lt;img src=&#34;.././hitctf2023-misc/03.png&#34; alt=&#34;image&#34; loading=&#34;lazy&#34; /&gt;
+猜测是二进制序列，把上面的部分（左声道）视为0，下面视为1，提取出二进制序列：
+&lt;code&gt;01001000010010010101010001000011010101000100011000110010001100000011001000110011011110110111100100110000011101010101111101001000011000010111011000110011010111110110011100110000011011000100010000110011011011100101111100110011011000010111001001010011010111110011001101100011001100000011001100110001001101000011000001100110011000010110001001100001001110010110001001100110001110000110010001111101&lt;/code&gt;
+解码得到flag
+
+    &lt;img src=&#34;.././hitctf2023-misc/04.png&#34; alt=&#34;image&#34; loading=&#34;lazy&#34; /&gt;&lt;/p&gt;
+
+      </description>
+    </item>
+    
+    <item>
+      <title>[ISCC2023线下] MISC1 WP</title>
+      <link>https://perfsky.github.io/blogs/iscc2023-beijing-fin-misc/</link>
+      <pubDate>Sat, 21 Oct 2023 00:00:00 +0000</pubDate>
+      
+      <guid>https://perfsky.github.io/blogs/iscc2023-beijing-fin-misc/</guid>
+      <description>
+        
+        
+        &lt;h2&gt;考点&lt;span class=&#34;hx-absolute -hx-mt-20&#34; id=&#34;考点&#34;&gt;&lt;/span&gt;
+    &lt;a href=&#34;#%e8%80%83%e7%82%b9&#34; class=&#34;subheading-anchor&#34; aria-label=&#34;Permalink for this section&#34;&gt;&lt;/a&gt;&lt;/h2&gt;&lt;p&gt;流量分析，TLS，二维码修复&lt;/p&gt;
+&lt;h2&gt;解题步骤&lt;span class=&#34;hx-absolute -hx-mt-20&#34; id=&#34;解题步骤&#34;&gt;&lt;/span&gt;
+    &lt;a href=&#34;#%e8%a7%a3%e9%a2%98%e6%ad%a5%e9%aa%a4&#34; class=&#34;subheading-anchor&#34; aria-label=&#34;Permalink for this section&#34;&gt;&lt;/a&gt;&lt;/h2&gt;&lt;p&gt;首先速览一遍帮帮小明.pcapng，发现里面的协议有IMAP和TLS，这部分可能有线索
+打开统计-&amp;gt;会话，TCP栏有两个终点为25端口的地址，追踪流量，是两次对话
+
+    &lt;img src=&#34;.././iscc2023-beijing-fin-misc/01.png&#34; alt=&#34;image&#34; loading=&#34;lazy&#34; /&gt;
+发现一个压缩包
+
+    &lt;img src=&#34;.././iscc2023-beijing-fin-misc/02.png&#34; alt=&#34;image&#34; loading=&#34;lazy&#34; /&gt;
+保存，发现有密码，里面是一个加密后的文件mosaic.bmp，用zipcenop排除了伪加密的可能性，所以密码应该在另一个tcp流中
+
+    &lt;img src=&#34;.././iscc2023-beijing-fin-misc/03.png&#34; alt=&#34;image&#34; loading=&#34;lazy&#34; /&gt;
+发现一段明文，用的gb2312编码，用vscode打开：
+
+    &lt;img src=&#34;.././iscc2023-beijing-fin-misc/04.png&#34; alt=&#34;image&#34; loading=&#34;lazy&#34; /&gt;
+害，怎么密码忘了呢，只能往后面慢慢找了
+这里附件还给了tls-log.txt，猜测需要解密tls密文，在编辑——&amp;gt;首选项——&amp;gt;Protocols——&amp;gt;TLS——&amp;gt;(Pre)-Master-Secret log filename这里加入即可
+最后在某个TLS流找到了密码&lt;code&gt;cAn_yOU_hElp_mE&lt;/code&gt;
+
+    &lt;img src=&#34;.././iscc2023-beijing-fin-misc/05.png&#34; alt=&#34;image&#34; loading=&#34;lazy&#34; /&gt;
+解压压缩包，得到图片mosaic.bmp
+
+    &lt;img src=&#34;.././iscc2023-beijing-fin-misc/06.bmp&#34; alt=&#34;image&#34; loading=&#34;lazy&#34; /&gt;
+还好队友见过原题，直接把脚本放了上来，参数甚至一点没变就可以用&lt;/p&gt;
+&lt;div class=&#34;hextra-code-block hx-relative hx-mt-6 first:hx-mt-0 hx-group/code&#34;&gt;
+  
+
+&lt;div&gt;&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;  1
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;  2
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;  3
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;  4
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;  5
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;  6
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;  7
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;  8
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;  9
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 10
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 11
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 12
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 13
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 14
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 15
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 16
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 17
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 18
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 19
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 20
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 21
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 22
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 23
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 24
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 25
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 26
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 27
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 28
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 29
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 30
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 31
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 32
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 33
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 34
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 35
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 36
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 37
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 38
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 39
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 40
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 41
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 42
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 43
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 44
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 45
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 46
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 47
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 48
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 49
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 50
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 51
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 52
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 53
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 54
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 55
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 56
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 57
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 58
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 59
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 60
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 61
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 62
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 63
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 64
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 65
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 66
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 67
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 68
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 69
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 70
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 71
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 72
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 73
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 74
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 75
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 76
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 77
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 78
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 79
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 80
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 81
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 82
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 83
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 84
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 85
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 86
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 87
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 88
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 89
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 90
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 91
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 92
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 93
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 94
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 95
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 96
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 97
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 98
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 99
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;100
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;101
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;102
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;103
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;104
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;105
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;106
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;107
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;108
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;109
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;110
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;111
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;112
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;113
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;114
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;115
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;116
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;117
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;118
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;119
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;120
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;121
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;122
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-python&#34; data-lang=&#34;python&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;kn&#34;&gt;import&lt;/span&gt; &lt;span class=&#34;nn&#34;&gt;math&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;kn&#34;&gt;import&lt;/span&gt; &lt;span class=&#34;nn&#34;&gt;numpy&lt;/span&gt; &lt;span class=&#34;k&#34;&gt;as&lt;/span&gt; &lt;span class=&#34;nn&#34;&gt;np&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;kn&#34;&gt;from&lt;/span&gt; &lt;span class=&#34;nn&#34;&gt;PIL&lt;/span&gt; &lt;span class=&#34;kn&#34;&gt;import&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;Image&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;kn&#34;&gt;from&lt;/span&gt; &lt;span class=&#34;nn&#34;&gt;numpy.lib&lt;/span&gt; &lt;span class=&#34;kn&#34;&gt;import&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;ndindex&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;n&#34;&gt;X&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;Y&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;mi&#34;&gt;103&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;mi&#34;&gt;137&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;n&#34;&gt;N&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;mi&#34;&gt;20&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;n&#34;&gt;BOX_SIZE&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;mi&#34;&gt;23&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;n&#34;&gt;PIXEL_SIZE&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;mi&#34;&gt;11&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;k&#34;&gt;def&lt;/span&gt; &lt;span class=&#34;nf&#34;&gt;set_pix&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;array&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;x&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;y&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;val&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;):&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    &lt;span class=&#34;s1&#34;&gt;&amp;#39;&amp;#39;&amp;#39;将图片数组 array 中第 (x, y) 个二维码格设为 val
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;s1&#34;&gt;    &amp;#39;&amp;#39;&amp;#39;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    &lt;span class=&#34;n&#34;&gt;x1&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;x&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;*&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;PIXEL_SIZE&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    &lt;span class=&#34;n&#34;&gt;x2&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;x&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;+&lt;/span&gt;&lt;span class=&#34;mi&#34;&gt;1&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;*&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;PIXEL_SIZE&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    &lt;span class=&#34;n&#34;&gt;y1&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;y&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;*&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;PIXEL_SIZE&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    &lt;span class=&#34;n&#34;&gt;y2&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;y&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;+&lt;/span&gt;&lt;span class=&#34;mi&#34;&gt;1&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;*&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;PIXEL_SIZE&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    &lt;span class=&#34;n&#34;&gt;array&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;[&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;x1&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;:&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;x2&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;y1&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;:&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;y2&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;]&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;val&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# check box[i, j]&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;k&#34;&gt;def&lt;/span&gt; &lt;span class=&#34;nf&#34;&gt;check&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;ar&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;i&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;j&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;):&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    &lt;span class=&#34;s1&#34;&gt;&amp;#39;&amp;#39;&amp;#39;判断图片数组 ar 生成的马赛克的第 (i, j) 个块是否要求的相符
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;s1&#34;&gt;    即比较数组 ar 对应位置的平均值和马赛克数组的对应格
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;s1&#34;&gt;    &amp;#39;&amp;#39;&amp;#39;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    &lt;span class=&#34;n&#34;&gt;x1&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;X&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;+&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;i&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;*&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;BOX_SIZE&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    &lt;span class=&#34;n&#34;&gt;x2&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;X&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;+&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;i&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;+&lt;/span&gt;&lt;span class=&#34;mi&#34;&gt;1&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;*&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;BOX_SIZE&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    &lt;span class=&#34;n&#34;&gt;y1&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;Y&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;+&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;j&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;*&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;BOX_SIZE&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    &lt;span class=&#34;n&#34;&gt;y2&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;Y&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;+&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;j&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;+&lt;/span&gt;&lt;span class=&#34;mi&#34;&gt;1&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;*&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;BOX_SIZE&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    &lt;span class=&#34;c1&#34;&gt;# print(&amp;#39;box:\n&amp;#39;, ar[x1:x2, y1:y2])&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    &lt;span class=&#34;n&#34;&gt;mean&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;ar&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;[&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;x1&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;:&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;x2&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;y1&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;:&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;y2&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;]&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;mean&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;()&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    &lt;span class=&#34;k&#34;&gt;return&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;math&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;floor&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;mean&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;==&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;mosaic&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;[&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;i&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;j&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;]&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;k&#34;&gt;def&lt;/span&gt; &lt;span class=&#34;nf&#34;&gt;set_pixels&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;ar&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;uncertains&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;t&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;):&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    &lt;span class=&#34;k&#34;&gt;for&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;k&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;pos&lt;/span&gt; &lt;span class=&#34;ow&#34;&gt;in&lt;/span&gt; &lt;span class=&#34;nb&#34;&gt;enumerate&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;uncertains&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;):&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;        &lt;span class=&#34;n&#34;&gt;color&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;((&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;t&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;&amp;gt;&amp;gt;&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;k&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;&amp;amp;&lt;/span&gt; &lt;span class=&#34;mi&#34;&gt;1&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;*&lt;/span&gt; &lt;span class=&#34;mi&#34;&gt;255&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;        &lt;span class=&#34;n&#34;&gt;set_pix&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;ar&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;pos&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;[&lt;/span&gt;&lt;span class=&#34;mi&#34;&gt;0&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;],&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;pos&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;[&lt;/span&gt;&lt;span class=&#34;mi&#34;&gt;1&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;],&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;color&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;k&#34;&gt;def&lt;/span&gt; &lt;span class=&#34;nf&#34;&gt;solve&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;():&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    &lt;span class=&#34;n&#34;&gt;error&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;kc&#34;&gt;False&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    &lt;span class=&#34;c1&#34;&gt;# for every box in pixelated area.&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    &lt;span class=&#34;k&#34;&gt;for&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;i&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;j&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt; &lt;span class=&#34;ow&#34;&gt;in&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;np&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;ndindex&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;mosaic&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;shape&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;):&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;        &lt;span class=&#34;c1&#34;&gt;# 考虑马赛克的每个格子 (i, j)，在 ar 中起始坐标是 (x, y)&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;        &lt;span class=&#34;n&#34;&gt;x&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;X&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;+&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;i&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;*&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;BOX_SIZE&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;        &lt;span class=&#34;n&#34;&gt;y&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;Y&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;+&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;j&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;*&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;BOX_SIZE&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;        &lt;span class=&#34;c1&#34;&gt;# 只有从 (px, py) 开始的 3x3 个二维码格子会影响这个马赛克格子&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;        &lt;span class=&#34;n&#34;&gt;px&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;x&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;//&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;PIXEL_SIZE&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;        &lt;span class=&#34;n&#34;&gt;py&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;y&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;//&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;PIXEL_SIZE&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;        &lt;span class=&#34;c1&#34;&gt;# 3x3 个格子中还不确定的位置&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;        &lt;span class=&#34;n&#34;&gt;uncertains&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;[]&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;        &lt;span class=&#34;k&#34;&gt;for&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;tx&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;ty&lt;/span&gt; &lt;span class=&#34;ow&#34;&gt;in&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;np&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;ndindex&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;mi&#34;&gt;3&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;mi&#34;&gt;3&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;):&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;            &lt;span class=&#34;k&#34;&gt;if&lt;/span&gt; &lt;span class=&#34;ow&#34;&gt;not&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;flags&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;[&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;px&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;+&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;tx&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;py&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;+&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;ty&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;]:&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;                &lt;span class=&#34;n&#34;&gt;uncertains&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;append&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;((&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;px&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;+&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;tx&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;py&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;+&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;ty&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;))&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;        &lt;span class=&#34;k&#34;&gt;if&lt;/span&gt; &lt;span class=&#34;nb&#34;&gt;len&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;uncertains&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;==&lt;/span&gt; &lt;span class=&#34;mi&#34;&gt;0&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;:&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;            &lt;span class=&#34;k&#34;&gt;continue&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;        &lt;span class=&#34;n&#34;&gt;possibles&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;[]&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;        &lt;span class=&#34;nb&#34;&gt;print&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;sa&#34;&gt;f&lt;/span&gt;&lt;span class=&#34;s1&#34;&gt;&amp;#39;Try mosaic&lt;/span&gt;&lt;span class=&#34;si&#34;&gt;{&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;i&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;j&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;&lt;span class=&#34;si&#34;&gt;}&lt;/span&gt;&lt;span class=&#34;s1&#34;&gt;, from pixel&lt;/span&gt;&lt;span class=&#34;si&#34;&gt;{&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;x&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;y&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;&lt;span class=&#34;si&#34;&gt;}&lt;/span&gt;&lt;span class=&#34;s1&#34;&gt;, uncertains: &lt;/span&gt;&lt;span class=&#34;si&#34;&gt;{&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;uncertains&lt;/span&gt;&lt;span class=&#34;si&#34;&gt;}&lt;/span&gt;&lt;span class=&#34;s1&#34;&gt;&amp;#39;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;        &lt;span class=&#34;k&#34;&gt;for&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;t&lt;/span&gt; &lt;span class=&#34;ow&#34;&gt;in&lt;/span&gt; &lt;span class=&#34;nb&#34;&gt;range&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;mi&#34;&gt;2&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;**&lt;/span&gt;&lt;span class=&#34;nb&#34;&gt;len&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;uncertains&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)):&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;            &lt;span class=&#34;s1&#34;&gt;&amp;#39;&amp;#39;&amp;#39;遍历2^k种可能性&amp;#39;&amp;#39;&amp;#39;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;            &lt;span class=&#34;c1&#34;&gt;# print(&amp;#39;Try: {0:0{1}b}&amp;#39;.format(t, len(uncertains)))&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;            &lt;span class=&#34;n&#34;&gt;set_pixels&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;ar&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;uncertains&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;t&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;   &lt;span class=&#34;c1&#34;&gt;# 将 ar 对应位置按 t 的每一位设置为对应颜色&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;            &lt;span class=&#34;k&#34;&gt;if&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;check&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;ar&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;i&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;j&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;):&lt;/span&gt;     &lt;span class=&#34;c1&#34;&gt;# 判断马赛克颜色是否正确，正确则加入可能性列表&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;                &lt;span class=&#34;n&#34;&gt;possibles&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;append&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;t&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;        &lt;span class=&#34;k&#34;&gt;if&lt;/span&gt; &lt;span class=&#34;nb&#34;&gt;len&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;possibles&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;==&lt;/span&gt; &lt;span class=&#34;mi&#34;&gt;1&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;:&lt;/span&gt;     &lt;span class=&#34;c1&#34;&gt;# 只有一种可能性，那么是正确答案&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;            &lt;span class=&#34;n&#34;&gt;set_pixels&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;ar&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;uncertains&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;possibles&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;[&lt;/span&gt;&lt;span class=&#34;mi&#34;&gt;0&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;])&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;            &lt;span class=&#34;k&#34;&gt;for&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;x&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;y&lt;/span&gt; &lt;span class=&#34;ow&#34;&gt;in&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;uncertains&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;:&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;                &lt;span class=&#34;n&#34;&gt;flags&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;[&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;x&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;y&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;]&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;kc&#34;&gt;True&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;        &lt;span class=&#34;k&#34;&gt;elif&lt;/span&gt; &lt;span class=&#34;nb&#34;&gt;len&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;possibles&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;&amp;gt;&lt;/span&gt; &lt;span class=&#34;mi&#34;&gt;1&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;:&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;            &lt;span class=&#34;c1&#34;&gt;# 多个可能就随便设一个，但是不标记为已经确定&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;            &lt;span class=&#34;n&#34;&gt;set_pixels&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;ar&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;uncertains&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;possibles&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;[&lt;/span&gt;&lt;span class=&#34;mi&#34;&gt;0&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;])&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;            &lt;span class=&#34;c1&#34;&gt;# 也可以用下面的方法，将所有可能性中颜色都相同的格子找出来，设置为确定的&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;            &lt;span class=&#34;c1&#34;&gt;# 这样可以大大增加能解出的格子数（从 81% 提升到 88%）&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;            &lt;span class=&#34;c1&#34;&gt;# print(possibles)&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;            &lt;span class=&#34;c1&#34;&gt;# a = np.bitwise_and.reduce(np.asarray(possibles))&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;            &lt;span class=&#34;c1&#34;&gt;# b = np.bitwise_or.reduce(np.asarray(possibles))&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;            &lt;span class=&#34;c1&#34;&gt;# c = np.bitwise_xor(a, b)&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;            &lt;span class=&#34;c1&#34;&gt;# print(f&amp;#39;{c:0{len(uncertains)}b}&amp;#39;)&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;            &lt;span class=&#34;c1&#34;&gt;# for k, pos in enumerate(uncertains):&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;            &lt;span class=&#34;c1&#34;&gt;#     color = ((possibles[0] &amp;gt;&amp;gt; k) &amp;amp; 1) * 255&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;            &lt;span class=&#34;c1&#34;&gt;#     set_pix(ar, pos[0], pos[1], color)&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;            &lt;span class=&#34;c1&#34;&gt;#     if (c &amp;gt;&amp;gt; k) &amp;amp; 1 == 0:&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;            &lt;span class=&#34;c1&#34;&gt;#         flags[pos[0], pos[1]] = True&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;        &lt;span class=&#34;k&#34;&gt;elif&lt;/span&gt; &lt;span class=&#34;nb&#34;&gt;len&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;possibles&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;==&lt;/span&gt; &lt;span class=&#34;mi&#34;&gt;0&lt;/span&gt; &lt;span class=&#34;ow&#34;&gt;and&lt;/span&gt; &lt;span class=&#34;nb&#34;&gt;len&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;uncertains&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;!=&lt;/span&gt; &lt;span class=&#34;mi&#34;&gt;0&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;:&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;            &lt;span class=&#34;c1&#34;&gt;# 出现不明原因的错误&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;            &lt;span class=&#34;nb&#34;&gt;print&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;sa&#34;&gt;f&lt;/span&gt;&lt;span class=&#34;s1&#34;&gt;&amp;#39;Error: [&lt;/span&gt;&lt;span class=&#34;si&#34;&gt;{&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;i&lt;/span&gt;&lt;span class=&#34;si&#34;&gt;}&lt;/span&gt;&lt;span class=&#34;s1&#34;&gt;, &lt;/span&gt;&lt;span class=&#34;si&#34;&gt;{&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;j&lt;/span&gt;&lt;span class=&#34;si&#34;&gt;}&lt;/span&gt;&lt;span class=&#34;s1&#34;&gt;]&amp;#39;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;            &lt;span class=&#34;n&#34;&gt;error&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;kc&#34;&gt;True&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;            &lt;span class=&#34;k&#34;&gt;break&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;        &lt;span class=&#34;k&#34;&gt;if&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;error&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;:&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;            &lt;span class=&#34;k&#34;&gt;break&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;        &lt;span class=&#34;nb&#34;&gt;print&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;sa&#34;&gt;f&lt;/span&gt;&lt;span class=&#34;s1&#34;&gt;&amp;#39;Solved: [&lt;/span&gt;&lt;span class=&#34;si&#34;&gt;{&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;i&lt;/span&gt;&lt;span class=&#34;si&#34;&gt;}&lt;/span&gt;&lt;span class=&#34;s1&#34;&gt;, &lt;/span&gt;&lt;span class=&#34;si&#34;&gt;{&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;j&lt;/span&gt;&lt;span class=&#34;si&#34;&gt;}&lt;/span&gt;&lt;span class=&#34;s1&#34;&gt;]&amp;#39;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    &lt;span class=&#34;k&#34;&gt;return&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;flags&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;sum&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;()&lt;/span&gt;  &lt;span class=&#34;c1&#34;&gt;# 返回目前确定的格子数&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;n&#34;&gt;im&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;Image&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;open&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;s1&#34;&gt;&amp;#39;pixelated_qrcode.bmp&amp;#39;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;n&#34;&gt;ar&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;np&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;asarray&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;im&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;dtype&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;s1&#34;&gt;&amp;#39;uint8&amp;#39;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;  &lt;span class=&#34;c1&#34;&gt;# 在该数组上逐步恢复和试算二维码&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;n&#34;&gt;mosaic&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;ar&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;[&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;X&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;::&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;BOX_SIZE&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;Y&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;::&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;BOX_SIZE&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;][:&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;N&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;:&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;N&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;]&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;copy&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;()&lt;/span&gt;    &lt;span class=&#34;c1&#34;&gt;# 马赛克每格的数据&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;n&#34;&gt;solved&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;ar&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;[::&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;PIXEL_SIZE&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;::&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;PIXEL_SIZE&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;]&lt;/span&gt;     &lt;span class=&#34;c1&#34;&gt;# 用于存放答案，开始取二维码每格左上角值&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;                                            &lt;span class=&#34;c1&#34;&gt;# 注意 solved 是个引用，所以修改 ar 会跟着变&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;n&#34;&gt;flags&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;solved&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;==&lt;/span&gt; &lt;span class=&#34;mi&#34;&gt;0&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;|&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;solved&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;==&lt;/span&gt; &lt;span class=&#34;mi&#34;&gt;255&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;     &lt;span class=&#34;c1&#34;&gt;# 如果某格是 0 或 255，已经能确定颜色&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;n&#34;&gt;rd_corner&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;ar&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;[&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;PIXEL_SIZE&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;-&lt;/span&gt;&lt;span class=&#34;mi&#34;&gt;1&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;::&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;PIXEL_SIZE&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;PIXEL_SIZE&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;-&lt;/span&gt;&lt;span class=&#34;mi&#34;&gt;1&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;::&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;PIXEL_SIZE&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;]&lt;/span&gt;  &lt;span class=&#34;c1&#34;&gt;# 二维码每格右下角&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;n&#34;&gt;rd_flags&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;rd_corner&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;==&lt;/span&gt; &lt;span class=&#34;mi&#34;&gt;0&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;|&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;rd_corner&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;==&lt;/span&gt; &lt;span class=&#34;mi&#34;&gt;255&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;  &lt;span class=&#34;c1&#34;&gt;# 按右下角能确定颜色的二维码格&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;k&#34;&gt;for&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;i&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;j&lt;/span&gt; &lt;span class=&#34;ow&#34;&gt;in&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;np&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;ndindex&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;flags&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;shape&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;):&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    &lt;span class=&#34;c1&#34;&gt;# 按左上角和右下角边缘，将能够确定的格补全&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    &lt;span class=&#34;k&#34;&gt;if&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;flags&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;[&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;i&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;j&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;]:&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;        &lt;span class=&#34;n&#34;&gt;set_pix&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;ar&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;i&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;j&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;solved&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;[&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;i&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;j&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;])&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    &lt;span class=&#34;k&#34;&gt;if&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;rd_flags&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;[&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;i&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;j&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;]:&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;        &lt;span class=&#34;n&#34;&gt;set_pix&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;ar&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;i&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;j&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;rd_corner&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;[&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;i&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;j&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;])&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;n&#34;&gt;flags&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;solved&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;==&lt;/span&gt; &lt;span class=&#34;mi&#34;&gt;0&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;|&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;solved&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;==&lt;/span&gt; &lt;span class=&#34;mi&#34;&gt;255&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;  &lt;span class=&#34;c1&#34;&gt;# 更新已确定的位置&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;k&#34;&gt;while&lt;/span&gt; &lt;span class=&#34;kc&#34;&gt;True&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;:&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    &lt;span class=&#34;c1&#34;&gt;# 如果有新的格子被推算出来，那么继续算，否则已经没得算了&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    &lt;span class=&#34;n&#34;&gt;num_ok&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;flags&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;sum&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;()&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    &lt;span class=&#34;k&#34;&gt;if&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;solve&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;()&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;==&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;num_ok&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;:&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;        &lt;span class=&#34;k&#34;&gt;break&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;n&#34;&gt;solved_im&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;Image&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;fromarray&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;ar&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;n&#34;&gt;solved_im&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;save&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;s1&#34;&gt;&amp;#39;solved.bmp&amp;#39;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;nb&#34;&gt;print&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;s1&#34;&gt;&amp;#39;CertainRate:&amp;#39;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;flags&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;sum&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;()&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;/&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;flags&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;size&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;/div&gt;&lt;div class=&#34;hextra-code-copy-btn-container hx-opacity-0 hx-transition group-hover/code:hx-opacity-100 hx-flex hx-gap-1 hx-absolute hx-m-[11px] hx-right-0 hx-top-0&#34;&gt;
+  &lt;button
+    class=&#34;hextra-code-copy-btn hx-group/copybtn hx-transition-all active:hx-opacity-50 hx-bg-primary-700/5 hx-border hx-border-black/5 hx-text-gray-600 hover:hx-text-gray-900 hx-rounded-md hx-p-1.5 dark:hx-bg-primary-300/10 dark:hx-border-white/10 dark:hx-text-gray-400 dark:hover:hx-text-gray-50&#34;
+    title=&#34;Copy code&#34;
+  &gt;
+    &lt;div class=&#34;copy-icon group-[.copied]/copybtn:hx-hidden hx-pointer-events-none hx-h-4 hx-w-4&#34;&gt;&lt;/div&gt;
+    &lt;div class=&#34;success-icon hx-hidden group-[.copied]/copybtn:hx-block hx-pointer-events-none hx-h-4 hx-w-4&#34;&gt;&lt;/div&gt;
+  &lt;/button&gt;
+&lt;/div&gt;
+
+  
+&lt;/div&gt;
+&lt;p&gt;解密后读取二维码即可&lt;/p&gt;
+&lt;h2&gt;后话&lt;span class=&#34;hx-absolute -hx-mt-20&#34; id=&#34;后话&#34;&gt;&lt;/span&gt;
+    &lt;a href=&#34;#%e5%90%8e%e8%af%9d&#34; class=&#34;subheading-anchor&#34; aria-label=&#34;Permalink for this section&#34;&gt;&lt;/a&gt;&lt;/h2&gt;&lt;p&gt;这次iscc线下真的有点抽象，关卡题打到12点还只有我们队解出来了这一题，其他队伍都是爆零，后来主办方延时到18点，结果还是没人解出来…awd也很难搞，开始3h的pwn和web私地都只有寥寥几队打进来，主办方看不下去了就开放了pwn私地，可惜当时也不会打其他队伍，就简单布防了一下，不过虽然没拿分但也没被打，还是保住了排名&lt;/p&gt;
+&lt;p&gt;总的来说是难度偏大的一次线下。&lt;/p&gt;
+
+      </description>
+    </item>
+    
+    <item>
+      <title>CTF MISC常用工具集锦/使用方法简介</title>
       <link>https://perfsky.github.io/blogs/ctf-misc-tools/</link>
-      <pubDate>Mon, 14 Oct 2024 00:00:00 +0000</pubDate>
+      <pubDate>Sun, 01 Oct 2023 00:00:00 +0000</pubDate>
       
       <guid>https://perfsky.github.io/blogs/ctf-misc-tools/</guid>
       <description>
         
         
         &lt;h2&gt;前言&lt;span class=&#34;hx-absolute -hx-mt-20&#34; id=&#34;前言&#34;&gt;&lt;/span&gt;
-    &lt;a href=&#34;#%e5%89%8d%e8%a8%80&#34; class=&#34;subheading-anchor&#34; aria-label=&#34;Permalink for this section&#34;&gt;&lt;/a&gt;&lt;/h2&gt;&lt;p&gt;MISC题型多变而且工具繁杂，因此自己花时间整理了一份工具列表，以便日后参考用
-&lt;strong&gt;流畅地阅读这篇博客，你可能需要：&lt;/strong&gt;&lt;/p&gt;
+    &lt;a href=&#34;#%e5%89%8d%e8%a8%80&#34; class=&#34;subheading-anchor&#34; aria-label=&#34;Permalink for this section&#34;&gt;&lt;/a&gt;&lt;/h2&gt;&lt;p&gt;MISC题型多变而且工具繁杂，因此自己花时间整理了一份工具列表，以便日后参考用&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;流畅地阅读这篇博客，你可能需要：&lt;/strong&gt;&lt;/p&gt;
 &lt;ul&gt;
 &lt;li&gt;Python2.7.18 + Python3.8 + 任何一个更高版本的Python，使用conda管理&lt;/li&gt;
 &lt;li&gt;Linux虚拟机，kali即可&lt;/li&gt;
@@ -270,111 +1165,6 @@ http.server //过滤所有含有http头中含有server字段的数据包&lt;/cod
 &lt;li&gt;CTF 常见 HASH(MD4/MD5/SHA1)&lt;/li&gt;
 &lt;li&gt;设置 HASH 开头、结尾或包含字符串&lt;/li&gt;
 &lt;/ul&gt;
-
-      </description>
-    </item>
-    
-    <item>
-      <title>博客搭建指南</title>
-      <link>https://perfsky.github.io/blogs/hextra-setup-tutorial/</link>
-      <pubDate>Sun, 13 Oct 2024 00:00:00 +0000</pubDate>
-      
-      <guid>https://perfsky.github.io/blogs/hextra-setup-tutorial/</guid>
-      <description>
-        
-        
-        &lt;blockquote&gt;
-&lt;p&gt;以Hextra主题为例的Hugo博客搭建指南&lt;/p&gt;
-&lt;/blockquote&gt;
-&lt;h2&gt;准备工作&lt;span class=&#34;hx-absolute -hx-mt-20&#34; id=&#34;准备工作&#34;&gt;&lt;/span&gt;
-    &lt;a href=&#34;#%e5%87%86%e5%a4%87%e5%b7%a5%e4%bd%9c&#34; class=&#34;subheading-anchor&#34; aria-label=&#34;Permalink for this section&#34;&gt;&lt;/a&gt;&lt;/h2&gt;&lt;ul&gt;
-&lt;li&gt;安装好Go和Hugo(extended version)&lt;/li&gt;
-&lt;li&gt;配置好Git&lt;/li&gt;
-&lt;li&gt;拥有一个域名(可选)&lt;/li&gt;
-&lt;/ul&gt;
-&lt;h2&gt;速通&lt;span class=&#34;hx-absolute -hx-mt-20&#34; id=&#34;速通&#34;&gt;&lt;/span&gt;
-    &lt;a href=&#34;#%e9%80%9f%e9%80%9a&#34; class=&#34;subheading-anchor&#34; aria-label=&#34;Permalink for this section&#34;&gt;&lt;/a&gt;&lt;/h2&gt;
-
-
-
-
-  
-
-
-
-
-
-
-
-
-
-
-
-
-&lt;div class=&#34;hx-overflow-x-auto hx-mt-6 hx-flex hx-rounded-lg hx-border hx-py-2 ltr:hx-pr-4 rtl:hx-pl-4 contrast-more:hx-border-current contrast-more:dark:hx-border-current hx-border-blue-200 hx-bg-blue-100 hx-text-blue-900 dark:hx-border-blue-200/30 dark:hx-bg-blue-900/30 dark:hx-text-blue-200&#34;&gt;
-  &lt;div class=&#34;ltr:hx-pl-3 ltr:hx-pr-2 rtl:hx-pr-3 rtl:hx-pl-2&#34;&gt;&lt;div class=&#34;hx-select-none hx-text-xl&#34; style=&#34;font-family: &#39;Apple Color Emoji&#39;, &#39;Segoe UI Emoji&#39;, &#39;Segoe UI Symbol&#39;;&#34;&gt;
-        ℹ️
-      &lt;/div&gt;&lt;/div&gt;
-
-  &lt;div class=&#34;hx-w-full hx-min-w-0 hx-leading-7&#34;&gt;
-    &lt;div class=&#34;hx-mt-6 hx-leading-7 first:hx-mt-0&#34;&gt;
-      施工中
-    &lt;/div&gt;
-  &lt;/div&gt;
-&lt;/div&gt;
-
-&lt;ol&gt;
-&lt;li&gt;建立两个仓库，分别存放源代码和生成的静态文件&lt;/li&gt;
-&lt;li&gt;Hugo初始化博客，目标文件夹与源代码仓库同名&lt;/li&gt;
-&lt;li&gt;拉取Hextra主题到./themes/hextra，拉取静态文件仓库到./public（使用&lt;code&gt;git submodule&lt;/code&gt;）&lt;/li&gt;
-&lt;li&gt;配置hugo.yaml，参考exampleSite&lt;/li&gt;
-&lt;li&gt;写一点东西&lt;/li&gt;
-&lt;li&gt;生成静态文件，检查，推送到远程仓库&lt;/li&gt;
-&lt;li&gt;配置Github Pages到静态文件仓库中&lt;/li&gt;
-&lt;li&gt;(可选) CLoudflare 绑定域名解析&lt;/li&gt;
-&lt;/ol&gt;
-&lt;h2&gt;一些容易踩的坑&lt;span class=&#34;hx-absolute -hx-mt-20&#34; id=&#34;一些容易踩的坑&#34;&gt;&lt;/span&gt;
-    &lt;a href=&#34;#%e4%b8%80%e4%ba%9b%e5%ae%b9%e6%98%93%e8%b8%a9%e7%9a%84%e5%9d%91&#34; class=&#34;subheading-anchor&#34; aria-label=&#34;Permalink for this section&#34;&gt;&lt;/a&gt;&lt;/h2&gt;&lt;h3&gt;文件完整性校验不通过导致博客功能失效&lt;sup id=&#34;fnref:1&#34;&gt;&lt;a href=&#34;#fn:1&#34; class=&#34;footnote-ref&#34; role=&#34;doc-noteref&#34;&gt;1&lt;/a&gt;&lt;/sup&gt;&lt;span class=&#34;hx-absolute -hx-mt-20&#34; id=&#34;文件完整性校验不通过导致博客功能失效1&#34;&gt;&lt;/span&gt;
-    &lt;a href=&#34;#%e6%96%87%e4%bb%b6%e5%ae%8c%e6%95%b4%e6%80%a7%e6%a0%a1%e9%aa%8c%e4%b8%8d%e9%80%9a%e8%bf%87%e5%af%bc%e8%87%b4%e5%8d%9a%e5%ae%a2%e5%8a%9f%e8%83%bd%e5%a4%b1%e6%95%881&#34; class=&#34;subheading-anchor&#34; aria-label=&#34;Permalink for this section&#34;&gt;&lt;/a&gt;&lt;/h3&gt;&lt;p&gt;
-    &lt;figure&gt;
-    &lt;img src=&#34;.././hextra-setup-tutorial/hextra-setup-tutorial_blocked-js-css.png&#34; title=&#34;如图&#34; alt=&#34;landscape&#34; loading=&#34;lazy&#34; /&gt;
-    &lt;figcaption&gt;如图&lt;/figcaption&gt;
-  &lt;/figure&gt;
-为确保脚本或者样式表不被恶意篡改，网页会使用&lt;code&gt;integrity&lt;/code&gt;来校验文件完整性，如果计算的SHA-256值和指定的不匹配，则浏览器拒绝加载此资源。
-而在hugo生成静态资源后，如果尝试将其上传到github，有可能文件中的换行符会被git自动转换，导致本地文件和云端文件校验值不同。
-解决方法是关闭git自带的CRLF&amp;lt;&amp;ndash;&amp;gt;LF转换：&lt;/p&gt;
-&lt;div class=&#34;hextra-code-block hx-relative hx-mt-6 first:hx-mt-0 hx-group/code&#34;&gt;
-  
-
-&lt;div&gt;&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;git config --global core.autocrlf false&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;&lt;div class=&#34;hextra-code-copy-btn-container hx-opacity-0 hx-transition group-hover/code:hx-opacity-100 hx-flex hx-gap-1 hx-absolute hx-m-[11px] hx-right-0 hx-top-0&#34;&gt;
-  &lt;button
-    class=&#34;hextra-code-copy-btn hx-group/copybtn hx-transition-all active:hx-opacity-50 hx-bg-primary-700/5 hx-border hx-border-black/5 hx-text-gray-600 hover:hx-text-gray-900 hx-rounded-md hx-p-1.5 dark:hx-bg-primary-300/10 dark:hx-border-white/10 dark:hx-text-gray-400 dark:hover:hx-text-gray-50&#34;
-    title=&#34;Copy code&#34;
-  &gt;
-    &lt;div class=&#34;copy-icon group-[.copied]/copybtn:hx-hidden hx-pointer-events-none hx-h-4 hx-w-4&#34;&gt;&lt;/div&gt;
-    &lt;div class=&#34;success-icon hx-hidden group-[.copied]/copybtn:hx-block hx-pointer-events-none hx-h-4 hx-w-4&#34;&gt;&lt;/div&gt;
-  &lt;/button&gt;
-&lt;/div&gt;
-
-  
-&lt;/div&gt;
-&lt;p&gt;或者&lt;a href=&#34;https://docs.github.com/zh/get-started/getting-started-with-git/configuring-git-to-handle-line-endings#per-repository-settings&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;指定某个仓库不转换&lt;/a&gt;&lt;/p&gt;
-&lt;h3&gt;Cloudflare Pages自动构建过程出错&lt;span class=&#34;hx-absolute -hx-mt-20&#34; id=&#34;cloudflare-pages自动构建过程出错&#34;&gt;&lt;/span&gt;
-    &lt;a href=&#34;#cloudflare-pages%e8%87%aa%e5%8a%a8%e6%9e%84%e5%bb%ba%e8%bf%87%e7%a8%8b%e5%87%ba%e9%94%99&#34; class=&#34;subheading-anchor&#34; aria-label=&#34;Permalink for this section&#34;&gt;&lt;/a&gt;&lt;/h3&gt;&lt;p&gt;暂时未找到解决方法，替代品是直接让它部署生成后的静态页面&lt;/p&gt;
-&lt;h2&gt;参考资料&lt;span class=&#34;hx-absolute -hx-mt-20&#34; id=&#34;参考资料&#34;&gt;&lt;/span&gt;
-    &lt;a href=&#34;#%e5%8f%82%e8%80%83%e8%b5%84%e6%96%99&#34; class=&#34;subheading-anchor&#34; aria-label=&#34;Permalink for this section&#34;&gt;&lt;/a&gt;&lt;/h2&gt;&lt;ul&gt;
-&lt;li&gt;&lt;a href=&#34;https://imfing.github.io/hextra/zh-cn/docs/getting-started/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;Hextra&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&#34;https://www.gohugo.org&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;Hugo&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&#34;https://www.gohugo.org/doc/content/front-matter/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;头部自定义参数&lt;/a&gt;&lt;/li&gt;
-&lt;/ul&gt;
-&lt;div class=&#34;footnotes&#34; role=&#34;doc-endnotes&#34;&gt;
-&lt;hr&gt;
-&lt;ol&gt;
-&lt;li id=&#34;fn:1&#34;&gt;
-&lt;p&gt;&lt;a href=&#34;https://github.com/kubernetes/website/issues/25414&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;Issue&lt;/a&gt;&amp;#160;&lt;a href=&#34;#fnref:1&#34; class=&#34;footnote-backref&#34; role=&#34;doc-backlink&#34;&gt;&amp;#x21a9;&amp;#xfe0e;&lt;/a&gt;&lt;/p&gt;
-&lt;/li&gt;
-&lt;/ol&gt;
-&lt;/div&gt;
 
       </description>
     </item>

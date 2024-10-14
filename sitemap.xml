@@ -2,9 +2,6 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
-    <loc>https://perfsky.github.io/blogs/ctf-misc-tools/</loc>
-    <lastmod>2024-10-14T16:16:21+08:00</lastmod>
-  </url><url>
     <loc>https://perfsky.github.io/blogs/hextra-setup-tutorial/</loc>
     <lastmod>2024-10-14T16:16:21+08:00</lastmod>
   </url><url>
@@ -22,6 +19,24 @@
   </url><url>
     <loc>https://perfsky.github.io/thoughts/</loc>
     <lastmod>2024-10-11T23:51:21+08:00</lastmod>
+  </url><url>
+    <loc>https://perfsky.github.io/blogs/ctf-cheatsheet-traffic-analysis/</loc>
+    <lastmod>2024-05-24T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://perfsky.github.io/blogs/useless-gdb-cheatsheet/</loc>
+    <lastmod>2024-05-23T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://perfsky.github.io/blogs/xihu2024-initial-misc/</loc>
+    <lastmod>2024-02-01T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://perfsky.github.io/blogs/hitctf2023-misc/</loc>
+    <lastmod>2023-11-26T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://perfsky.github.io/blogs/iscc2023-beijing-fin-misc/</loc>
+    <lastmod>2023-10-21T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://perfsky.github.io/blogs/ctf-misc-tools/</loc>
+    <lastmod>2024-10-14T16:16:21+08:00</lastmod>
   </url><url>
     <loc>https://perfsky.github.io/categories/</loc>
   </url><url>
