@@ -1,13 +1,13 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Sakuya&#39;s Blog – Blog List</title>
-    <link>http://localhost:1313/blogs/</link>
+    <link>https://perfsky.github.io/blogs/</link>
     <description>Recent content in Blog List on Sakuya&#39;s Blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-CN</language>
     <lastBuildDate>Fri, 11 Oct 2024 21:11:58 +0800</lastBuildDate>
     
-	  <atom:link href="http://localhost:1313/blogs/index.xml" rel="self" type="application/rss+xml" />
+	  <atom:link href="https://perfsky.github.io/blogs/index.xml" rel="self" type="application/rss+xml" />
     
     
       
@@ -17,10 +17,10 @@
     
     <item>
       <title>博客搭建指南</title>
-      <link>http://localhost:1313/blogs/hextra-setup-tutorial/</link>
+      <link>https://perfsky.github.io/blogs/hextra-setup-tutorial/</link>
       <pubDate>Sun, 13 Oct 2024 00:00:00 +0000</pubDate>
       
-      <guid>http://localhost:1313/blogs/hextra-setup-tutorial/</guid>
+      <guid>https://perfsky.github.io/blogs/hextra-setup-tutorial/</guid>
       <description>
         
         
@@ -122,10 +122,10 @@
     
     <item>
       <title>CTF CheatSheet之WebShell流量分析</title>
-      <link>http://localhost:1313/blogs/ctf-cheatsheet-traffic-analysis/</link>
+      <link>https://perfsky.github.io/blogs/ctf-cheatsheet-traffic-analysis/</link>
       <pubDate>Fri, 24 May 2024 00:00:00 +0000</pubDate>
       
-      <guid>http://localhost:1313/blogs/ctf-cheatsheet-traffic-analysis/</guid>
+      <guid>https://perfsky.github.io/blogs/ctf-cheatsheet-traffic-analysis/</guid>
       <description>
         
         
@@ -412,10 +412,10 @@
     
     <item>
       <title>看了也不会的GDB CheatSheet</title>
-      <link>http://localhost:1313/blogs/useless-gdb-cheatsheet/</link>
+      <link>https://perfsky.github.io/blogs/useless-gdb-cheatsheet/</link>
       <pubDate>Thu, 23 May 2024 00:00:00 +0000</pubDate>
       
-      <guid>http://localhost:1313/blogs/useless-gdb-cheatsheet/</guid>
+      <guid>https://perfsky.github.io/blogs/useless-gdb-cheatsheet/</guid>
       <description>
         
         
@@ -526,10 +526,10 @@
     
     <item>
       <title>[西湖论剑2024初赛] MISC3-easy_rawraw WriteUp</title>
-      <link>http://localhost:1313/blogs/xihu2024-initial-misc/</link>
+      <link>https://perfsky.github.io/blogs/xihu2024-initial-misc/</link>
       <pubDate>Thu, 01 Feb 2024 00:00:00 +0000</pubDate>
       
-      <guid>http://localhost:1313/blogs/xihu2024-initial-misc/</guid>
+      <guid>https://perfsky.github.io/blogs/xihu2024-initial-misc/</guid>
       <description>
         
         
@@ -565,10 +565,10 @@ mysecretfile用了veracrypt加密，需要另一个密码，所以继续找线�
     
     <item>
       <title>[HITCTF2023] MISC1&amp;2 WP</title>
-      <link>http://localhost:1313/blogs/hitctf2023-misc/</link>
+      <link>https://perfsky.github.io/blogs/hitctf2023-misc/</link>
       <pubDate>Sun, 26 Nov 2023 00:00:00 +0000</pubDate>
       
-      <guid>http://localhost:1313/blogs/hitctf2023-misc/</guid>
+      <guid>https://perfsky.github.io/blogs/hitctf2023-misc/</guid>
       <description>
         
         
@@ -608,10 +608,10 @@ GGQ?O@+())pA#VSebM`[J]XGZUDIDUZ]
     
     <item>
       <title>[ISCC2023线下] MISC1 WP</title>
-      <link>http://localhost:1313/blogs/iscc2023-beijing-fin-misc/</link>
+      <link>https://perfsky.github.io/blogs/iscc2023-beijing-fin-misc/</link>
       <pubDate>Sat, 21 Oct 2023 00:00:00 +0000</pubDate>
       
-      <guid>http://localhost:1313/blogs/iscc2023-beijing-fin-misc/</guid>
+      <guid>https://perfsky.github.io/blogs/iscc2023-beijing-fin-misc/</guid>
       <description>
         
         
@@ -914,10 +914,10 @@ GGQ?O@+())pA#VSebM`[J]XGZUDIDUZ]
     
     <item>
       <title>CTF MISC常用工具集锦/使用方法简介</title>
-      <link>http://localhost:1313/blogs/ctf-misc-tools/</link>
+      <link>https://perfsky.github.io/blogs/ctf-misc-tools/</link>
       <pubDate>Sun, 01 Oct 2023 00:00:00 +0000</pubDate>
       
-      <guid>http://localhost:1313/blogs/ctf-misc-tools/</guid>
+      <guid>https://perfsky.github.io/blogs/ctf-misc-tools/</guid>
       <description>
         
         

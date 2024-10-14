@@ -2,44 +2,44 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
-    <loc>http://localhost:1313/blogs/hextra-setup-tutorial/</loc>
+    <loc>https://perfsky.github.io/blogs/hextra-setup-tutorial/</loc>
     <lastmod>2024-10-14T17:49:30+08:00</lastmod>
   </url><url>
-    <loc>http://localhost:1313/</loc>
+    <loc>https://perfsky.github.io/</loc>
     <lastmod>2024-10-14T16:16:21+08:00</lastmod>
   </url><url>
-    <loc>http://localhost:1313/about/</loc>
+    <loc>https://perfsky.github.io/about/</loc>
     <lastmod>2024-10-14T17:49:30+08:00</lastmod>
   </url><url>
-    <loc>http://localhost:1313/blogs/</loc>
+    <loc>https://perfsky.github.io/blogs/</loc>
     <lastmod>2024-10-14T17:49:30+08:00</lastmod>
   </url><url>
-    <loc>http://localhost:1313/misc/</loc>
+    <loc>https://perfsky.github.io/misc/</loc>
     <lastmod>2024-10-14T17:49:30+08:00</lastmod>
   </url><url>
-    <loc>http://localhost:1313/thoughts/</loc>
+    <loc>https://perfsky.github.io/thoughts/</loc>
     <lastmod>2024-10-14T17:49:30+08:00</lastmod>
   </url><url>
-    <loc>http://localhost:1313/blogs/ctf-cheatsheet-traffic-analysis/</loc>
+    <loc>https://perfsky.github.io/blogs/ctf-cheatsheet-traffic-analysis/</loc>
     <lastmod>2024-10-14T17:49:30+08:00</lastmod>
   </url><url>
-    <loc>http://localhost:1313/blogs/useless-gdb-cheatsheet/</loc>
+    <loc>https://perfsky.github.io/blogs/useless-gdb-cheatsheet/</loc>
     <lastmod>2024-10-14T17:49:30+08:00</lastmod>
   </url><url>
-    <loc>http://localhost:1313/blogs/xihu2024-initial-misc/</loc>
+    <loc>https://perfsky.github.io/blogs/xihu2024-initial-misc/</loc>
     <lastmod>2024-10-14T17:49:30+08:00</lastmod>
   </url><url>
-    <loc>http://localhost:1313/blogs/hitctf2023-misc/</loc>
+    <loc>https://perfsky.github.io/blogs/hitctf2023-misc/</loc>
     <lastmod>2024-10-14T17:49:30+08:00</lastmod>
   </url><url>
-    <loc>http://localhost:1313/blogs/iscc2023-beijing-fin-misc/</loc>
+    <loc>https://perfsky.github.io/blogs/iscc2023-beijing-fin-misc/</loc>
     <lastmod>2024-10-14T17:49:30+08:00</lastmod>
   </url><url>
-    <loc>http://localhost:1313/blogs/ctf-misc-tools/</loc>
+    <loc>https://perfsky.github.io/blogs/ctf-misc-tools/</loc>
     <lastmod>2024-10-14T17:49:30+08:00</lastmod>
   </url><url>
-    <loc>http://localhost:1313/categories/</loc>
+    <loc>https://perfsky.github.io/categories/</loc>
   </url><url>
-    <loc>http://localhost:1313/tags/</loc>
+    <loc>https://perfsky.github.io/tags/</loc>
   </url>
 </urlset>
