@@ -25,14 +25,14 @@
 <meta property="og:type" content="article" />
 <meta property="og:url" content="https://perfsky.github.io/blogs/xihu2024-initial-misc/" /><meta property="article:section" content="blogs" />
 <meta property="article:published_time" content="2024-02-01T00:00:00+00:00" />
-<meta property="article:modified_time" content="2024-02-01T00:00:00+00:00" />
+<meta property="article:modified_time" content="2024-10-14T17:49:30+08:00" />
 
   
   <meta itemprop="name" content="[西湖论剑2024初赛] MISC3-easy_rawraw WriteUp">
   <meta itemprop="description" content="[西湖论剑2024初赛] MISC3-easy_rawraw WriteUp">
   <meta itemprop="datePublished" content="2024-02-01T00:00:00+00:00">
-  <meta itemprop="dateModified" content="2024-02-01T00:00:00+00:00">
-  <meta itemprop="wordCount" content="364">
+  <meta itemprop="dateModified" content="2024-10-14T17:49:30+08:00">
+  <meta itemprop="wordCount" content="370">
   <meta itemprop="keywords" content="Misc,CTF,Cyber Security">
   <meta name="twitter:card" content="summary">
   <meta name="twitter:title" content="[西湖论剑2024初赛] MISC3-easy_rawraw WriteUp">
@@ -237,6 +237,20 @@
   >[西湖论剑2024初赛] MISC3-easy_rawraw WriteUp
     </a>
   
+    <ul class='hx-flex hx-flex-col hx-gap-1 hx-relative before:hx-absolute before:hx-inset-y-1 before:hx-w-px before:hx-bg-gray-200 before:hx-content-[""] dark:before:hx-bg-neutral-800 ltr:hx-pl-3 ltr:before:hx-left-0 rtl:hx-pr-3 rtl:before:hx-right-0 ltr:hx-ml-3 rtl:hx-mr-3'><li>
+              <a
+                href="#%e5%86%85%e5%ad%98%e5%8f%96%e8%af%81"
+                class="hx-flex hx-rounded hx-px-2 hx-py-1.5 hx-text-sm hx-transition-colors [word-break:break-word] hx-cursor-pointer [-webkit-tap-highlight-color:transparent] [-webkit-touch-callout:none] contrast-more:hx-border hx-gap-2 before:hx-opacity-25 before:hx-content-['#'] hx-text-gray-500 hover:hx-bg-gray-100 hover:hx-text-gray-900 dark:hx-text-neutral-400 dark:hover:hx-bg-primary-100/5 dark:hover:hx-text-gray-50 contrast-more:hx-text-gray-900 contrast-more:dark:hx-text-gray-50 contrast-more:hx-border-transparent contrast-more:hover:hx-border-gray-900 contrast-more:dark:hover:hx-border-gray-50"
+              >内存取证</a>
+            </li>
+          <li>
+              <a
+                href="#%e7%88%86%e7%a0%b4"
+                class="hx-flex hx-rounded hx-px-2 hx-py-1.5 hx-text-sm hx-transition-colors [word-break:break-word] hx-cursor-pointer [-webkit-tap-highlight-color:transparent] [-webkit-touch-callout:none] contrast-more:hx-border hx-gap-2 before:hx-opacity-25 before:hx-content-['#'] hx-text-gray-500 hover:hx-bg-gray-100 hover:hx-text-gray-900 dark:hx-text-neutral-400 dark:hover:hx-bg-primary-100/5 dark:hover:hx-text-gray-50 contrast-more:hx-text-gray-900 contrast-more:dark:hx-text-gray-50 contrast-more:hx-border-transparent contrast-more:hover:hx-border-gray-900 contrast-more:dark:hover:hx-border-gray-50"
+              >爆破</a>
+            </li>
+          </ul>
+  
               
             </li><li class="hx-flex hx-flex-col "><a
     class="hx-flex hx-items-center hx-justify-between hx-gap-2 hx-cursor-pointer hx-rounded hx-px-2 hx-py-1.5 hx-text-sm hx-transition-colors [-webkit-tap-highlight-color:transparent] [-webkit-touch-callout:none] [word-break:break-word]
@@ -313,8 +327,16 @@
 </div></div></aside>
     
 <nav class="hextra-toc hx-order-last hx-hidden hx-w-64 hx-shrink-0 xl:hx-block print:hx-hidden hx-px-4" aria-label="table of contents">
-    <div class="hextra-scrollbar hx-sticky hx-top-16 hx-overflow-y-auto hx-pr-4 hx-pt-6 hx-text-sm [hyphens:auto] hx-max-h-[calc(100vh-var(--navbar-height)-env(safe-area-inset-bottom))] ltr:hx--mr-4 rtl:hx--ml-4">
-      <div class=" hx-sticky hx-bottom-0 hx-flex hx-flex-col hx-items-start hx-gap-2 hx-pb-8 dark:hx-border-neutral-800 contrast-more:hx-border-t contrast-more:hx-border-neutral-400 contrast-more:hx-shadow-none contrast-more:dark:hx-border-neutral-400">
+    <div class="hextra-scrollbar hx-sticky hx-top-16 hx-overflow-y-auto hx-pr-4 hx-pt-6 hx-text-sm [hyphens:auto] hx-max-h-[calc(100vh-var(--navbar-height)-env(safe-area-inset-bottom))] ltr:hx--mr-4 rtl:hx--ml-4"><p class="hx-mb-4 hx-font-semibold hx-tracking-tight">此页上</p><ul>
+      <li class="hx-my-2 hx-scroll-my-6 hx-scroll-py-6">
+        <a class="hx-font-semibold hx-inline-block hx-text-gray-500 hover:hx-text-gray-900 dark:hx-text-gray-400 dark:hover:hx-text-gray-300 contrast-more:hx-text-gray-900 contrast-more:hx-underline contrast-more:dark:hx-text-gray-50 hx-w-full hx-break-words" href="#%e5%86%85%e5%ad%98%e5%8f%96%e8%af%81">内存取证
+        </a>
+      </li>
+      <li class="hx-my-2 hx-scroll-my-6 hx-scroll-py-6">
+        <a class="hx-font-semibold hx-inline-block hx-text-gray-500 hover:hx-text-gray-900 dark:hx-text-gray-400 dark:hover:hx-text-gray-300 contrast-more:hx-text-gray-900 contrast-more:hx-underline contrast-more:dark:hx-text-gray-50 hx-w-full hx-break-words" href="#%e7%88%86%e7%a0%b4">爆破
+        </a>
+      </li></ul>
+      <div class="hx-mt-8 hx-border-t hx-bg-white hx-pt-8 hx-shadow-[0_-12px_16px_white] dark:hx-bg-dark dark:hx-shadow-[0_-12px_16px_#111] hx-sticky hx-bottom-0 hx-flex hx-flex-col hx-items-start hx-gap-2 hx-pb-8 dark:hx-border-neutral-800 contrast-more:hx-border-t contrast-more:hx-border-neutral-400 contrast-more:hx-shadow-none contrast-more:dark:hx-border-neutral-400">
         <button aria-hidden="true" id="backToTop" onClick="scrollUp();" class="hx-transition-all hx-duration-75 hx-opacity-0 hx-text-xs hx-font-medium hx-text-gray-500 hover:hx-text-gray-900 dark:hx-text-gray-400 dark:hover:hx-text-gray-100 contrast-more:hx-text-gray-800 contrast-more:dark:hx-text-gray-50">
           <span>返回顶部</span>
           <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="hx-inline ltr:hx-ml-1 rtl:hx-mr-1 hx-h-3.5 hx-w-3.5 hx-border hx-rounded-full hx-border-gray-500 hover:hx-border-gray-900 dark:hx-border-gray-400 dark:hover:hx-border-gray-100 contrast-more:hx-border-gray-800 contrast-more:dark:hx-border-gray-50">
@@ -335,7 +357,8 @@
           <blockquote>
 <p>easy raw! many passwords!</p>
 </blockquote>
-<p>
+<h2>内存取证<span class="hx-absolute -hx-mt-20" id="内存取证"></span>
+    <a href="#%e5%86%85%e5%ad%98%e5%8f%96%e8%af%81" class="subheading-anchor" aria-label="Permalink for this section"></a></h2><p>
     <img src=".././xihu2024-initial-misc/00.png" alt="image" loading="lazy" />
 首先用volatility+mimikatz可以爆出windows账户密码das123admin321
 <code>vol.py --plugins=./plugins -f ./rawraw.raw --profile=Win7SP1x64 mimikatz</code>
@@ -348,8 +371,9 @@
 mysecretfile用了veracrypt加密，需要另一个密码，所以继续找线索
 搜索相关文件，可以发现pass.zip，并用dumpfiles提取
 <code>vol.py --plugins=./plugins -f ./rawraw.raw --profile=Win7SP1x64 filescan | grep -E ‘png|jpg|gif|zip|rar|7z|pdf|txt|doc’</code>
-<code>vol.py --plugins=./plugins -f ./rawraw.raw --profile=Win7SP1x64 dumpfiles -Q 0x000000003df8b650 -D .\</code>
-图片末尾提取出加密压缩包，ARCHPR爆破得密码20240210，解压得到pass.txt，挂载之后有一个隐藏文件.xlsx，也要密码，试出来就是之前得到的账户密码das123admin321
+<code>vol.py --plugins=./plugins -f ./rawraw.raw --profile=Win7SP1x64 dumpfiles -Q 0x000000003df8b650 -D .\</code></p>
+<h2>爆破<span class="hx-absolute -hx-mt-20" id="爆破"></span>
+    <a href="#%e7%88%86%e7%a0%b4" class="subheading-anchor" aria-label="Permalink for this section"></a></h2><p>图片末尾提取出加密压缩包，ARCHPR爆破得密码20240210，解压得到pass.txt，挂载之后有一个隐藏文件.xlsx，也要密码，试出来就是之前得到的账户密码das123admin321
 
     <img src=".././xihu2024-initial-misc/03.png" alt="image" loading="lazy" />
 打开发现第10行被隐藏了，flag就在其中</p>

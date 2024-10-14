@@ -536,7 +536,8 @@
         &lt;blockquote&gt;
 &lt;p&gt;easy raw! many passwords!&lt;/p&gt;
 &lt;/blockquote&gt;
-&lt;p&gt;
+&lt;h2&gt;内存取证&lt;span class=&#34;hx-absolute -hx-mt-20&#34; id=&#34;内存取证&#34;&gt;&lt;/span&gt;
+    &lt;a href=&#34;#%e5%86%85%e5%ad%98%e5%8f%96%e8%af%81&#34; class=&#34;subheading-anchor&#34; aria-label=&#34;Permalink for this section&#34;&gt;&lt;/a&gt;&lt;/h2&gt;&lt;p&gt;
     &lt;img src=&#34;.././xihu2024-initial-misc/00.png&#34; alt=&#34;image&#34; loading=&#34;lazy&#34; /&gt;
 首先用volatility+mimikatz可以爆出windows账户密码das123admin321
 &lt;code&gt;vol.py --plugins=./plugins -f ./rawraw.raw --profile=Win7SP1x64 mimikatz&lt;/code&gt;
@@ -549,8 +550,9 @@
 mysecretfile用了veracrypt加密，需要另一个密码，所以继续找线索
 搜索相关文件，可以发现pass.zip，并用dumpfiles提取
 &lt;code&gt;vol.py --plugins=./plugins -f ./rawraw.raw --profile=Win7SP1x64 filescan | grep -E ‘png|jpg|gif|zip|rar|7z|pdf|txt|doc’&lt;/code&gt;
-&lt;code&gt;vol.py --plugins=./plugins -f ./rawraw.raw --profile=Win7SP1x64 dumpfiles -Q 0x000000003df8b650 -D .\&lt;/code&gt;
-图片末尾提取出加密压缩包，ARCHPR爆破得密码20240210，解压得到pass.txt，挂载之后有一个隐藏文件.xlsx，也要密码，试出来就是之前得到的账户密码das123admin321
+&lt;code&gt;vol.py --plugins=./plugins -f ./rawraw.raw --profile=Win7SP1x64 dumpfiles -Q 0x000000003df8b650 -D .\&lt;/code&gt;&lt;/p&gt;
+&lt;h2&gt;爆破&lt;span class=&#34;hx-absolute -hx-mt-20&#34; id=&#34;爆破&#34;&gt;&lt;/span&gt;
+    &lt;a href=&#34;#%e7%88%86%e7%a0%b4&#34; class=&#34;subheading-anchor&#34; aria-label=&#34;Permalink for this section&#34;&gt;&lt;/a&gt;&lt;/h2&gt;&lt;p&gt;图片末尾提取出加密压缩包，ARCHPR爆破得密码20240210，解压得到pass.txt，挂载之后有一个隐藏文件.xlsx，也要密码，试出来就是之前得到的账户密码das123admin321
 
     &lt;img src=&#34;.././xihu2024-initial-misc/03.png&#34; alt=&#34;image&#34; loading=&#34;lazy&#34; /&gt;
 打开发现第10行被隐藏了，flag就在其中&lt;/p&gt;
