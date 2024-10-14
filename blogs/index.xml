@@ -337,7 +337,7 @@ http.server //过滤所有含有http头中含有server字段的数据包&lt;/cod
     &lt;a href=&#34;#%e4%b8%80%e4%ba%9b%e5%ae%b9%e6%98%93%e8%b8%a9%e7%9a%84%e5%9d%91&#34; class=&#34;subheading-anchor&#34; aria-label=&#34;Permalink for this section&#34;&gt;&lt;/a&gt;&lt;/h2&gt;&lt;h3&gt;文件完整性校验不通过导致博客功能失效&lt;sup id=&#34;fnref:1&#34;&gt;&lt;a href=&#34;#fn:1&#34; class=&#34;footnote-ref&#34; role=&#34;doc-noteref&#34;&gt;1&lt;/a&gt;&lt;/sup&gt;&lt;span class=&#34;hx-absolute -hx-mt-20&#34; id=&#34;文件完整性校验不通过导致博客功能失效1&#34;&gt;&lt;/span&gt;
     &lt;a href=&#34;#%e6%96%87%e4%bb%b6%e5%ae%8c%e6%95%b4%e6%80%a7%e6%a0%a1%e9%aa%8c%e4%b8%8d%e9%80%9a%e8%bf%87%e5%af%bc%e8%87%b4%e5%8d%9a%e5%ae%a2%e5%8a%9f%e8%83%bd%e5%a4%b1%e6%95%881&#34; class=&#34;subheading-anchor&#34; aria-label=&#34;Permalink for this section&#34;&gt;&lt;/a&gt;&lt;/h3&gt;&lt;p&gt;
     &lt;figure&gt;
-    &lt;img src=&#34;.././hextra-setup-tutorial/hextra-setup-tutorial_blocker-js-css.png&#34; title=&#34;如图&#34; alt=&#34;landscape&#34; loading=&#34;lazy&#34; /&gt;
+    &lt;img src=&#34;.././hextra-setup-tutorial/hextra-setup-tutorial_blocked-js-css.png&#34; title=&#34;如图&#34; alt=&#34;landscape&#34; loading=&#34;lazy&#34; /&gt;
     &lt;figcaption&gt;如图&lt;/figcaption&gt;
   &lt;/figure&gt;
 为确保脚本或者样式表不被恶意篡改，网页会使用&lt;code&gt;integrity&lt;/code&gt;来校验文件完整性，如果计算的SHA-256值和指定的不匹配，则浏览器拒绝加载此资源。
