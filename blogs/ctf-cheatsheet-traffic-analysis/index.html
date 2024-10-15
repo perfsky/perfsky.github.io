@@ -435,6 +435,34 @@
         </a>
       </li>
       <li class="hx-my-2 hx-scroll-my-6 hx-scroll-py-6">
+        <a class="ltr:hx-pl-12 rtl:hx-pr-12 hx-inline-block hx-text-gray-500 hover:hx-text-gray-900 dark:hx-text-gray-400 dark:hover:hx-text-gray-300 contrast-more:hx-text-gray-900 contrast-more:hx-underline contrast-more:dark:hx-text-gray-50 hx-w-full hx-break-words" href="#accept-%e5%a4%b4%e9%80%9a%e5%b8%b8%e5%9b%ba%e5%ae%9a">Accept 头通常固定
+        </a>
+      </li>
+      <li class="hx-my-2 hx-scroll-my-6 hx-scroll-py-6">
+        <a class="ltr:hx-pl-12 rtl:hx-pr-12 hx-inline-block hx-text-gray-500 hover:hx-text-gray-900 dark:hx-text-gray-400 dark:hover:hx-text-gray-300 contrast-more:hx-text-gray-900 contrast-more:hx-underline contrast-more:dark:hx-text-gray-50 hx-w-full hx-break-words" href="#content-length-%e8%be%83%e5%a4%a7">Content-Length 较大
+        </a>
+      </li>
+      <li class="hx-my-2 hx-scroll-my-6 hx-scroll-py-6">
+        <a class="ltr:hx-pl-12 rtl:hx-pr-12 hx-inline-block hx-text-gray-500 hover:hx-text-gray-900 dark:hx-text-gray-400 dark:hover:hx-text-gray-300 contrast-more:hx-text-gray-900 contrast-more:hx-underline contrast-more:dark:hx-text-gray-50 hx-w-full hx-break-words" href="#%e9%bb%98%e8%ae%a4%e4%bd%bf%e7%94%a8%e9%95%bf%e8%bf%9e%e6%8e%a5">默认使用长连接
+        </a>
+      </li>
+      <li class="hx-my-2 hx-scroll-my-6 hx-scroll-py-6">
+        <a class="ltr:hx-pl-12 rtl:hx-pr-12 hx-inline-block hx-text-gray-500 hover:hx-text-gray-900 dark:hx-text-gray-400 dark:hover:hx-text-gray-300 contrast-more:hx-text-gray-900 contrast-more:hx-underline contrast-more:dark:hx-text-gray-50 hx-w-full hx-break-words" href="#content-type">Content-Type
+        </a>
+      </li>
+      <li class="hx-my-2 hx-scroll-my-6 hx-scroll-py-6">
+        <a class="ltr:hx-pl-12 rtl:hx-pr-12 hx-inline-block hx-text-gray-500 hover:hx-text-gray-900 dark:hx-text-gray-400 dark:hover:hx-text-gray-300 contrast-more:hx-text-gray-900 contrast-more:hx-underline contrast-more:dark:hx-text-gray-50 hx-w-full hx-break-words" href="#user-agent-1">User-agent
+        </a>
+      </li>
+      <li class="hx-my-2 hx-scroll-my-6 hx-scroll-py-6">
+        <a class="ltr:hx-pl-12 rtl:hx-pr-12 hx-inline-block hx-text-gray-500 hover:hx-text-gray-900 dark:hx-text-gray-400 dark:hover:hx-text-gray-300 contrast-more:hx-text-gray-900 contrast-more:hx-underline contrast-more:dark:hx-text-gray-50 hx-w-full hx-break-words" href="#%e5%93%8d%e5%ba%94%e5%a4%b4%e5%ad%97%e6%ae%b5">响应头字段
+        </a>
+      </li>
+      <li class="hx-my-2 hx-scroll-my-6 hx-scroll-py-6">
+        <a class="ltr:hx-pl-12 rtl:hx-pr-12 hx-inline-block hx-text-gray-500 hover:hx-text-gray-900 dark:hx-text-gray-400 dark:hover:hx-text-gray-300 contrast-more:hx-text-gray-900 contrast-more:hx-underline contrast-more:dark:hx-text-gray-50 hx-w-full hx-break-words" href="#%e6%b5%81%e9%87%8f%e7%89%b9%e5%be%81">流量特征
+        </a>
+      </li>
+      <li class="hx-my-2 hx-scroll-my-6 hx-scroll-py-6">
         <a class="hx-font-semibold hx-inline-block hx-text-gray-500 hover:hx-text-gray-900 dark:hx-text-gray-400 dark:hover:hx-text-gray-300 contrast-more:hx-text-gray-900 contrast-more:hx-underline contrast-more:dark:hx-text-gray-50 hx-w-full hx-break-words" href="#%e5%93%a5%e6%96%af%e6%8b%89">哥斯拉
         </a>
       </li>
@@ -554,7 +582,7 @@
 <p>所有请求 Cookie的格式都为: <code>Cookie: PHPSESSID=; path=/；</code></p>
 <h3>3.0 UA定长 请求头<span class="hx-absolute -hx-mt-20" id="30-ua定长-请求头"></span>
     <a href="#30-ua%e5%ae%9a%e9%95%bf-%e8%af%b7%e6%b1%82%e5%a4%b4" class="subheading-anchor" aria-label="Permalink for this section"></a></h3><p><a href="https://www.freebuf.com/articles/247009.html" target="_blank" rel="noopener">https://www.freebuf.com/articles/247009.html</a></p>
-<p>少了动态密钥的获取的请求，不再使用随机生成 key，改为取连接密码的 md5 前 16 位作为密钥 一次请求为判断是否可以建立连接，少了两次 get 获取冰蝎动态密钥的行为，第二次发送 phpinfo 等代码执行。去除了动态密钥协商机制，采用预共享密钥，全程无明文交互，密钥格式为md5(“admin”)[0:16]</p>
+<p>少了动态密钥的获取的请求，不再使用随机生成 key，改为取连接密码的 md5 前 16 位作为密钥 一次请求为判断是否可以建立连接，少了两次 get 获取冰蝎动态密钥的行为，第二次发送 phpinfo 等代码执行。去除了动态密钥协商机制，采用预共享密钥，全程无明文交互，密钥格式为<code>md5(“admin”)[0:16]</code></p>
 <h4>请求头<span class="hx-absolute -hx-mt-20" id="请求头"></span>
     <a href="#%e8%af%b7%e6%b1%82%e5%a4%b4" class="subheading-anchor" aria-label="Permalink for this section"></a></h4><div class="hextra-code-block hx-relative hx-mt-6 first:hx-mt-0 hx-group/code">
   
@@ -632,10 +660,8 @@
 <h3>4.0 Accept/Content-Length/User-Agent<span class="hx-absolute -hx-mt-20" id="40-acceptcontent-lengthuser-agent"></span>
     <a href="#40-acceptcontent-lengthuser-agent" class="subheading-anchor" aria-label="Permalink for this section"></a></h3><p><a href="https://www.freebuf.com/articles/network/345803.html" target="_blank" rel="noopener">https://www.freebuf.com/articles/network/345803.html</a></p>
 <h4>HTTP头特征<span class="hx-absolute -hx-mt-20" id="http头特征"></span>
-    <a href="#http%e5%a4%b4%e7%89%b9%e5%be%81" class="subheading-anchor" aria-label="Permalink for this section"></a></h4><ul>
-<li><strong>Accept 头通常固定</strong></li>
-</ul>
-<div class="hextra-code-block hx-relative hx-mt-6 first:hx-mt-0 hx-group/code">
+    <a href="#http%e5%a4%b4%e7%89%b9%e5%be%81" class="subheading-anchor" aria-label="Permalink for this section"></a></h4><h5>Accept 头通常固定<span class="hx-absolute -hx-mt-20" id="accept-头通常固定"></span>
+    <a href="#accept-%e5%a4%b4%e9%80%9a%e5%b8%b8%e5%9b%ba%e5%ae%9a" class="subheading-anchor" aria-label="Permalink for this section"></a></h5><div class="hextra-code-block hx-relative hx-mt-6 first:hx-mt-0 hx-group/code">
   
 
 <div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">Accept: application/json, text/javascript, */*<span class="p">;</span> <span class="nv">q</span><span class="o">=</span>0.01 意思是浏览器可接受任何文件，但最倾向application/json 和 text/javascript。
@@ -654,30 +680,20 @@
 
   
 </div>
-<ul>
-<li><strong>Content-Length 较大</strong></li>
-</ul>
-<p><code>Content-Length: 8244</code> 作为辅助特征</p>
-<ul>
-<li><strong>默认使用长连接</strong></li>
-</ul>
-<p><code>Connection: Keep-Alive</code></p>
-<ul>
-<li><strong>Content-Type</strong></li>
-</ul>
-<p>PHP站点：<code>Content-type: Application/x-www-form-urlencoded</code></p>
+<h5>Content-Length 较大<span class="hx-absolute -hx-mt-20" id="content-length-较大"></span>
+    <a href="#content-length-%e8%be%83%e5%a4%a7" class="subheading-anchor" aria-label="Permalink for this section"></a></h5><p><code>Content-Length: 8244</code> 作为辅助特征</p>
+<h5>默认使用长连接<span class="hx-absolute -hx-mt-20" id="默认使用长连接"></span>
+    <a href="#%e9%bb%98%e8%ae%a4%e4%bd%bf%e7%94%a8%e9%95%bf%e8%bf%9e%e6%8e%a5" class="subheading-anchor" aria-label="Permalink for this section"></a></h5><p><code>Connection: Keep-Alive</code></p>
+<h5>Content-Type<span class="hx-absolute -hx-mt-20" id="content-type"></span>
+    <a href="#content-type" class="subheading-anchor" aria-label="Permalink for this section"></a></h5><p>PHP站点：<code>Content-type: Application/x-www-form-urlencoded</code></p>
 <p>ASP站点：<code>Content-type: Application/octet-stream</code></p>
 <p>可以把这个字段作为一个弱特征，辅助其他特征来检测</p>
-<ul>
-<li><strong>User-agent</strong></li>
-</ul>
-<p>冰蝎设置了10种User-Agent,每次连接shell时会随机选择一个进行使用。</p>
+<h5>User-agent<span class="hx-absolute -hx-mt-20" id="user-agent-1"></span>
+    <a href="#user-agent-1" class="subheading-anchor" aria-label="Permalink for this section"></a></h5><p>冰蝎设置了10种User-Agent,每次连接shell时会随机选择一个进行使用。</p>
 <p>
     <img src=".././ctf-cheatsheet-traffic-analysis/behinder06.jpg" alt="landscape" loading="lazy" /></p>
-<ul>
-<li><strong>响应头字段</strong></li>
-</ul>
-<div class="hextra-code-block hx-relative hx-mt-6 first:hx-mt-0 hx-group/code">
+<h5>响应头字段<span class="hx-absolute -hx-mt-20" id="响应头字段"></span>
+    <a href="#%e5%93%8d%e5%ba%94%e5%a4%b4%e5%ad%97%e6%ae%b5" class="subheading-anchor" aria-label="Permalink for this section"></a></h5><div class="hextra-code-block hx-relative hx-mt-6 first:hx-mt-0 hx-group/code">
   
 
 <div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">Set-Cookie: <span class="nv">PHPSESSID</span><span class="o">=</span>a59734f13f1fe73947e0b3b01ea2aabe<span class="p">;</span> <span class="nv">path</span><span class="o">=</span>/
@@ -694,20 +710,18 @@
 
   
 </div>
-<ul>
-<li><strong>流量特征</strong></li>
-</ul>
-<ol>
+<h5>流量特征<span class="hx-absolute -hx-mt-20" id="流量特征"></span>
+    <a href="#%e6%b5%81%e9%87%8f%e7%89%b9%e5%be%81" class="subheading-anchor" aria-label="Permalink for this section"></a></h5><ul>
 <li>默认密钥</li>
-</ol>
+</ul>
 <p>默认时，所有冰蝎4.0 webshell都有<code>e45e329feb5d925b</code> 一串密钥。该密钥为连接密码32位md5值的前16位，默认连接密码<code>rebeyond</code></p>
-<ol start="2">
+<ul>
 <li>端口</li>
-</ol>
+</ul>
 <p>冰蝎与webshell建立连接的同时，javaw也与目的主机建立tcp连接，每次连接使用本地端口在<code>49700</code>左右，每连接一次，每建立一次新的连接，端口就依次增加。</p>
-<ol start="3">
+<ul>
 <li>PHP webshell 中存在固定代码</li>
-</ol>
+</ul>
 <div class="hextra-code-block hx-relative hx-mt-6 first:hx-mt-0 hx-group/code">
   
 

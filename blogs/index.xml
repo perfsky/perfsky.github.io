@@ -215,7 +215,7 @@
 &lt;p&gt;所有请求 Cookie的格式都为: &lt;code&gt;Cookie: PHPSESSID=; path=/；&lt;/code&gt;&lt;/p&gt;
 &lt;h3&gt;3.0 UA定长 请求头&lt;span class=&#34;hx-absolute -hx-mt-20&#34; id=&#34;30-ua定长-请求头&#34;&gt;&lt;/span&gt;
     &lt;a href=&#34;#30-ua%e5%ae%9a%e9%95%bf-%e8%af%b7%e6%b1%82%e5%a4%b4&#34; class=&#34;subheading-anchor&#34; aria-label=&#34;Permalink for this section&#34;&gt;&lt;/a&gt;&lt;/h3&gt;&lt;p&gt;&lt;a href=&#34;https://www.freebuf.com/articles/247009.html&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;https://www.freebuf.com/articles/247009.html&lt;/a&gt;&lt;/p&gt;
-&lt;p&gt;少了动态密钥的获取的请求，不再使用随机生成 key，改为取连接密码的 md5 前 16 位作为密钥 一次请求为判断是否可以建立连接，少了两次 get 获取冰蝎动态密钥的行为，第二次发送 phpinfo 等代码执行。去除了动态密钥协商机制，采用预共享密钥，全程无明文交互，密钥格式为md5(“admin”)[0:16]&lt;/p&gt;
+&lt;p&gt;少了动态密钥的获取的请求，不再使用随机生成 key，改为取连接密码的 md5 前 16 位作为密钥 一次请求为判断是否可以建立连接，少了两次 get 获取冰蝎动态密钥的行为，第二次发送 phpinfo 等代码执行。去除了动态密钥协商机制，采用预共享密钥，全程无明文交互，密钥格式为&lt;code&gt;md5(“admin”)[0:16]&lt;/code&gt;&lt;/p&gt;
 &lt;h4&gt;请求头&lt;span class=&#34;hx-absolute -hx-mt-20&#34; id=&#34;请求头&#34;&gt;&lt;/span&gt;
     &lt;a href=&#34;#%e8%af%b7%e6%b1%82%e5%a4%b4&#34; class=&#34;subheading-anchor&#34; aria-label=&#34;Permalink for this section&#34;&gt;&lt;/a&gt;&lt;/h4&gt;&lt;div class=&#34;hextra-code-block hx-relative hx-mt-6 first:hx-mt-0 hx-group/code&#34;&gt;
   
@@ -293,10 +293,8 @@
 &lt;h3&gt;4.0 Accept/Content-Length/User-Agent&lt;span class=&#34;hx-absolute -hx-mt-20&#34; id=&#34;40-acceptcontent-lengthuser-agent&#34;&gt;&lt;/span&gt;
     &lt;a href=&#34;#40-acceptcontent-lengthuser-agent&#34; class=&#34;subheading-anchor&#34; aria-label=&#34;Permalink for this section&#34;&gt;&lt;/a&gt;&lt;/h3&gt;&lt;p&gt;&lt;a href=&#34;https://www.freebuf.com/articles/network/345803.html&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;https://www.freebuf.com/articles/network/345803.html&lt;/a&gt;&lt;/p&gt;
 &lt;h4&gt;HTTP头特征&lt;span class=&#34;hx-absolute -hx-mt-20&#34; id=&#34;http头特征&#34;&gt;&lt;/span&gt;
-    &lt;a href=&#34;#http%e5%a4%b4%e7%89%b9%e5%be%81&#34; class=&#34;subheading-anchor&#34; aria-label=&#34;Permalink for this section&#34;&gt;&lt;/a&gt;&lt;/h4&gt;&lt;ul&gt;
-&lt;li&gt;&lt;strong&gt;Accept 头通常固定&lt;/strong&gt;&lt;/li&gt;
-&lt;/ul&gt;
-&lt;div class=&#34;hextra-code-block hx-relative hx-mt-6 first:hx-mt-0 hx-group/code&#34;&gt;
+    &lt;a href=&#34;#http%e5%a4%b4%e7%89%b9%e5%be%81&#34; class=&#34;subheading-anchor&#34; aria-label=&#34;Permalink for this section&#34;&gt;&lt;/a&gt;&lt;/h4&gt;&lt;h5&gt;Accept 头通常固定&lt;span class=&#34;hx-absolute -hx-mt-20&#34; id=&#34;accept-头通常固定&#34;&gt;&lt;/span&gt;
+    &lt;a href=&#34;#accept-%e5%a4%b4%e9%80%9a%e5%b8%b8%e5%9b%ba%e5%ae%9a&#34; class=&#34;subheading-anchor&#34; aria-label=&#34;Permalink for this section&#34;&gt;&lt;/a&gt;&lt;/h5&gt;&lt;div class=&#34;hextra-code-block hx-relative hx-mt-6 first:hx-mt-0 hx-group/code&#34;&gt;
   
 
 &lt;div&gt;&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;Accept: application/json, text/javascript, */*&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt; &lt;span class=&#34;nv&#34;&gt;q&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;0.01 意思是浏览器可接受任何文件，但最倾向application/json 和 text/javascript。
@@ -315,30 +313,20 @@
 
   
 &lt;/div&gt;
-&lt;ul&gt;
-&lt;li&gt;&lt;strong&gt;Content-Length 较大&lt;/strong&gt;&lt;/li&gt;
-&lt;/ul&gt;
-&lt;p&gt;&lt;code&gt;Content-Length: 8244&lt;/code&gt; 作为辅助特征&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;&lt;strong&gt;默认使用长连接&lt;/strong&gt;&lt;/li&gt;
-&lt;/ul&gt;
-&lt;p&gt;&lt;code&gt;Connection: Keep-Alive&lt;/code&gt;&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;&lt;strong&gt;Content-Type&lt;/strong&gt;&lt;/li&gt;
-&lt;/ul&gt;
-&lt;p&gt;PHP站点：&lt;code&gt;Content-type: Application/x-www-form-urlencoded&lt;/code&gt;&lt;/p&gt;
+&lt;h5&gt;Content-Length 较大&lt;span class=&#34;hx-absolute -hx-mt-20&#34; id=&#34;content-length-较大&#34;&gt;&lt;/span&gt;
+    &lt;a href=&#34;#content-length-%e8%be%83%e5%a4%a7&#34; class=&#34;subheading-anchor&#34; aria-label=&#34;Permalink for this section&#34;&gt;&lt;/a&gt;&lt;/h5&gt;&lt;p&gt;&lt;code&gt;Content-Length: 8244&lt;/code&gt; 作为辅助特征&lt;/p&gt;
+&lt;h5&gt;默认使用长连接&lt;span class=&#34;hx-absolute -hx-mt-20&#34; id=&#34;默认使用长连接&#34;&gt;&lt;/span&gt;
+    &lt;a href=&#34;#%e9%bb%98%e8%ae%a4%e4%bd%bf%e7%94%a8%e9%95%bf%e8%bf%9e%e6%8e%a5&#34; class=&#34;subheading-anchor&#34; aria-label=&#34;Permalink for this section&#34;&gt;&lt;/a&gt;&lt;/h5&gt;&lt;p&gt;&lt;code&gt;Connection: Keep-Alive&lt;/code&gt;&lt;/p&gt;
+&lt;h5&gt;Content-Type&lt;span class=&#34;hx-absolute -hx-mt-20&#34; id=&#34;content-type&#34;&gt;&lt;/span&gt;
+    &lt;a href=&#34;#content-type&#34; class=&#34;subheading-anchor&#34; aria-label=&#34;Permalink for this section&#34;&gt;&lt;/a&gt;&lt;/h5&gt;&lt;p&gt;PHP站点：&lt;code&gt;Content-type: Application/x-www-form-urlencoded&lt;/code&gt;&lt;/p&gt;
 &lt;p&gt;ASP站点：&lt;code&gt;Content-type: Application/octet-stream&lt;/code&gt;&lt;/p&gt;
 &lt;p&gt;可以把这个字段作为一个弱特征，辅助其他特征来检测&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;&lt;strong&gt;User-agent&lt;/strong&gt;&lt;/li&gt;
-&lt;/ul&gt;
-&lt;p&gt;冰蝎设置了10种User-Agent,每次连接shell时会随机选择一个进行使用。&lt;/p&gt;
+&lt;h5&gt;User-agent&lt;span class=&#34;hx-absolute -hx-mt-20&#34; id=&#34;user-agent-1&#34;&gt;&lt;/span&gt;
+    &lt;a href=&#34;#user-agent-1&#34; class=&#34;subheading-anchor&#34; aria-label=&#34;Permalink for this section&#34;&gt;&lt;/a&gt;&lt;/h5&gt;&lt;p&gt;冰蝎设置了10种User-Agent,每次连接shell时会随机选择一个进行使用。&lt;/p&gt;
 &lt;p&gt;
     &lt;img src=&#34;.././ctf-cheatsheet-traffic-analysis/behinder06.jpg&#34; alt=&#34;landscape&#34; loading=&#34;lazy&#34; /&gt;&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;&lt;strong&gt;响应头字段&lt;/strong&gt;&lt;/li&gt;
-&lt;/ul&gt;
-&lt;div class=&#34;hextra-code-block hx-relative hx-mt-6 first:hx-mt-0 hx-group/code&#34;&gt;
+&lt;h5&gt;响应头字段&lt;span class=&#34;hx-absolute -hx-mt-20&#34; id=&#34;响应头字段&#34;&gt;&lt;/span&gt;
+    &lt;a href=&#34;#%e5%93%8d%e5%ba%94%e5%a4%b4%e5%ad%97%e6%ae%b5&#34; class=&#34;subheading-anchor&#34; aria-label=&#34;Permalink for this section&#34;&gt;&lt;/a&gt;&lt;/h5&gt;&lt;div class=&#34;hextra-code-block hx-relative hx-mt-6 first:hx-mt-0 hx-group/code&#34;&gt;
   
 
 &lt;div&gt;&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;Set-Cookie: &lt;span class=&#34;nv&#34;&gt;PHPSESSID&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;a59734f13f1fe73947e0b3b01ea2aabe&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt; &lt;span class=&#34;nv&#34;&gt;path&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;/
@@ -355,20 +343,18 @@
 
   
 &lt;/div&gt;
-&lt;ul&gt;
-&lt;li&gt;&lt;strong&gt;流量特征&lt;/strong&gt;&lt;/li&gt;
-&lt;/ul&gt;
-&lt;ol&gt;
+&lt;h5&gt;流量特征&lt;span class=&#34;hx-absolute -hx-mt-20&#34; id=&#34;流量特征&#34;&gt;&lt;/span&gt;
+    &lt;a href=&#34;#%e6%b5%81%e9%87%8f%e7%89%b9%e5%be%81&#34; class=&#34;subheading-anchor&#34; aria-label=&#34;Permalink for this section&#34;&gt;&lt;/a&gt;&lt;/h5&gt;&lt;ul&gt;
 &lt;li&gt;默认密钥&lt;/li&gt;
-&lt;/ol&gt;
+&lt;/ul&gt;
 &lt;p&gt;默认时，所有冰蝎4.0 webshell都有&lt;code&gt;e45e329feb5d925b&lt;/code&gt; 一串密钥。该密钥为连接密码32位md5值的前16位，默认连接密码&lt;code&gt;rebeyond&lt;/code&gt;&lt;/p&gt;
-&lt;ol start=&#34;2&#34;&gt;
+&lt;ul&gt;
 &lt;li&gt;端口&lt;/li&gt;
-&lt;/ol&gt;
+&lt;/ul&gt;
 &lt;p&gt;冰蝎与webshell建立连接的同时，javaw也与目的主机建立tcp连接，每次连接使用本地端口在&lt;code&gt;49700&lt;/code&gt;左右，每连接一次，每建立一次新的连接，端口就依次增加。&lt;/p&gt;
-&lt;ol start=&#34;3&#34;&gt;
+&lt;ul&gt;
 &lt;li&gt;PHP webshell 中存在固定代码&lt;/li&gt;
-&lt;/ol&gt;
+&lt;/ul&gt;
 &lt;div class=&#34;hextra-code-block hx-relative hx-mt-6 first:hx-mt-0 hx-group/code&#34;&gt;
   
 
@@ -556,9 +542,6 @@ mysecretfile用了veracrypt加密，需要另一个密码，所以继续找线�
 
     &lt;img src=&#34;.././xihu2024-initial-misc/03.png&#34; alt=&#34;image&#34; loading=&#34;lazy&#34; /&gt;
 打开发现第10行被隐藏了，flag就在其中&lt;/p&gt;
-&lt;blockquote&gt;
-&lt;p&gt;&amp;ldquo;DASCTF{5476d4c4ade0918c151aa6dcac12d130}&amp;rdquo;&lt;/p&gt;
-&lt;/blockquote&gt;
 
       </description>
     </item>
