@@ -1,0 +1,862 @@
+<!DOCTYPE html>
+<html lang="zh-cn"><head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="robots" content="index, follow" />
+  <link rel="icon shortcut" href="/favicon.ico" sizes="32x32" />
+<link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+<link rel="icon" href="/favicon-dark.svg" type="image/svg+xml" media="(prefers-color-scheme: dark)" />
+<link rel="icon" href="/favicon-16x16.png" type="image/png" sizes="16x16" />
+<link rel="icon" href="/favicon-32x32.png" type="image/png" sizes="32x32" />
+<link rel="apple-touch-icon" href="/apple-touch-icon.png" sizes="180x180" />
+<link fetchpriority="low" href="/site.webmanifest" rel="manifest" />
+
+  <title>CTF CheatSheet之WebShell流量分析 – Sakuya&#39;s Blog</title>
+  <meta name="description" content="三种WebShell的流量特征分析" />
+
+  
+    <link rel="canonical" href="https://perfsky.github.io/matches/ctf-cheatsheet-traffic-analysis/" itemprop="url" />
+  
+
+  
+
+<meta property="og:title" content="CTF CheatSheet之WebShell流量分析" />
+<meta property="og:description" content="三种WebShell的流量特征分析" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://perfsky.github.io/matches/ctf-cheatsheet-traffic-analysis/" /><meta property="article:section" content="matches" />
+<meta property="article:published_time" content="2024-05-24T00:00:00+00:00" />
+<meta property="article:modified_time" content="2024-05-24T00:00:00+00:00" />
+
+  
+  <meta itemprop="name" content="CTF CheatSheet之WebShell流量分析">
+  <meta itemprop="description" content="三种WebShell的流量特征分析">
+  <meta itemprop="datePublished" content="2024-05-24T00:00:00+00:00">
+  <meta itemprop="dateModified" content="2024-05-24T00:00:00+00:00">
+  <meta itemprop="wordCount" content="3214">
+  <meta itemprop="keywords" content="Traffic Analysis,Web Shell,CTF,Misc">
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="CTF CheatSheet之WebShell流量分析">
+  <meta name="twitter:description" content="三种WebShell的流量特征分析">
+
+    <link rel="preload" href="/css/compiled/main.min.53c9617cf9cb82685ec5af463dec3ecab7f3b4c3ad5c9cf22185fc7cf9b39519.css" as="style" integrity="sha256-U8lhfPnLgmhexa9GPew&#43;yrfztMOtXJzyIYX8fPmzlRk=" />
+    <link href="/css/compiled/main.min.53c9617cf9cb82685ec5af463dec3ecab7f3b4c3ad5c9cf22185fc7cf9b39519.css" rel="stylesheet" integrity="sha256-U8lhfPnLgmhexa9GPew&#43;yrfztMOtXJzyIYX8fPmzlRk=" />
+
+
+
+  <link href="/css/custom.min.3a4e5baa7a6f79acc5c395ecc3c64184843140004e9d9a556fcd438c6d902f1d.css" rel="stylesheet" integrity="sha256-Ok5bqnpveazFw5Xsw8ZBhIQxQABOnZpVb81DjG2QLx0=" />
+
+
+
+
+  <link rel="preconnect" href="https://www.googletagmanager.com" crossorigin />
+  
+  
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-XTKTFNE828"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag() {
+      dataLayer.push(arguments);
+    }
+    gtag("js", new Date());
+
+    gtag("config", "G-XTKTFNE828");
+  </script>
+
+
+  <script>
+     
+    const defaultTheme = 'system';
+
+    const setDarkTheme = () => {
+      document.documentElement.classList.add("dark");
+      document.documentElement.style.colorScheme = "dark";
+    }
+    const setLightTheme = () => {
+      document.documentElement.classList.remove("dark");
+      document.documentElement.style.colorScheme = "light";
+    }
+
+    if ("color-theme" in localStorage) {
+      localStorage.getItem("color-theme") === "dark" ? setDarkTheme() : setLightTheme();
+    } else {
+      defaultTheme === "dark" ? setDarkTheme() : setLightTheme();
+      if (defaultTheme === "system") {
+        window.matchMedia("(prefers-color-scheme: dark)").matches ? setDarkTheme() : setLightTheme();
+      }
+    }
+  </script>
+
+  
+</head>
+<body dir="ltr"><div class="nav-container hx-sticky hx-top-0 hx-z-20 hx-w-full hx-bg-transparent print:hx-hidden">
+  <div class="nav-container-blur hx-pointer-events-none hx-absolute hx-z-[-1] hx-h-full hx-w-full hx-bg-white dark:hx-bg-dark hx-shadow-[0_2px_4px_rgba(0,0,0,.02),0_1px_0_rgba(0,0,0,.06)] contrast-more:hx-shadow-[0_0_0_1px_#000] dark:hx-shadow-[0_-1px_0_rgba(255,255,255,.1)_inset] contrast-more:dark:hx-shadow-[0_0_0_1px_#fff]"></div>
+
+  <nav class="hx-mx-auto hx-flex hx-items-center hx-justify-end hx-gap-2 hx-h-16 hx-px-6 hx-max-w-[90rem]">
+    <a class="hx-flex hx-items-center hover:hx-opacity-75 ltr:hx-mr-auto rtl:hx-ml-auto" href="/">
+        <img class="hx-block dark:hx-hidden" src="/images/logo.svg" alt="Sakuya&#39;s Blog" height="20" width="20" />
+        <img class="hx-hidden dark:hx-block" src="/images/logo-dark.svg" alt="Sakuya&#39;s Blog" height="20" width="20" />
+        <span class="hx-mx-2 hx-font-extrabold hx-inline hx-select-none" title="Sakuya&#39;s Blog">Sakuya&#39;s Blog</span>
+    </a><a
+            title="博客"
+            href="/blogs"
+            
+            class="hx-text-sm contrast-more:hx-text-gray-700 contrast-more:dark:hx-text-gray-100 hx-relative -hx-ml-2 hx-hidden hx-whitespace-nowrap hx-p-2 md:hx-inline-block hx-text-gray-600 hover:hx-text-gray-800 dark:hx-text-gray-400 dark:hover:hx-text-gray-200"
+          >
+            <span class="hx-text-center">博客</span>
+          </a><a
+            title="比赛"
+            href="/matches"
+            
+            class="hx-text-sm contrast-more:hx-text-gray-700 contrast-more:dark:hx-text-gray-100 hx-relative -hx-ml-2 hx-hidden hx-whitespace-nowrap hx-p-2 md:hx-inline-block hx-font-medium"
+          >
+            <span class="hx-text-center">比赛</span>
+          </a><a
+            title="杂项"
+            href="/misc"
+            
+            class="hx-text-sm contrast-more:hx-text-gray-700 contrast-more:dark:hx-text-gray-100 hx-relative -hx-ml-2 hx-hidden hx-whitespace-nowrap hx-p-2 md:hx-inline-block hx-text-gray-600 hover:hx-text-gray-800 dark:hx-text-gray-400 dark:hover:hx-text-gray-200"
+          >
+            <span class="hx-text-center">杂项</span>
+          </a><a
+            title="关于"
+            href="/about"
+            
+            class="hx-text-sm contrast-more:hx-text-gray-700 contrast-more:dark:hx-text-gray-100 hx-relative -hx-ml-2 hx-hidden hx-whitespace-nowrap hx-p-2 md:hx-inline-block hx-text-gray-600 hover:hx-text-gray-800 dark:hx-text-gray-400 dark:hover:hx-text-gray-200"
+          >
+            <span class="hx-text-center">关于</span>
+          </a><div class="search-wrapper hx-relative md:hx-w-64">
+  <div class="hx-relative hx-flex hx-items-center hx-text-gray-900 contrast-more:hx-text-gray-800 dark:hx-text-gray-300 contrast-more:dark:hx-text-gray-300">
+    <input
+      placeholder="搜索文档..."
+      class="search-input hx-block hx-w-full hx-appearance-none hx-rounded-lg hx-px-3 hx-py-2 hx-transition-colors hx-text-base hx-leading-tight md:hx-text-sm hx-bg-black/[.05] dark:hx-bg-gray-50/10 focus:hx-bg-white dark:focus:hx-bg-dark placeholder:hx-text-gray-500 dark:placeholder:hx-text-gray-400 contrast-more:hx-border contrast-more:hx-border-current"
+      type="search"
+      value=""
+      spellcheck="false"
+    />
+    <kbd
+      class="hx-absolute hx-my-1.5 hx-select-none ltr:hx-right-1.5 rtl:hx-left-1.5 hx-h-5 hx-rounded hx-bg-white hx-px-1.5 hx-font-mono hx-text-[10px] hx-font-medium hx-text-gray-500 hx-border dark:hx-border-gray-100/20 dark:hx-bg-dark/50 contrast-more:hx-border-current contrast-more:hx-text-current contrast-more:dark:hx-border-current hx-items-center hx-gap-1 hx-transition-opacity hx-pointer-events-none hx-hidden sm:hx-flex"
+    >
+      CTRL K
+    </kbd>
+  </div>
+
+  <div>
+    <ul
+      class="search-results hextra-scrollbar hx-hidden hx-border hx-border-gray-200 hx-bg-white hx-text-gray-100 dark:hx-border-neutral-800 dark:hx-bg-neutral-900 hx-absolute hx-top-full hx-z-20 hx-mt-2 hx-overflow-auto hx-overscroll-contain hx-rounded-xl hx-py-2.5 hx-shadow-xl hx-max-h-[min(calc(50vh-11rem-env(safe-area-inset-bottom)),400px)] md:hx-max-h-[min(calc(100vh-5rem-env(safe-area-inset-bottom)),400px)] hx-inset-x-0 ltr:md:hx-left-auto rtl:md:hx-right-auto contrast-more:hx-border contrast-more:hx-border-gray-900 contrast-more:dark:hx-border-gray-50 hx-w-screen hx-min-h-[100px] hx-max-w-[min(calc(100vw-2rem),calc(100%+20rem))]"
+      style="transition: max-height 0.2s ease 0s;"
+    ></ul>
+  </div>
+</div>
+
+          <a class="hx-p-2 hx-text-current" target="_blank" rel="noreferer" href="https://github.com/perfsakuya" title="GitHub"><svg height=24 fill="currentColor" viewBox="3 3 18 18">
+  <path d="M12 3C7.0275 3 3 7.12937 3 12.2276C3 16.3109 5.57625 19.7597 9.15374 20.9824C9.60374 21.0631 9.77249 20.7863 9.77249 20.5441C9.77249 20.3249 9.76125 19.5982 9.76125 18.8254C7.5 19.2522 6.915 18.2602 6.735 17.7412C6.63375 17.4759 6.19499 16.6569 5.8125 16.4378C5.4975 16.2647 5.0475 15.838 5.80124 15.8264C6.51 15.8149 7.01625 16.4954 7.18499 16.7723C7.99499 18.1679 9.28875 17.7758 9.80625 17.5335C9.885 16.9337 10.1212 16.53 10.38 16.2993C8.3775 16.0687 6.285 15.2728 6.285 11.7432C6.285 10.7397 6.63375 9.9092 7.20749 9.26326C7.1175 9.03257 6.8025 8.08674 7.2975 6.81794C7.2975 6.81794 8.05125 6.57571 9.77249 7.76377C10.4925 7.55615 11.2575 7.45234 12.0225 7.45234C12.7875 7.45234 13.5525 7.55615 14.2725 7.76377C15.9937 6.56418 16.7475 6.81794 16.7475 6.81794C17.2424 8.08674 16.9275 9.03257 16.8375 9.26326C17.4113 9.9092 17.76 10.7281 17.76 11.7432C17.76 15.2843 15.6563 16.0687 13.6537 16.2993C13.98 16.5877 14.2613 17.1414 14.2613 18.0065C14.2613 19.2407 14.25 20.2326 14.25 20.5441C14.25 20.7863 14.4188 21.0746 14.8688 20.9824C16.6554 20.364 18.2079 19.1866 19.3078 17.6162C20.4077 16.0457 20.9995 14.1611 21 12.2276C21 7.12937 16.9725 3 12 3Z"></path>
+</svg>
+<span class="hx-sr-only">GitHub</span>
+          </a><button type="button" aria-label="Menu" class="hamburger-menu -hx-mr-2 hx-rounded hx-p-2 active:hx-bg-gray-400/20 md:hx-hidden"><svg height=24 fill="none" viewBox="0 0 24 24" stroke="currentColor"><g><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 8H20"></path></g><g><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16H20"></path></g></svg></button>
+  </nav>
+</div>
+
+  <div class='hx-mx-auto hx-flex hx-max-w-screen-xl'>
+    <div class="mobile-menu-overlay [transition:background-color_1.5s_ease] hx-fixed hx-inset-0 hx-z-10 hx-bg-black/80 dark:hx-bg-black/60 hx-hidden"></div>
+<aside class="sidebar-container hx-flex hx-flex-col print:hx-hidden md:hx-top-16 md:hx-shrink-0 md:hx-w-64 md:hx-self-start max-md:[transform:translate3d(0,-100%,0)] md:hx-hidden xl:hx-block">
+  
+  <div class="hx-px-4 hx-pt-4 md:hx-hidden">
+    <div class="search-wrapper hx-relative md:hx-w-64">
+  <div class="hx-relative hx-flex hx-items-center hx-text-gray-900 contrast-more:hx-text-gray-800 dark:hx-text-gray-300 contrast-more:dark:hx-text-gray-300">
+    <input
+      placeholder="搜索文档..."
+      class="search-input hx-block hx-w-full hx-appearance-none hx-rounded-lg hx-px-3 hx-py-2 hx-transition-colors hx-text-base hx-leading-tight md:hx-text-sm hx-bg-black/[.05] dark:hx-bg-gray-50/10 focus:hx-bg-white dark:focus:hx-bg-dark placeholder:hx-text-gray-500 dark:placeholder:hx-text-gray-400 contrast-more:hx-border contrast-more:hx-border-current"
+      type="search"
+      value=""
+      spellcheck="false"
+    />
+    <kbd
+      class="hx-absolute hx-my-1.5 hx-select-none ltr:hx-right-1.5 rtl:hx-left-1.5 hx-h-5 hx-rounded hx-bg-white hx-px-1.5 hx-font-mono hx-text-[10px] hx-font-medium hx-text-gray-500 hx-border dark:hx-border-gray-100/20 dark:hx-bg-dark/50 contrast-more:hx-border-current contrast-more:hx-text-current contrast-more:dark:hx-border-current hx-items-center hx-gap-1 hx-transition-opacity hx-pointer-events-none hx-hidden sm:hx-flex"
+    >
+      CTRL K
+    </kbd>
+  </div>
+
+  <div>
+    <ul
+      class="search-results hextra-scrollbar hx-hidden hx-border hx-border-gray-200 hx-bg-white hx-text-gray-100 dark:hx-border-neutral-800 dark:hx-bg-neutral-900 hx-absolute hx-top-full hx-z-20 hx-mt-2 hx-overflow-auto hx-overscroll-contain hx-rounded-xl hx-py-2.5 hx-shadow-xl hx-max-h-[min(calc(50vh-11rem-env(safe-area-inset-bottom)),400px)] md:hx-max-h-[min(calc(100vh-5rem-env(safe-area-inset-bottom)),400px)] hx-inset-x-0 ltr:md:hx-left-auto rtl:md:hx-right-auto contrast-more:hx-border contrast-more:hx-border-gray-900 contrast-more:dark:hx-border-gray-50 hx-w-screen hx-min-h-[100px] hx-max-w-[min(calc(100vw-2rem),calc(100%+20rem))]"
+      style="transition: max-height 0.2s ease 0s;"
+    ></ul>
+  </div>
+</div>
+
+  </div>
+  <div class="hextra-scrollbar hx-overflow-y-auto hx-overflow-x-hidden hx-p-4 hx-grow md:hx-h-[calc(100vh-var(--navbar-height)-var(--menu-height))]">
+    <ul class="hx-flex hx-flex-col hx-gap-1 md:hx-hidden">
+      
+      
+          <li class="open"><a
+    class="hx-flex hx-items-center hx-justify-between hx-gap-2 hx-cursor-pointer hx-rounded hx-px-2 hx-py-1.5 hx-text-sm hx-transition-colors [-webkit-tap-highlight-color:transparent] [-webkit-touch-callout:none] [word-break:break-word]
+      hx-text-gray-500 hover:hx-bg-gray-100 hover:hx-text-gray-900 contrast-more:hx-border contrast-more:hx-border-transparent contrast-more:hx-text-gray-900 contrast-more:hover:hx-border-gray-900 dark:hx-text-neutral-400 dark:hover:hx-bg-primary-100/5 dark:hover:hx-text-gray-50 contrast-more:dark:hx-text-gray-50 contrast-more:dark:hover:hx-border-gray-50"
+    href="/matches/"
+    
+  >Matches
+        <span class="hextra-sidebar-collapsible-button"><svg fill="none" viewBox="0 0 24 24" stroke="currentColor" class="hx-h-[18px] hx-min-w-[18px] hx-rounded-sm hx-p-0.5 hover:hx-bg-gray-800/5 dark:hover:hx-bg-gray-100/5"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" class="hx-origin-center hx-transition-transform rtl:-hx-rotate-180"></path></svg></span>
+    </a><div class="ltr:hx-pr-0 hx-overflow-hidden">
+        <ul class='hx-relative hx-flex hx-flex-col hx-gap-1 before:hx-absolute before:hx-inset-y-1 before:hx-w-px before:hx-bg-gray-200 before:hx-content-[""] ltr:hx-ml-3 ltr:hx-pl-3 ltr:before:hx-left-0 rtl:hx-mr-3 rtl:hx-pr-3 rtl:before:hx-right-0 dark:before:hx-bg-neutral-800'><li class="hx-flex hx-flex-col open"><a
+    class="hx-flex hx-items-center hx-justify-between hx-gap-2 hx-cursor-pointer hx-rounded hx-px-2 hx-py-1.5 hx-text-sm hx-transition-colors [-webkit-tap-highlight-color:transparent] [-webkit-touch-callout:none] [word-break:break-word]
+      sidebar-active-item hx-bg-primary-100 hx-font-semibold hx-text-primary-800 contrast-more:hx-border contrast-more:hx-border-primary-500 dark:hx-bg-primary-400/10 dark:hx-text-primary-600 contrast-more:dark:hx-border-primary-500"
+    href="/matches/ctf-cheatsheet-traffic-analysis/"
+    
+  >CTF CheatSheet之WebShell流量分析
+    </a>
+  
+    <ul class='hx-flex hx-flex-col hx-gap-1 hx-relative before:hx-absolute before:hx-inset-y-1 before:hx-w-px before:hx-bg-gray-200 before:hx-content-[""] dark:before:hx-bg-neutral-800 ltr:hx-pl-3 ltr:before:hx-left-0 rtl:hx-pr-3 rtl:before:hx-right-0 ltr:hx-ml-3 rtl:hx-mr-3'><li>
+              <a
+                href="#%e8%8f%9c%e5%88%80"
+                class="hx-flex hx-rounded hx-px-2 hx-py-1.5 hx-text-sm hx-transition-colors [word-break:break-word] hx-cursor-pointer [-webkit-tap-highlight-color:transparent] [-webkit-touch-callout:none] contrast-more:hx-border hx-gap-2 before:hx-opacity-25 before:hx-content-['#'] hx-text-gray-500 hover:hx-bg-gray-100 hover:hx-text-gray-900 dark:hx-text-neutral-400 dark:hover:hx-bg-primary-100/5 dark:hover:hx-text-gray-50 contrast-more:hx-text-gray-900 contrast-more:dark:hx-text-gray-50 contrast-more:hx-border-transparent contrast-more:hover:hx-border-gray-900 contrast-more:dark:hover:hx-border-gray-50"
+              >菜刀</a>
+            </li>
+          <li>
+              <a
+                href="#%e8%9a%81%e5%89%91"
+                class="hx-flex hx-rounded hx-px-2 hx-py-1.5 hx-text-sm hx-transition-colors [word-break:break-word] hx-cursor-pointer [-webkit-tap-highlight-color:transparent] [-webkit-touch-callout:none] contrast-more:hx-border hx-gap-2 before:hx-opacity-25 before:hx-content-['#'] hx-text-gray-500 hover:hx-bg-gray-100 hover:hx-text-gray-900 dark:hx-text-neutral-400 dark:hover:hx-bg-primary-100/5 dark:hover:hx-text-gray-50 contrast-more:hx-text-gray-900 contrast-more:dark:hx-text-gray-50 contrast-more:hx-border-transparent contrast-more:hover:hx-border-gray-900 contrast-more:dark:hover:hx-border-gray-50"
+              >蚁剑</a>
+            </li>
+          <li>
+              <a
+                href="#%e5%86%b0%e8%9d%8e"
+                class="hx-flex hx-rounded hx-px-2 hx-py-1.5 hx-text-sm hx-transition-colors [word-break:break-word] hx-cursor-pointer [-webkit-tap-highlight-color:transparent] [-webkit-touch-callout:none] contrast-more:hx-border hx-gap-2 before:hx-opacity-25 before:hx-content-['#'] hx-text-gray-500 hover:hx-bg-gray-100 hover:hx-text-gray-900 dark:hx-text-neutral-400 dark:hover:hx-bg-primary-100/5 dark:hover:hx-text-gray-50 contrast-more:hx-text-gray-900 contrast-more:dark:hx-text-gray-50 contrast-more:hx-border-transparent contrast-more:hover:hx-border-gray-900 contrast-more:dark:hover:hx-border-gray-50"
+              >冰蝎</a>
+            </li>
+          <li>
+              <a
+                href="#%e5%93%a5%e6%96%af%e6%8b%89"
+                class="hx-flex hx-rounded hx-px-2 hx-py-1.5 hx-text-sm hx-transition-colors [word-break:break-word] hx-cursor-pointer [-webkit-tap-highlight-color:transparent] [-webkit-touch-callout:none] contrast-more:hx-border hx-gap-2 before:hx-opacity-25 before:hx-content-['#'] hx-text-gray-500 hover:hx-bg-gray-100 hover:hx-text-gray-900 dark:hx-text-neutral-400 dark:hover:hx-bg-primary-100/5 dark:hover:hx-text-gray-50 contrast-more:hx-text-gray-900 contrast-more:dark:hx-text-gray-50 contrast-more:hx-border-transparent contrast-more:hover:hx-border-gray-900 contrast-more:dark:hover:hx-border-gray-50"
+              >哥斯拉</a>
+            </li>
+          <li>
+              <a
+                href="#%e5%8f%82%e8%80%83"
+                class="hx-flex hx-rounded hx-px-2 hx-py-1.5 hx-text-sm hx-transition-colors [word-break:break-word] hx-cursor-pointer [-webkit-tap-highlight-color:transparent] [-webkit-touch-callout:none] contrast-more:hx-border hx-gap-2 before:hx-opacity-25 before:hx-content-['#'] hx-text-gray-500 hover:hx-bg-gray-100 hover:hx-text-gray-900 dark:hx-text-neutral-400 dark:hover:hx-bg-primary-100/5 dark:hover:hx-text-gray-50 contrast-more:hx-text-gray-900 contrast-more:dark:hx-text-gray-50 contrast-more:hx-border-transparent contrast-more:hover:hx-border-gray-900 contrast-more:dark:hover:hx-border-gray-50"
+              >参考</a>
+            </li>
+          </ul>
+  
+              
+            </li><li class="hx-flex hx-flex-col "><a
+    class="hx-flex hx-items-center hx-justify-between hx-gap-2 hx-cursor-pointer hx-rounded hx-px-2 hx-py-1.5 hx-text-sm hx-transition-colors [-webkit-tap-highlight-color:transparent] [-webkit-touch-callout:none] [word-break:break-word]
+      hx-text-gray-500 hover:hx-bg-gray-100 hover:hx-text-gray-900 contrast-more:hx-border contrast-more:hx-border-transparent contrast-more:hx-text-gray-900 contrast-more:hover:hx-border-gray-900 dark:hx-text-neutral-400 dark:hover:hx-bg-primary-100/5 dark:hover:hx-text-gray-50 contrast-more:dark:hx-text-gray-50 contrast-more:dark:hover:hx-border-gray-50"
+    href="/matches/xihu2024-initial-misc/"
+    
+  >[西湖论剑2024初赛] MISC3-easy_rawraw WriteUp
+    </a>
+              
+            </li><li class="hx-flex hx-flex-col "><a
+    class="hx-flex hx-items-center hx-justify-between hx-gap-2 hx-cursor-pointer hx-rounded hx-px-2 hx-py-1.5 hx-text-sm hx-transition-colors [-webkit-tap-highlight-color:transparent] [-webkit-touch-callout:none] [word-break:break-word]
+      hx-text-gray-500 hover:hx-bg-gray-100 hover:hx-text-gray-900 contrast-more:hx-border contrast-more:hx-border-transparent contrast-more:hx-text-gray-900 contrast-more:hover:hx-border-gray-900 dark:hx-text-neutral-400 dark:hover:hx-bg-primary-100/5 dark:hover:hx-text-gray-50 contrast-more:dark:hx-text-gray-50 contrast-more:dark:hover:hx-border-gray-50"
+    href="/matches/hitctf2023-misc/"
+    
+  >[HITCTF2023] MISC1&amp;2 WP
+    </a>
+              
+            </li><li class="hx-flex hx-flex-col "><a
+    class="hx-flex hx-items-center hx-justify-between hx-gap-2 hx-cursor-pointer hx-rounded hx-px-2 hx-py-1.5 hx-text-sm hx-transition-colors [-webkit-tap-highlight-color:transparent] [-webkit-touch-callout:none] [word-break:break-word]
+      hx-text-gray-500 hover:hx-bg-gray-100 hover:hx-text-gray-900 contrast-more:hx-border contrast-more:hx-border-transparent contrast-more:hx-text-gray-900 contrast-more:hover:hx-border-gray-900 dark:hx-text-neutral-400 dark:hover:hx-bg-primary-100/5 dark:hover:hx-text-gray-50 contrast-more:dark:hx-text-gray-50 contrast-more:dark:hover:hx-border-gray-50"
+    href="/matches/iscc2023-beijing-fin-misc/"
+    
+  >[ISCC2023线下] MISC1 WP
+    </a>
+              
+            </li><li class="hx-flex hx-flex-col "><a
+    class="hx-flex hx-items-center hx-justify-between hx-gap-2 hx-cursor-pointer hx-rounded hx-px-2 hx-py-1.5 hx-text-sm hx-transition-colors [-webkit-tap-highlight-color:transparent] [-webkit-touch-callout:none] [word-break:break-word]
+      hx-text-gray-500 hover:hx-bg-gray-100 hover:hx-text-gray-900 contrast-more:hx-border contrast-more:hx-border-transparent contrast-more:hx-text-gray-900 contrast-more:hover:hx-border-gray-900 dark:hx-text-neutral-400 dark:hover:hx-bg-primary-100/5 dark:hover:hx-text-gray-50 contrast-more:dark:hx-text-gray-50 contrast-more:dark:hover:hx-border-gray-50"
+    href="/matches/ctf-misc-tools/"
+    
+  >CTF MISC常用工具集锦/使用方法简介
+    </a>
+              
+            </li></ul>
+      </div></li>
+          <li class=""><a
+    class="hx-flex hx-items-center hx-justify-between hx-gap-2 hx-cursor-pointer hx-rounded hx-px-2 hx-py-1.5 hx-text-sm hx-transition-colors [-webkit-tap-highlight-color:transparent] [-webkit-touch-callout:none] [word-break:break-word]
+      hx-text-gray-500 hover:hx-bg-gray-100 hover:hx-text-gray-900 contrast-more:hx-border contrast-more:hx-border-transparent contrast-more:hx-text-gray-900 contrast-more:hover:hx-border-gray-900 dark:hx-text-neutral-400 dark:hover:hx-bg-primary-100/5 dark:hover:hx-text-gray-50 contrast-more:dark:hx-text-gray-50 contrast-more:dark:hover:hx-border-gray-50"
+    href="/about/"
+    
+  >About Me
+    </a></li>
+          <li class=""><a
+    class="hx-flex hx-items-center hx-justify-between hx-gap-2 hx-cursor-pointer hx-rounded hx-px-2 hx-py-1.5 hx-text-sm hx-transition-colors [-webkit-tap-highlight-color:transparent] [-webkit-touch-callout:none] [word-break:break-word]
+      hx-text-gray-500 hover:hx-bg-gray-100 hover:hx-text-gray-900 contrast-more:hx-border contrast-more:hx-border-transparent contrast-more:hx-text-gray-900 contrast-more:hover:hx-border-gray-900 dark:hx-text-neutral-400 dark:hover:hx-bg-primary-100/5 dark:hover:hx-text-gray-50 contrast-more:dark:hx-text-gray-50 contrast-more:dark:hover:hx-border-gray-50"
+    href="/blogs/"
+    
+  >Blog List
+        <span class="hextra-sidebar-collapsible-button"><svg fill="none" viewBox="0 0 24 24" stroke="currentColor" class="hx-h-[18px] hx-min-w-[18px] hx-rounded-sm hx-p-0.5 hover:hx-bg-gray-800/5 dark:hover:hx-bg-gray-100/5"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" class="hx-origin-center hx-transition-transform rtl:-hx-rotate-180"></path></svg></span>
+    </a><div class="ltr:hx-pr-0 hx-overflow-hidden">
+        <ul class='hx-relative hx-flex hx-flex-col hx-gap-1 before:hx-absolute before:hx-inset-y-1 before:hx-w-px before:hx-bg-gray-200 before:hx-content-[""] ltr:hx-ml-3 ltr:hx-pl-3 ltr:before:hx-left-0 rtl:hx-mr-3 rtl:hx-pr-3 rtl:before:hx-right-0 dark:before:hx-bg-neutral-800'><li class="hx-flex hx-flex-col "><a
+    class="hx-flex hx-items-center hx-justify-between hx-gap-2 hx-cursor-pointer hx-rounded hx-px-2 hx-py-1.5 hx-text-sm hx-transition-colors [-webkit-tap-highlight-color:transparent] [-webkit-touch-callout:none] [word-break:break-word]
+      hx-text-gray-500 hover:hx-bg-gray-100 hover:hx-text-gray-900 contrast-more:hx-border contrast-more:hx-border-transparent contrast-more:hx-text-gray-900 contrast-more:hover:hx-border-gray-900 dark:hx-text-neutral-400 dark:hover:hx-bg-primary-100/5 dark:hover:hx-text-gray-50 contrast-more:dark:hx-text-gray-50 contrast-more:dark:hover:hx-border-gray-50"
+    href="/blogs/hextra-setup-tutorial/"
+    
+  >Hextra主题博客搭建指南
+    </a>
+              
+            </li><li class="hx-flex hx-flex-col "><a
+    class="hx-flex hx-items-center hx-justify-between hx-gap-2 hx-cursor-pointer hx-rounded hx-px-2 hx-py-1.5 hx-text-sm hx-transition-colors [-webkit-tap-highlight-color:transparent] [-webkit-touch-callout:none] [word-break:break-word]
+      hx-text-gray-500 hover:hx-bg-gray-100 hover:hx-text-gray-900 contrast-more:hx-border contrast-more:hx-border-transparent contrast-more:hx-text-gray-900 contrast-more:hover:hx-border-gray-900 dark:hx-text-neutral-400 dark:hover:hx-bg-primary-100/5 dark:hover:hx-text-gray-50 contrast-more:dark:hx-text-gray-50 contrast-more:dark:hover:hx-border-gray-50"
+    href="/blogs/useless-gdb-cheatsheet/"
+    
+  >看了也不会的GDB CheatSheet
+    </a>
+              
+            </li></ul>
+      </div></li>
+          <li class=""><a
+    class="hx-flex hx-items-center hx-justify-between hx-gap-2 hx-cursor-pointer hx-rounded hx-px-2 hx-py-1.5 hx-text-sm hx-transition-colors [-webkit-tap-highlight-color:transparent] [-webkit-touch-callout:none] [word-break:break-word]
+      hx-text-gray-500 hover:hx-bg-gray-100 hover:hx-text-gray-900 contrast-more:hx-border contrast-more:hx-border-transparent contrast-more:hx-text-gray-900 contrast-more:hover:hx-border-gray-900 dark:hx-text-neutral-400 dark:hover:hx-bg-primary-100/5 dark:hover:hx-text-gray-50 contrast-more:dark:hx-text-gray-50 contrast-more:dark:hover:hx-border-gray-50"
+    href="/misc/"
+    
+  >Misc
+        <span class="hextra-sidebar-collapsible-button"><svg fill="none" viewBox="0 0 24 24" stroke="currentColor" class="hx-h-[18px] hx-min-w-[18px] hx-rounded-sm hx-p-0.5 hover:hx-bg-gray-800/5 dark:hover:hx-bg-gray-100/5"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" class="hx-origin-center hx-transition-transform rtl:-hx-rotate-180"></path></svg></span>
+    </a><div class="ltr:hx-pr-0 hx-overflow-hidden">
+        <ul class='hx-relative hx-flex hx-flex-col hx-gap-1 before:hx-absolute before:hx-inset-y-1 before:hx-w-px before:hx-bg-gray-200 before:hx-content-[""] ltr:hx-ml-3 ltr:hx-pl-3 ltr:before:hx-left-0 rtl:hx-mr-3 rtl:hx-pr-3 rtl:before:hx-right-0 dark:before:hx-bg-neutral-800'><li class="hx-flex hx-flex-col "><a
+    class="hx-flex hx-items-center hx-justify-between hx-gap-2 hx-cursor-pointer hx-rounded hx-px-2 hx-py-1.5 hx-text-sm hx-transition-colors [-webkit-tap-highlight-color:transparent] [-webkit-touch-callout:none] [word-break:break-word]
+      hx-text-gray-500 hover:hx-bg-gray-100 hover:hx-text-gray-900 contrast-more:hx-border contrast-more:hx-border-transparent contrast-more:hx-text-gray-900 contrast-more:hover:hx-border-gray-900 dark:hx-text-neutral-400 dark:hover:hx-bg-primary-100/5 dark:hover:hx-text-gray-50 contrast-more:dark:hx-text-gray-50 contrast-more:dark:hover:hx-border-gray-50"
+    href="/misc/raspi-simulator-tutorial/"
+    
+  >在树莓派上运行怀旧游戏——Lakka模拟器部署教程
+    </a>
+              
+            </li></ul>
+      </div></li>
+      <li class="[word-break:break-word] hx-mt-5 hx-mb-2 hx-px-2 hx-py-1.5 hx-text-sm hx-font-semibold hx-text-gray-900 first:hx-mt-0 dark:hx-text-gray-100">
+        <span class="hx-cursor-default">More</span>
+      </li>
+    
+      <li><a
+    class="hx-flex hx-items-center hx-justify-between hx-gap-2 hx-cursor-pointer hx-rounded hx-px-2 hx-py-1.5 hx-text-sm hx-transition-colors [-webkit-tap-highlight-color:transparent] [-webkit-touch-callout:none] [word-break:break-word]
+      hx-text-gray-500 hover:hx-bg-gray-100 hover:hx-text-gray-900 contrast-more:hx-border contrast-more:hx-border-transparent contrast-more:hx-text-gray-900 contrast-more:hover:hx-border-gray-900 dark:hx-text-neutral-400 dark:hover:hx-bg-primary-100/5 dark:hover:hx-text-gray-50 contrast-more:dark:hx-text-gray-50 contrast-more:dark:hover:hx-border-gray-50"
+    href="/about/"
+    
+  >关于</a></li>
+    
+      <li><a
+    class="hx-flex hx-items-center hx-justify-between hx-gap-2 hx-cursor-pointer hx-rounded hx-px-2 hx-py-1.5 hx-text-sm hx-transition-colors [-webkit-tap-highlight-color:transparent] [-webkit-touch-callout:none] [word-break:break-word]
+      hx-text-gray-500 hover:hx-bg-gray-100 hover:hx-text-gray-900 contrast-more:hx-border contrast-more:hx-border-transparent contrast-more:hx-text-gray-900 contrast-more:hover:hx-border-gray-900 dark:hx-text-neutral-400 dark:hover:hx-bg-primary-100/5 dark:hover:hx-text-gray-50 contrast-more:dark:hx-text-gray-50 contrast-more:dark:hover:hx-border-gray-50"
+    href="https://gohugo.io/documentation/"
+    target="_blank" rel="noreferer"
+  >Hugo Docs ↗</a></li>
+    
+    </ul>
+
+    <div class="max-xl:hx-hidden hx-h-0 hx-w-64 hx-shrink-0"></div></div>
+  
+  
+    <div class="md:hx-hidden  hx-sticky hx-bottom-0 hx-bg-white dark:hx-bg-dark hx-mx-4 hx-py-4 hx-shadow-[0_-12px_16px_#fff] hx-flex hx-items-center hx-gap-2 dark:hx-border-neutral-800 dark:hx-shadow-[0_-12px_16px_#111] contrast-more:hx-border-neutral-400 contrast-more:hx-shadow-none contrast-more:dark:hx-shadow-none hx-border-t" data-toggle-animation="show"><div class="hx-flex hx-grow hx-flex-col"><button
+  title="切换主题"
+  data-theme="light"
+  class="theme-toggle hx-group hx-h-7 hx-rounded-md hx-px-2 hx-text-left hx-text-xs hx-font-medium hx-text-gray-600 hx-transition-colors dark:hx-text-gray-400 hover:hx-bg-gray-100 hover:hx-text-gray-900 dark:hover:hx-bg-primary-100/5 dark:hover:hx-text-gray-50"
+  type="button"
+  aria-label="切换主题"
+>
+  <div class="hx-flex hx-items-center hx-gap-2 hx-capitalize"><svg height=12 class="group-data-[theme=light]:hx-hidden" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z"/></svg><span class="group-data-[theme=light]:hx-hidden">浅色</span><svg height=12 class="group-data-[theme=dark]:hx-hidden" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"/></svg><span class="group-data-[theme=dark]:hx-hidden">深色</span></div>
+</button>
+</div></div></aside>
+    
+<nav class="hextra-toc hx-order-last hx-hidden hx-w-64 hx-shrink-0 xl:hx-block print:hx-hidden hx-px-4" aria-label="table of contents">
+    <div class="hextra-scrollbar hx-sticky hx-top-16 hx-overflow-y-auto hx-pr-4 hx-pt-6 hx-text-sm [hyphens:auto] hx-max-h-[calc(100vh-var(--navbar-height)-env(safe-area-inset-bottom))] ltr:hx--mr-4 rtl:hx--ml-4"><p class="hx-mb-4 hx-font-semibold hx-tracking-tight">此页上</p><ul>
+      <li class="hx-my-2 hx-scroll-my-6 hx-scroll-py-6">
+        <a class="hx-font-semibold hx-inline-block hx-text-gray-500 hover:hx-text-gray-900 dark:hx-text-gray-400 dark:hover:hx-text-gray-300 contrast-more:hx-text-gray-900 contrast-more:hx-underline contrast-more:dark:hx-text-gray-50 hx-w-full hx-break-words" href="#%e8%8f%9c%e5%88%80">菜刀
+        </a>
+      </li>
+      <li class="hx-my-2 hx-scroll-my-6 hx-scroll-py-6">
+        <a class="ltr:hx-pl-4 rtl:hx-pr-4 hx-inline-block hx-text-gray-500 hover:hx-text-gray-900 dark:hx-text-gray-400 dark:hover:hx-text-gray-300 contrast-more:hx-text-gray-900 contrast-more:hx-underline contrast-more:dark:hx-text-gray-50 hx-w-full hx-break-words" href="#%e7%89%b9%e5%be%81">特征
+        </a>
+      </li>
+      <li class="hx-my-2 hx-scroll-my-6 hx-scroll-py-6">
+        <a class="ltr:hx-pl-4 rtl:hx-pr-4 hx-inline-block hx-text-gray-500 hover:hx-text-gray-900 dark:hx-text-gray-400 dark:hover:hx-text-gray-300 contrast-more:hx-text-gray-900 contrast-more:hx-underline contrast-more:dark:hx-text-gray-50 hx-w-full hx-break-words" href="#php">PHP
+        </a>
+      </li>
+      <li class="hx-my-2 hx-scroll-my-6 hx-scroll-py-6">
+        <a class="ltr:hx-pl-8 rtl:hx-pr-8 hx-inline-block hx-text-gray-500 hover:hx-text-gray-900 dark:hx-text-gray-400 dark:hover:hx-text-gray-300 contrast-more:hx-text-gray-900 contrast-more:hx-underline contrast-more:dark:hx-text-gray-50 hx-w-full hx-break-words" href="#%e8%af%b7%e6%b1%82%e5%8c%85">请求包
+        </a>
+      </li>
+      <li class="hx-my-2 hx-scroll-my-6 hx-scroll-py-6">
+        <a class="ltr:hx-pl-8 rtl:hx-pr-8 hx-inline-block hx-text-gray-500 hover:hx-text-gray-900 dark:hx-text-gray-400 dark:hover:hx-text-gray-300 contrast-more:hx-text-gray-900 contrast-more:hx-underline contrast-more:dark:hx-text-gray-50 hx-w-full hx-break-words" href="#%e5%93%8d%e5%ba%94%e5%8c%85">响应包
+        </a>
+      </li>
+      <li class="hx-my-2 hx-scroll-my-6 hx-scroll-py-6">
+        <a class="ltr:hx-pl-4 rtl:hx-pr-4 hx-inline-block hx-text-gray-500 hover:hx-text-gray-900 dark:hx-text-gray-400 dark:hover:hx-text-gray-300 contrast-more:hx-text-gray-900 contrast-more:hx-underline contrast-more:dark:hx-text-gray-50 hx-w-full hx-break-words" href="#jsp">JSP
+        </a>
+      </li>
+      <li class="hx-my-2 hx-scroll-my-6 hx-scroll-py-6">
+        <a class="ltr:hx-pl-4 rtl:hx-pr-4 hx-inline-block hx-text-gray-500 hover:hx-text-gray-900 dark:hx-text-gray-400 dark:hover:hx-text-gray-300 contrast-more:hx-text-gray-900 contrast-more:hx-underline contrast-more:dark:hx-text-gray-50 hx-w-full hx-break-words" href="#asp">ASP
+        </a>
+      </li>
+      <li class="hx-my-2 hx-scroll-my-6 hx-scroll-py-6">
+        <a class="hx-font-semibold hx-inline-block hx-text-gray-500 hover:hx-text-gray-900 dark:hx-text-gray-400 dark:hover:hx-text-gray-300 contrast-more:hx-text-gray-900 contrast-more:hx-underline contrast-more:dark:hx-text-gray-50 hx-w-full hx-break-words" href="#%e8%9a%81%e5%89%91">蚁剑
+        </a>
+      </li>
+      <li class="hx-my-2 hx-scroll-my-6 hx-scroll-py-6">
+        <a class="ltr:hx-pl-4 rtl:hx-pr-4 hx-inline-block hx-text-gray-500 hover:hx-text-gray-900 dark:hx-text-gray-400 dark:hover:hx-text-gray-300 contrast-more:hx-text-gray-900 contrast-more:hx-underline contrast-more:dark:hx-text-gray-50 hx-w-full hx-break-words" href="#%e7%89%b9%e5%be%81-1">特征
+        </a>
+      </li>
+      <li class="hx-my-2 hx-scroll-my-6 hx-scroll-py-6">
+        <a class="ltr:hx-pl-4 rtl:hx-pr-4 hx-inline-block hx-text-gray-500 hover:hx-text-gray-900 dark:hx-text-gray-400 dark:hover:hx-text-gray-300 contrast-more:hx-text-gray-900 contrast-more:hx-underline contrast-more:dark:hx-text-gray-50 hx-w-full hx-break-words" href="#php-1">PHP
+        </a>
+      </li>
+      <li class="hx-my-2 hx-scroll-my-6 hx-scroll-py-6">
+        <a class="ltr:hx-pl-8 rtl:hx-pr-8 hx-inline-block hx-text-gray-500 hover:hx-text-gray-900 dark:hx-text-gray-400 dark:hover:hx-text-gray-300 contrast-more:hx-text-gray-900 contrast-more:hx-underline contrast-more:dark:hx-text-gray-50 hx-w-full hx-break-words" href="#%e8%af%b7%e6%b1%82%e5%8c%85-1">请求包
+        </a>
+      </li>
+      <li class="hx-my-2 hx-scroll-my-6 hx-scroll-py-6">
+        <a class="ltr:hx-pl-8 rtl:hx-pr-8 hx-inline-block hx-text-gray-500 hover:hx-text-gray-900 dark:hx-text-gray-400 dark:hover:hx-text-gray-300 contrast-more:hx-text-gray-900 contrast-more:hx-underline contrast-more:dark:hx-text-gray-50 hx-w-full hx-break-words" href="#%e5%93%8d%e5%ba%94%e5%8c%85-1">响应包
+        </a>
+      </li>
+      <li class="hx-my-2 hx-scroll-my-6 hx-scroll-py-6">
+        <a class="ltr:hx-pl-4 rtl:hx-pr-4 hx-inline-block hx-text-gray-500 hover:hx-text-gray-900 dark:hx-text-gray-400 dark:hover:hx-text-gray-300 contrast-more:hx-text-gray-900 contrast-more:hx-underline contrast-more:dark:hx-text-gray-50 hx-w-full hx-break-words" href="#asp-1">ASP
+        </a>
+      </li>
+      <li class="hx-my-2 hx-scroll-my-6 hx-scroll-py-6">
+        <a class="hx-font-semibold hx-inline-block hx-text-gray-500 hover:hx-text-gray-900 dark:hx-text-gray-400 dark:hover:hx-text-gray-300 contrast-more:hx-text-gray-900 contrast-more:hx-underline contrast-more:dark:hx-text-gray-50 hx-w-full hx-break-words" href="#%e5%86%b0%e8%9d%8e">冰蝎
+        </a>
+      </li>
+      <li class="hx-my-2 hx-scroll-my-6 hx-scroll-py-6">
+        <a class="ltr:hx-pl-4 rtl:hx-pr-4 hx-inline-block hx-text-gray-500 hover:hx-text-gray-900 dark:hx-text-gray-400 dark:hover:hx-text-gray-300 contrast-more:hx-text-gray-900 contrast-more:hx-underline contrast-more:dark:hx-text-gray-50 hx-w-full hx-break-words" href="#%e9%9d%99%e6%80%81%e7%89%b9%e5%be%81">静态特征
+        </a>
+      </li>
+      <li class="hx-my-2 hx-scroll-my-6 hx-scroll-py-6">
+        <a class="ltr:hx-pl-4 rtl:hx-pr-4 hx-inline-block hx-text-gray-500 hover:hx-text-gray-900 dark:hx-text-gray-400 dark:hover:hx-text-gray-300 contrast-more:hx-text-gray-900 contrast-more:hx-underline contrast-more:dark:hx-text-gray-50 hx-w-full hx-break-words" href="#20-%e7%a7%98%e9%92%a5%e5%8d%8f%e5%95%86-cookie-accept">2.0 秘钥协商 Cookie Accept
+        </a>
+      </li>
+      <li class="hx-my-2 hx-scroll-my-6 hx-scroll-py-6">
+        <a class="ltr:hx-pl-4 rtl:hx-pr-4 hx-inline-block hx-text-gray-500 hover:hx-text-gray-900 dark:hx-text-gray-400 dark:hover:hx-text-gray-300 contrast-more:hx-text-gray-900 contrast-more:hx-underline contrast-more:dark:hx-text-gray-50 hx-w-full hx-break-words" href="#30-ua%e5%ae%9a%e9%95%bf-%e8%af%b7%e6%b1%82%e5%a4%b4">3.0 UA定长 请求头
+        </a>
+      </li>
+      <li class="hx-my-2 hx-scroll-my-6 hx-scroll-py-6">
+        <a class="ltr:hx-pl-8 rtl:hx-pr-8 hx-inline-block hx-text-gray-500 hover:hx-text-gray-900 dark:hx-text-gray-400 dark:hover:hx-text-gray-300 contrast-more:hx-text-gray-900 contrast-more:hx-underline contrast-more:dark:hx-text-gray-50 hx-w-full hx-break-words" href="#%e8%af%b7%e6%b1%82%e5%a4%b4">请求头
+        </a>
+      </li>
+      <li class="hx-my-2 hx-scroll-my-6 hx-scroll-py-6">
+        <a class="ltr:hx-pl-8 rtl:hx-pr-8 hx-inline-block hx-text-gray-500 hover:hx-text-gray-900 dark:hx-text-gray-400 dark:hover:hx-text-gray-300 contrast-more:hx-text-gray-900 contrast-more:hx-underline contrast-more:dark:hx-text-gray-50 hx-w-full hx-break-words" href="#user-agent">User-Agent
+        </a>
+      </li>
+      <li class="hx-my-2 hx-scroll-my-6 hx-scroll-py-6">
+        <a class="ltr:hx-pl-8 rtl:hx-pr-8 hx-inline-block hx-text-gray-500 hover:hx-text-gray-900 dark:hx-text-gray-400 dark:hover:hx-text-gray-300 contrast-more:hx-text-gray-900 contrast-more:hx-underline contrast-more:dark:hx-text-gray-50 hx-w-full hx-break-words" href="#contetnt-length">Contetnt-Length
+        </a>
+      </li>
+      <li class="hx-my-2 hx-scroll-my-6 hx-scroll-py-6">
+        <a class="ltr:hx-pl-4 rtl:hx-pr-4 hx-inline-block hx-text-gray-500 hover:hx-text-gray-900 dark:hx-text-gray-400 dark:hover:hx-text-gray-300 contrast-more:hx-text-gray-900 contrast-more:hx-underline contrast-more:dark:hx-text-gray-50 hx-w-full hx-break-words" href="#40-acceptcontent-lengthuser-agent">4.0 Accept/Content-Length/User-Agent
+        </a>
+      </li>
+      <li class="hx-my-2 hx-scroll-my-6 hx-scroll-py-6">
+        <a class="ltr:hx-pl-8 rtl:hx-pr-8 hx-inline-block hx-text-gray-500 hover:hx-text-gray-900 dark:hx-text-gray-400 dark:hover:hx-text-gray-300 contrast-more:hx-text-gray-900 contrast-more:hx-underline contrast-more:dark:hx-text-gray-50 hx-w-full hx-break-words" href="#http%e5%a4%b4%e7%89%b9%e5%be%81">HTTP头特征
+        </a>
+      </li>
+      <li class="hx-my-2 hx-scroll-my-6 hx-scroll-py-6">
+        <a class="ltr:hx-pl-12 rtl:hx-pr-12 hx-inline-block hx-text-gray-500 hover:hx-text-gray-900 dark:hx-text-gray-400 dark:hover:hx-text-gray-300 contrast-more:hx-text-gray-900 contrast-more:hx-underline contrast-more:dark:hx-text-gray-50 hx-w-full hx-break-words" href="#accept-%e5%a4%b4%e9%80%9a%e5%b8%b8%e5%9b%ba%e5%ae%9a">Accept 头通常固定
+        </a>
+      </li>
+      <li class="hx-my-2 hx-scroll-my-6 hx-scroll-py-6">
+        <a class="ltr:hx-pl-12 rtl:hx-pr-12 hx-inline-block hx-text-gray-500 hover:hx-text-gray-900 dark:hx-text-gray-400 dark:hover:hx-text-gray-300 contrast-more:hx-text-gray-900 contrast-more:hx-underline contrast-more:dark:hx-text-gray-50 hx-w-full hx-break-words" href="#content-length-%e8%be%83%e5%a4%a7">Content-Length 较大
+        </a>
+      </li>
+      <li class="hx-my-2 hx-scroll-my-6 hx-scroll-py-6">
+        <a class="ltr:hx-pl-12 rtl:hx-pr-12 hx-inline-block hx-text-gray-500 hover:hx-text-gray-900 dark:hx-text-gray-400 dark:hover:hx-text-gray-300 contrast-more:hx-text-gray-900 contrast-more:hx-underline contrast-more:dark:hx-text-gray-50 hx-w-full hx-break-words" href="#%e9%bb%98%e8%ae%a4%e4%bd%bf%e7%94%a8%e9%95%bf%e8%bf%9e%e6%8e%a5">默认使用长连接
+        </a>
+      </li>
+      <li class="hx-my-2 hx-scroll-my-6 hx-scroll-py-6">
+        <a class="ltr:hx-pl-12 rtl:hx-pr-12 hx-inline-block hx-text-gray-500 hover:hx-text-gray-900 dark:hx-text-gray-400 dark:hover:hx-text-gray-300 contrast-more:hx-text-gray-900 contrast-more:hx-underline contrast-more:dark:hx-text-gray-50 hx-w-full hx-break-words" href="#content-type">Content-Type
+        </a>
+      </li>
+      <li class="hx-my-2 hx-scroll-my-6 hx-scroll-py-6">
+        <a class="ltr:hx-pl-12 rtl:hx-pr-12 hx-inline-block hx-text-gray-500 hover:hx-text-gray-900 dark:hx-text-gray-400 dark:hover:hx-text-gray-300 contrast-more:hx-text-gray-900 contrast-more:hx-underline contrast-more:dark:hx-text-gray-50 hx-w-full hx-break-words" href="#user-agent-1">User-agent
+        </a>
+      </li>
+      <li class="hx-my-2 hx-scroll-my-6 hx-scroll-py-6">
+        <a class="ltr:hx-pl-12 rtl:hx-pr-12 hx-inline-block hx-text-gray-500 hover:hx-text-gray-900 dark:hx-text-gray-400 dark:hover:hx-text-gray-300 contrast-more:hx-text-gray-900 contrast-more:hx-underline contrast-more:dark:hx-text-gray-50 hx-w-full hx-break-words" href="#%e5%93%8d%e5%ba%94%e5%a4%b4%e5%ad%97%e6%ae%b5">响应头字段
+        </a>
+      </li>
+      <li class="hx-my-2 hx-scroll-my-6 hx-scroll-py-6">
+        <a class="ltr:hx-pl-12 rtl:hx-pr-12 hx-inline-block hx-text-gray-500 hover:hx-text-gray-900 dark:hx-text-gray-400 dark:hover:hx-text-gray-300 contrast-more:hx-text-gray-900 contrast-more:hx-underline contrast-more:dark:hx-text-gray-50 hx-w-full hx-break-words" href="#%e6%b5%81%e9%87%8f%e7%89%b9%e5%be%81">流量特征
+        </a>
+      </li>
+      <li class="hx-my-2 hx-scroll-my-6 hx-scroll-py-6">
+        <a class="hx-font-semibold hx-inline-block hx-text-gray-500 hover:hx-text-gray-900 dark:hx-text-gray-400 dark:hover:hx-text-gray-300 contrast-more:hx-text-gray-900 contrast-more:hx-underline contrast-more:dark:hx-text-gray-50 hx-w-full hx-break-words" href="#%e5%93%a5%e6%96%af%e6%8b%89">哥斯拉
+        </a>
+      </li>
+      <li class="hx-my-2 hx-scroll-my-6 hx-scroll-py-6">
+        <a class="ltr:hx-pl-4 rtl:hx-pr-4 hx-inline-block hx-text-gray-500 hover:hx-text-gray-900 dark:hx-text-gray-400 dark:hover:hx-text-gray-300 contrast-more:hx-text-gray-900 contrast-more:hx-underline contrast-more:dark:hx-text-gray-50 hx-w-full hx-break-words" href="#%e9%9d%99%e6%80%81%e7%89%b9%e5%be%81-1">静态特征
+        </a>
+      </li>
+      <li class="hx-my-2 hx-scroll-my-6 hx-scroll-py-6">
+        <a class="ltr:hx-pl-4 rtl:hx-pr-4 hx-inline-block hx-text-gray-500 hover:hx-text-gray-900 dark:hx-text-gray-400 dark:hover:hx-text-gray-300 contrast-more:hx-text-gray-900 contrast-more:hx-underline contrast-more:dark:hx-text-gray-50 hx-w-full hx-break-words" href="#%e5%8a%a8%e6%80%81%e7%89%b9%e5%be%81">动态特征
+        </a>
+      </li>
+      <li class="hx-my-2 hx-scroll-my-6 hx-scroll-py-6">
+        <a class="hx-font-semibold hx-inline-block hx-text-gray-500 hover:hx-text-gray-900 dark:hx-text-gray-400 dark:hover:hx-text-gray-300 contrast-more:hx-text-gray-900 contrast-more:hx-underline contrast-more:dark:hx-text-gray-50 hx-w-full hx-break-words" href="#%e5%8f%82%e8%80%83">参考
+        </a>
+      </li></ul>
+      <div class="hx-mt-8 hx-border-t hx-bg-white hx-pt-8 hx-shadow-[0_-12px_16px_white] dark:hx-bg-dark dark:hx-shadow-[0_-12px_16px_#111] hx-sticky hx-bottom-0 hx-flex hx-flex-col hx-items-start hx-gap-2 hx-pb-8 dark:hx-border-neutral-800 contrast-more:hx-border-t contrast-more:hx-border-neutral-400 contrast-more:hx-shadow-none contrast-more:dark:hx-border-neutral-400">
+        <button aria-hidden="true" id="backToTop" onClick="scrollUp();" class="hx-transition-all hx-duration-75 hx-opacity-0 hx-text-xs hx-font-medium hx-text-gray-500 hover:hx-text-gray-900 dark:hx-text-gray-400 dark:hover:hx-text-gray-100 contrast-more:hx-text-gray-800 contrast-more:dark:hx-text-gray-50">
+          <span>返回顶部</span>
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="hx-inline ltr:hx-ml-1 rtl:hx-mr-1 hx-h-3.5 hx-w-3.5 hx-border hx-rounded-full hx-border-gray-500 hover:hx-border-gray-900 dark:hx-border-gray-400 dark:hover:hx-border-gray-100 contrast-more:hx-border-gray-800 contrast-more:dark:hx-border-gray-50">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M4.5 15.75l7.5-7.5 7.5 7.5" />
+          </svg>
+        </button>
+      </div>
+    </div>
+  </nav>
+
+
+    <article class="hx-w-full hx-break-words hx-flex hx-min-h-[calc(100vh-var(--navbar-height))] hx-min-w-0 hx-justify-center hx-pb-8 hx-pr-[calc(env(safe-area-inset-right)-1.5rem)]">
+      <main class="hx-w-full hx-min-w-0 hx-max-w-6xl hx-px-6 hx-pt-4 md:hx-px-12">
+        <br class="hx-mt-1.5 hx-text-sm" />
+        <h1 class="hx-text-center hx-mt-2 hx-text-4xl hx-font-bold hx-tracking-tight hx-text-slate-900 dark:hx-text-slate-100">CTF CheatSheet之WebShell流量分析</h1>
+        <div class="hx-mb-16"></div>
+        <div class="content">
+          <blockquote>
+<p>三种WebShell的特征，供流量分析用，AWD也可以参考</p>
+</blockquote>
+<h2>菜刀<span class="hx-absolute -hx-mt-20" id="菜刀"></span>
+    <a href="#%e8%8f%9c%e5%88%80" class="subheading-anchor" aria-label="Permalink for this section"></a></h2><h3>特征<span class="hx-absolute -hx-mt-20" id="特征"></span>
+    <a href="#%e7%89%b9%e5%be%81" class="subheading-anchor" aria-label="Permalink for this section"></a></h3><p>菜刀的木马就是一句话木马</p>
+<p>2014 以前的版本，有的 php/jsp 都为明文传输，较好判断</p>
+<p>2016 后做了加密和混淆，但是有些关键函数还是没有被加密的，比如 <code>/ini_set</code>，<code>z0</code>，<code>eval</code>，<code>assert</code>等。 菜刀的<code>$_POST</code>也可能会被<code>$_GET</code>和$<code>_REQUEST</code>替代。</p>
+<h3>PHP<span class="hx-absolute -hx-mt-20" id="php"></span>
+    <a href="#php" class="subheading-anchor" aria-label="Permalink for this section"></a></h3><h4>请求包<span class="hx-absolute -hx-mt-20" id="请求包"></span>
+    <a href="#%e8%af%b7%e6%b1%82%e5%8c%85" class="subheading-anchor" aria-label="Permalink for this section"></a></h4><p>UA中存在baidu或firefox</p>
+<p>请求体中存在<code>eval</code>，<code>base64</code>等特征，payload为base64编码，存在固定的编码串</p>
+<div class="hextra-code-block hx-relative hx-mt-6 first:hx-mt-0 hx-group/code">
+  
+
+<div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="line"><span class="cl"><span class="c1">// base64
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="nx">QGluaV9zZXQoImRpc3BsYXlfZXJyb3JzIiwiMCIpO0BzZXRfdGltZV9saW1pdCgwKTtpZihQSFBfVkVSU0lPTjwnNS4zLjAnKXtAc2V0X21hZ2ljX3F1b3Rlc19ydW50aW1lKDApO307ZWNobygiWEBZIik7</span>
+</span></span><span class="line"><span class="cl"><span class="c1">// decoded
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="o">@</span><span class="nx">ini_set</span><span class="p">(</span><span class="s2">&#34;display_errors&#34;</span><span class="p">,</span><span class="s2">&#34;0&#34;</span><span class="p">);</span><span class="o">@</span><span class="nx">set_time_limit</span><span class="p">(</span><span class="mi">0</span><span class="p">);</span><span class="k">if</span><span class="p">(</span><span class="k">PHP_VERSION</span><span class="o">&lt;</span><span class="s1">&#39;5.3.0&#39;</span><span class="p">){</span><span class="o">@</span><span class="nx">set_magic_quotes_runtime</span><span class="p">(</span><span class="mi">0</span><span class="p">);};</span><span class="k">echo</span><span class="p">(</span><span class="s2">&#34;X@Y&#34;</span><span class="p">);</span></span></span></code></pre></div></div><div class="hextra-code-copy-btn-container hx-opacity-0 hx-transition group-hover/code:hx-opacity-100 hx-flex hx-gap-1 hx-absolute hx-m-[11px] hx-right-0 hx-top-0">
+  <button
+    class="hextra-code-copy-btn hx-group/copybtn hx-transition-all active:hx-opacity-50 hx-bg-primary-700/5 hx-border hx-border-black/5 hx-text-gray-600 hover:hx-text-gray-900 hx-rounded-md hx-p-1.5 dark:hx-bg-primary-300/10 dark:hx-border-white/10 dark:hx-text-gray-400 dark:hover:hx-text-gray-50"
+    title="Copy code"
+  >
+    <div class="copy-icon group-[.copied]/copybtn:hx-hidden hx-pointer-events-none hx-h-4 hx-w-4"></div>
+    <div class="success-icon hx-hidden group-[.copied]/copybtn:hx-block hx-pointer-events-none hx-h-4 hx-w-4"></div>
+  </button>
+</div>
+
+  
+</div>
+<p>同时可能存在部分未加密函数，比如<code>z0</code>、<code>assert</code>(用于拼接)等</p>
+<h4>响应包<span class="hx-absolute -hx-mt-20" id="响应包"></span>
+    <a href="#%e5%93%8d%e5%ba%94%e5%8c%85" class="subheading-anchor" aria-label="Permalink for this section"></a></h4><p>明文，格式为X@Y[响应内容]X@Y</p>
+<h3>JSP<span class="hx-absolute -hx-mt-20" id="jsp"></span>
+    <a href="#jsp" class="subheading-anchor" aria-label="Permalink for this section"></a></h3><p>该流量是WebShell链接流量的第一段链接流量，其中特征主要在<code>i=A&amp;z0=GB2312</code>，菜刀链接JSP木马时，第一个参数定义操作，其中参数值为A-Q，如i=A，第二个参数指定编码，其参数值为编码，如<code>z0=GB2312</code>，有时候z0后面还会接着又z1=参数用来加入攻击载荷。</p>
+<h3>ASP<span class="hx-absolute -hx-mt-20" id="asp"></span>
+    <a href="#asp" class="subheading-anchor" aria-label="Permalink for this section"></a></h3><p>其中body流量进行URL解码后 其中特征点有如下三部分</p>
+<ol>
+<li>“Execute”，Execute函数用于执行传递的攻击payload，这是必不可少的，这个等同于php类中eval函数；</li>
+<li>OnError ResumeNext，这部分是<strong>大部分ASP客户端中必有的流量</strong>，能保证不管前面出任何错，继续执行以下代码。</li>
+<li>Response.Write和Response.End是必有的，是来完善整个操作的。</li>
+</ol>
+<h2>蚁剑<span class="hx-absolute -hx-mt-20" id="蚁剑"></span>
+    <a href="#%e8%9a%81%e5%89%91" class="subheading-anchor" aria-label="Permalink for this section"></a></h2><h3>特征<span class="hx-absolute -hx-mt-20" id="特征-1"></span>
+    <a href="#%e7%89%b9%e5%be%81-1" class="subheading-anchor" aria-label="Permalink for this section"></a></h3><p>木马文件官方提供了模板，一句话木马也可以用</p>
+<p>php中使用<code>assert</code>，<code>eval</code>执行；asp 使用 <code>execute</code>，<code>eval</code>；jsp使用的是Java类加载（ClassLoader）,同时会带有base64编码解码等字符特征</p>
+<p>默认的蚁剑 shell，连接时会请求两次，其请求体只是经过 url 编码，其流量中也存在和蚁剑一样的代码 第一次请求，关闭报错和 <code>magic_quotes</code>，接下来去获取主机的信息 第二次请求，会把主机目录列出来</p>
+<p>请求头中User-Agent值是：<code>antSword/*</code>，也有可能是：<code>Mozilla/5.0 (Windows NT ***) AppleWebKit/*** (KHTML, like Gecko) Chrome/***** Safari/****</code></p>
+<h3>PHP<span class="hx-absolute -hx-mt-20" id="php-1"></span>
+    <a href="#php-1" class="subheading-anchor" aria-label="Permalink for this section"></a></h3><h4>请求包<span class="hx-absolute -hx-mt-20" id="请求包-1"></span>
+    <a href="#%e8%af%b7%e6%b1%82%e5%8c%85-1" class="subheading-anchor" aria-label="Permalink for this section"></a></h4><p>PHP类WebShell链接流量，其中body流量进行URL解码后为： 其中流量最中明显的特征为<code>@ini_set(&quot;display_errors&quot;,&quot;0&quot;);</code> <code>@set_time_limit(0)</code>这段代码基本是所有WebShell客户端链接PHP类WebShell都有的一种代码，但是有的客户端会将这段编码或者加密，而蚁剑是明文，所以较好发现。</p>
+<h4>响应包<span class="hx-absolute -hx-mt-20" id="响应包-1"></span>
+    <a href="#%e5%93%8d%e5%ba%94%e5%8c%85-1" class="subheading-anchor" aria-label="Permalink for this section"></a></h4><p>响应包的结果返回格式为：随机数+响应内容+随机数</p>
+<p><code>_0x......=</code>，以 0x 开头的参数名。由于蚁剑中包含了很多加密、绕过插件，所以导致很多流量被加密后无法识别，但是蚁剑混淆加密后还有一个比较明显的特征，即为参数名大多以<code>_0x......=</code>这种形式（下划线可替换为其他），以及<code>dirname</code>、<code>get_current_user</code>函数的字眼，后面为加密数据包</p>
+<h3>ASP<span class="hx-absolute -hx-mt-20" id="asp-1"></span>
+    <a href="#asp-1" class="subheading-anchor" aria-label="Permalink for this section"></a></h3><p>body流量进行URL解码后为： 蚁剑针对ASP类的WebShell流量与菜刀的流量很像，其中特征也是相同，如<code>OnError ResumeNext</code>、<code>Response.End</code>、<code>Response.Write</code>，其中<code>execute</code>在蚁剑中被打断混淆了，变成了拼接形式<code>Ex&quot;&amp;cHr(101)&amp;&quot;cute</code>，同时该流量中也使用了<code>eval</code>参数，可以被认为明显特征。</p>
+<h2>冰蝎<span class="hx-absolute -hx-mt-20" id="冰蝎"></span>
+    <a href="#%e5%86%b0%e8%9d%8e" class="subheading-anchor" aria-label="Permalink for this section"></a></h2><h3>静态特征<span class="hx-absolute -hx-mt-20" id="静态特征"></span>
+    <a href="#%e9%9d%99%e6%80%81%e7%89%b9%e5%be%81" class="subheading-anchor" aria-label="Permalink for this section"></a></h3><p>php在代码中同样会存在<code>eval</code>或<code>assert</code>等字符特征：</p>
+<p>
+    <img src=".././ctf-cheatsheet-traffic-analysis/behinder01.png" alt="landscape" loading="lazy" /></p>
+<p>在asp中会在for循环进行一段异或处理，然后传入execute代码执行</p>
+<p>
+    <img src=".././ctf-cheatsheet-traffic-analysis/behinder02.png" alt="landscape" loading="lazy" /></p>
+<p>在jsp中则利用java的反射，所以会存在<code>ClassLoader</code>，<code>getClass().getClassLoader()</code>等字符特征</p>
+<p>
+    <img src=".././ctf-cheatsheet-traffic-analysis/behinder03.png" alt="landscape" loading="lazy" /></p>
+<h3>2.0 秘钥协商 Cookie Accept<span class="hx-absolute -hx-mt-20" id="20-秘钥协商-cookie-accept"></span>
+    <a href="#20-%e7%a7%98%e9%92%a5%e5%8d%8f%e5%95%86-cookie-accept" class="subheading-anchor" aria-label="Permalink for this section"></a></h3><p><a href="https://zhuanlan.zhihu.com/p/571463343" target="_blank" rel="noopener">https://zhuanlan.zhihu.com/p/571463343</a></p>
+<p>
+    <img src=".././ctf-cheatsheet-traffic-analysis/behinder04.webp" alt="landscape" loading="lazy" /></p>
+<p>使用 aes 加密发起三次请求</p>
+<ul>
+<li>第一次请求服务端产生密钥写入 session，session 和当前会话绑定，不同的客户端的密钥也是不同的</li>
+<li>第二次请求是为了获取 key，</li>
+<li>第三次使用 key 的 aes 加密进行通信</li>
+</ul>
+<p>请求包存在：<code>Accept: text/html, image/gif, image/jpeg, ; q=.2, /; q=.2</code></p>
+<p>冰蝎在连接之前会发送一个GET请求，服务端如果正常会响应一个16位的字符串。其实冰蝎每一次连接请求都会向服务端发送一次GET请求获取16位的密钥，这16位的字符串就是密钥，在客户端和服务端的通信过程中使用密钥进行加密以达到免杀的目的，因此只要我们能在流量中发现这样特征的流量，便可以发现隐藏在流量中的冰蝎webshell。</p>
+<p>
+    <img src=".././ctf-cheatsheet-traffic-analysis/behinder05.webp" alt="landscape" loading="lazy" /></p>
+<p>建立连接，传输payload</p>
+<p>建立连接后的cookie存在特征字符</p>
+<p>所有请求 Cookie的格式都为: <code>Cookie: PHPSESSID=; path=/；</code></p>
+<h3>3.0 UA定长 请求头<span class="hx-absolute -hx-mt-20" id="30-ua定长-请求头"></span>
+    <a href="#30-ua%e5%ae%9a%e9%95%bf-%e8%af%b7%e6%b1%82%e5%a4%b4" class="subheading-anchor" aria-label="Permalink for this section"></a></h3><p><a href="https://www.freebuf.com/articles/247009.html" target="_blank" rel="noopener">https://www.freebuf.com/articles/247009.html</a></p>
+<p>少了动态密钥的获取的请求，不再使用随机生成 key，改为取连接密码的 md5 前 16 位作为密钥 一次请求为判断是否可以建立连接，少了两次 get 获取冰蝎动态密钥的行为，第二次发送 phpinfo 等代码执行。去除了动态密钥协商机制，采用预共享密钥，全程无明文交互，密钥格式为<code>md5(“admin”)[0:16]</code></p>
+<h4>请求头<span class="hx-absolute -hx-mt-20" id="请求头"></span>
+    <a href="#%e8%af%b7%e6%b1%82%e5%a4%b4" class="subheading-anchor" aria-label="Permalink for this section"></a></h4><div class="hextra-code-block hx-relative hx-mt-6 first:hx-mt-0 hx-group/code">
+  
+
+<div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-html" data-lang="html"><span class="line"><span class="cl">Pragma: no-cache
+</span></span><span class="line"><span class="cl">Cache-Control: no-cache
+</span></span><span class="line"><span class="cl">Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.9
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">// 或者
+</span></span><span class="line"><span class="cl">Cache-Control: no-cache
+</span></span><span class="line"><span class="cl">Pragma: no-cache
+</span></span><span class="line"><span class="cl">Accept: text/html, image/gif, image/jpeg, *; q=.2, */*; q=.2</span></span></code></pre></div></div><div class="hextra-code-copy-btn-container hx-opacity-0 hx-transition group-hover/code:hx-opacity-100 hx-flex hx-gap-1 hx-absolute hx-m-[11px] hx-right-0 hx-top-0">
+  <button
+    class="hextra-code-copy-btn hx-group/copybtn hx-transition-all active:hx-opacity-50 hx-bg-primary-700/5 hx-border hx-border-black/5 hx-text-gray-600 hover:hx-text-gray-900 hx-rounded-md hx-p-1.5 dark:hx-bg-primary-300/10 dark:hx-border-white/10 dark:hx-text-gray-400 dark:hover:hx-text-gray-50"
+    title="Copy code"
+  >
+    <div class="copy-icon group-[.copied]/copybtn:hx-hidden hx-pointer-events-none hx-h-4 hx-w-4"></div>
+    <div class="success-icon hx-hidden group-[.copied]/copybtn:hx-block hx-pointer-events-none hx-h-4 hx-w-4"></div>
+  </button>
+</div>
+
+  
+</div>
+<h4>User-Agent<span class="hx-absolute -hx-mt-20" id="user-agent"></span>
+    <a href="#user-agent" class="subheading-anchor" aria-label="Permalink for this section"></a></h4><p>内置16个UA头，比较老旧</p>
+<div class="hextra-code-block hx-relative hx-mt-6 first:hx-mt-0 hx-group/code">
+  
+
+<div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">Mozilla/5.0 <span class="o">(</span>Windows NT 6.1<span class="p">;</span> WOW64<span class="o">)</span> AppleWebKit/535.1 <span class="o">(</span>KHTML, like Gecko<span class="o">)</span> Chrome/14.0.835.163 Safari/535.1
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">Mozilla/5.0 <span class="o">(</span>Windows NT 6.1<span class="p">;</span> WOW64<span class="p">;</span> rv:6.0<span class="o">)</span> Gecko/20100101 Firefox/6.0
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">Mozilla/5.0 <span class="o">(</span>Windows NT 6.1<span class="p">;</span> WOW64<span class="o">)</span> AppleWebKit/534.50 <span class="o">(</span>KHTML, like Gecko<span class="o">)</span> Version/5.1 Safari/534.50
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">Opera/9.80 <span class="o">(</span>Windows NT 6.1<span class="p">;</span> U<span class="p">;</span> zh-cn<span class="o">)</span> Presto/2.9.168 Version/11.50
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">Mozilla/5.0 <span class="o">(</span>compatible<span class="p">;</span> MSIE 9.0<span class="p">;</span> Windows NT 6.1<span class="p">;</span> Win64<span class="p">;</span> x64<span class="p">;</span> Trident/5.0<span class="p">;</span> .NET CLR 2.0.50727<span class="p">;</span> SLCC2<span class="p">;</span> .NET CLR 3.5.30729<span class="p">;</span> .NET CLR 3.0.30729<span class="p">;</span> Media Center PC 6.0<span class="p">;</span> InfoPath.3<span class="p">;</span> .NET4.0C<span class="p">;</span> Tablet PC 2.0<span class="p">;</span> .NET4.0E<span class="o">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">Mozilla/4.0 <span class="o">(</span>compatible<span class="p">;</span> MSIE 8.0<span class="p">;</span> Windows NT 6.1<span class="p">;</span> WOW64<span class="p">;</span> Trident/4.0<span class="p">;</span> SLCC2<span class="p">;</span> .NET CLR 2.0.50727<span class="p">;</span> .NET CLR 3.5.30729<span class="p">;</span> .NET CLR 3.0.30729<span class="p">;</span> Media Center PC 6.0<span class="p">;</span> .NET4.0C<span class="p">;</span> InfoPath.3<span class="o">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">Mozilla/4.0 <span class="o">(</span>compatible<span class="p">;</span> MSIE 8.0<span class="p">;</span> Windows NT 5.1<span class="p">;</span> Trident/4.0<span class="p">;</span> GTB7.0<span class="o">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">Mozilla/4.0 <span class="o">(</span>compatible<span class="p">;</span> MSIE 7.0<span class="p">;</span> Windows NT 5.1<span class="o">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">Mozilla/4.0 <span class="o">(</span>compatible<span class="p">;</span> MSIE 6.0<span class="p">;</span> Windows NT 5.1<span class="p">;</span> SV1<span class="o">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">Mozilla/5.0 <span class="o">(</span>Windows<span class="p">;</span> U<span class="p">;</span> Windows NT 6.1<span class="p">;</span> <span class="o">)</span> AppleWebKit/534.12 <span class="o">(</span>KHTML, like Gecko<span class="o">)</span> Maxthon/3.0 Safari/534.12
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">Mozilla/4.0 <span class="o">(</span>compatible<span class="p">;</span> MSIE 7.0<span class="p">;</span> Windows NT 6.1<span class="p">;</span> WOW64<span class="p">;</span> Trident/5.0<span class="p">;</span> SLCC2<span class="p">;</span> .NET CLR 2.0.50727<span class="p">;</span> .NET CLR 3.5.30729<span class="p">;</span> .NET CLR 3.0.30729<span class="p">;</span> Media Center PC 6.0<span class="p">;</span> InfoPath.3<span class="p">;</span> .NET4.0C<span class="p">;</span> .NET4.0E<span class="o">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">Mozilla/4.0 <span class="o">(</span>compatible<span class="p">;</span> MSIE 7.0<span class="p">;</span> Windows NT 6.1<span class="p">;</span> WOW64<span class="p">;</span> Trident/5.0<span class="p">;</span> SLCC2<span class="p">;</span> .NET CLR 2.0.50727<span class="p">;</span> .NET CLR 3.5.30729<span class="p">;</span> .NET CLR 3.0.30729<span class="p">;</span> Media Center PC 6.0<span class="p">;</span> InfoPath.3<span class="p">;</span> .NET4.0C<span class="p">;</span> .NET4.0E<span class="p">;</span> SE 2.X MetaSr 1.0<span class="o">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">Mozilla/5.0 <span class="o">(</span>Windows<span class="p">;</span> U<span class="p">;</span> Windows NT 6.1<span class="p">;</span> en-US<span class="o">)</span> AppleWebKit/534.3 <span class="o">(</span>KHTML, like Gecko<span class="o">)</span> Chrome/6.0.472.33 Safari/534.3 SE 2.X MetaSr 1.0
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">Mozilla/5.0 <span class="o">(</span>compatible<span class="p">;</span> MSIE 9.0<span class="p">;</span> Windows NT 6.1<span class="p">;</span> WOW64<span class="p">;</span> Trident/5.0<span class="p">;</span> SLCC2<span class="p">;</span> .NET CLR 2.0.50727<span class="p">;</span> .NET CLR 3.5.30729<span class="p">;</span> .NET CLR 3.0.30729<span class="p">;</span> Media Center PC 6.0<span class="p">;</span> InfoPath.3<span class="p">;</span> .NET4.0C<span class="p">;</span> .NET4.0E<span class="o">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">Mozilla/5.0 <span class="o">(</span>Windows NT 6.1<span class="o">)</span> AppleWebKit/535.1 <span class="o">(</span>KHTML, like Gecko<span class="o">)</span> Chrome/13.0.782.41 Safari/535.1 QQBrowser/6.9.11079.201
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">Mozilla/4.0 <span class="o">(</span>compatible<span class="p">;</span> MSIE 7.0<span class="p">;</span> Windows NT 6.1<span class="p">;</span> WOW64<span class="p">;</span> Trident/5.0<span class="p">;</span> SLCC2<span class="p">;</span> .NET CLR 2.0.50727<span class="p">;</span> .NET CLR 3.5.30729<span class="p">;</span> .NET CLR 3.0.30729<span class="p">;</span> Media Center PC 6.0<span class="p">;</span> InfoPath.3<span class="p">;</span> .NET4.0C<span class="p">;</span> .NET4.0E<span class="o">)</span> QQBrowser/6.9.11079.201
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">Mozilla/5.0 <span class="o">(</span>compatible<span class="p">;</span> MSIE 9.0<span class="p">;</span> Windows NT 6.1<span class="p">;</span> WOW64<span class="p">;</span> Trident/5.0<span class="o">)</span></span></span></code></pre></div></div><div class="hextra-code-copy-btn-container hx-opacity-0 hx-transition group-hover/code:hx-opacity-100 hx-flex hx-gap-1 hx-absolute hx-m-[11px] hx-right-0 hx-top-0">
+  <button
+    class="hextra-code-copy-btn hx-group/copybtn hx-transition-all active:hx-opacity-50 hx-bg-primary-700/5 hx-border hx-border-black/5 hx-text-gray-600 hover:hx-text-gray-900 hx-rounded-md hx-p-1.5 dark:hx-bg-primary-300/10 dark:hx-border-white/10 dark:hx-text-gray-400 dark:hover:hx-text-gray-50"
+    title="Copy code"
+  >
+    <div class="copy-icon group-[.copied]/copybtn:hx-hidden hx-pointer-events-none hx-h-4 hx-w-4"></div>
+    <div class="success-icon hx-hidden group-[.copied]/copybtn:hx-block hx-pointer-events-none hx-h-4 hx-w-4"></div>
+  </button>
+</div>
+
+  
+</div>
+<h4>Contetnt-Length<span class="hx-absolute -hx-mt-20" id="contetnt-length"></span>
+    <a href="#contetnt-length" class="subheading-anchor" aria-label="Permalink for this section"></a></h4><p>命令执行时，请求包中<code>content-length</code>为5740或5720（可能会根据Java版本而改变）</p>
+<h3>4.0 Accept/Content-Length/User-Agent<span class="hx-absolute -hx-mt-20" id="40-acceptcontent-lengthuser-agent"></span>
+    <a href="#40-acceptcontent-lengthuser-agent" class="subheading-anchor" aria-label="Permalink for this section"></a></h3><p><a href="https://www.freebuf.com/articles/network/345803.html" target="_blank" rel="noopener">https://www.freebuf.com/articles/network/345803.html</a></p>
+<h4>HTTP头特征<span class="hx-absolute -hx-mt-20" id="http头特征"></span>
+    <a href="#http%e5%a4%b4%e7%89%b9%e5%be%81" class="subheading-anchor" aria-label="Permalink for this section"></a></h4><h5>Accept 头通常固定<span class="hx-absolute -hx-mt-20" id="accept-头通常固定"></span>
+    <a href="#accept-%e5%a4%b4%e9%80%9a%e5%b8%b8%e5%9b%ba%e5%ae%9a" class="subheading-anchor" aria-label="Permalink for this section"></a></h5><div class="hextra-code-block hx-relative hx-mt-6 first:hx-mt-0 hx-group/code">
+  
+
+<div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">Accept: application/json, text/javascript, */*<span class="p">;</span> <span class="nv">q</span><span class="o">=</span>0.01 意思是浏览器可接受任何文件，但最倾向application/json 和 text/javascript。
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">Accept-Encoding: identity
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">Accept-Language: zh-CN,zh<span class="p">;</span><span class="nv">q</span><span class="o">=</span>0.9,en-US<span class="p">;</span><span class="nv">q</span><span class="o">=</span>0.8,en<span class="p">;</span><span class="nv">q</span><span class="o">=</span>0.7</span></span></code></pre></div></div><div class="hextra-code-copy-btn-container hx-opacity-0 hx-transition group-hover/code:hx-opacity-100 hx-flex hx-gap-1 hx-absolute hx-m-[11px] hx-right-0 hx-top-0">
+  <button
+    class="hextra-code-copy-btn hx-group/copybtn hx-transition-all active:hx-opacity-50 hx-bg-primary-700/5 hx-border hx-border-black/5 hx-text-gray-600 hover:hx-text-gray-900 hx-rounded-md hx-p-1.5 dark:hx-bg-primary-300/10 dark:hx-border-white/10 dark:hx-text-gray-400 dark:hover:hx-text-gray-50"
+    title="Copy code"
+  >
+    <div class="copy-icon group-[.copied]/copybtn:hx-hidden hx-pointer-events-none hx-h-4 hx-w-4"></div>
+    <div class="success-icon hx-hidden group-[.copied]/copybtn:hx-block hx-pointer-events-none hx-h-4 hx-w-4"></div>
+  </button>
+</div>
+
+  
+</div>
+<h5>Content-Length 较大<span class="hx-absolute -hx-mt-20" id="content-length-较大"></span>
+    <a href="#content-length-%e8%be%83%e5%a4%a7" class="subheading-anchor" aria-label="Permalink for this section"></a></h5><p><code>Content-Length: 8244</code> 作为辅助特征</p>
+<h5>默认使用长连接<span class="hx-absolute -hx-mt-20" id="默认使用长连接"></span>
+    <a href="#%e9%bb%98%e8%ae%a4%e4%bd%bf%e7%94%a8%e9%95%bf%e8%bf%9e%e6%8e%a5" class="subheading-anchor" aria-label="Permalink for this section"></a></h5><p><code>Connection: Keep-Alive</code></p>
+<h5>Content-Type<span class="hx-absolute -hx-mt-20" id="content-type"></span>
+    <a href="#content-type" class="subheading-anchor" aria-label="Permalink for this section"></a></h5><p>PHP站点：<code>Content-type: Application/x-www-form-urlencoded</code></p>
+<p>ASP站点：<code>Content-type: Application/octet-stream</code></p>
+<p>可以把这个字段作为一个弱特征，辅助其他特征来检测</p>
+<h5>User-agent<span class="hx-absolute -hx-mt-20" id="user-agent-1"></span>
+    <a href="#user-agent-1" class="subheading-anchor" aria-label="Permalink for this section"></a></h5><p>冰蝎设置了10种User-Agent,每次连接shell时会随机选择一个进行使用。</p>
+<p>
+    <img src=".././ctf-cheatsheet-traffic-analysis/behinder06.jpg" alt="landscape" loading="lazy" /></p>
+<h5>响应头字段<span class="hx-absolute -hx-mt-20" id="响应头字段"></span>
+    <a href="#%e5%93%8d%e5%ba%94%e5%a4%b4%e5%ad%97%e6%ae%b5" class="subheading-anchor" aria-label="Permalink for this section"></a></h5><div class="hextra-code-block hx-relative hx-mt-6 first:hx-mt-0 hx-group/code">
+  
+
+<div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">Set-Cookie: <span class="nv">PHPSESSID</span><span class="o">=</span>a59734f13f1fe73947e0b3b01ea2aabe<span class="p">;</span> <span class="nv">path</span><span class="o">=</span>/
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">Pragma: no-cache</span></span></code></pre></div></div><div class="hextra-code-copy-btn-container hx-opacity-0 hx-transition group-hover/code:hx-opacity-100 hx-flex hx-gap-1 hx-absolute hx-m-[11px] hx-right-0 hx-top-0">
+  <button
+    class="hextra-code-copy-btn hx-group/copybtn hx-transition-all active:hx-opacity-50 hx-bg-primary-700/5 hx-border hx-border-black/5 hx-text-gray-600 hover:hx-text-gray-900 hx-rounded-md hx-p-1.5 dark:hx-bg-primary-300/10 dark:hx-border-white/10 dark:hx-text-gray-400 dark:hover:hx-text-gray-50"
+    title="Copy code"
+  >
+    <div class="copy-icon group-[.copied]/copybtn:hx-hidden hx-pointer-events-none hx-h-4 hx-w-4"></div>
+    <div class="success-icon hx-hidden group-[.copied]/copybtn:hx-block hx-pointer-events-none hx-h-4 hx-w-4"></div>
+  </button>
+</div>
+
+  
+</div>
+<h5>流量特征<span class="hx-absolute -hx-mt-20" id="流量特征"></span>
+    <a href="#%e6%b5%81%e9%87%8f%e7%89%b9%e5%be%81" class="subheading-anchor" aria-label="Permalink for this section"></a></h5><ul>
+<li>默认密钥</li>
+</ul>
+<p>默认时，所有冰蝎4.0 webshell都有<code>e45e329feb5d925b</code> 一串密钥。该密钥为连接密码32位md5值的前16位，默认连接密码<code>rebeyond</code></p>
+<ul>
+<li>端口</li>
+</ul>
+<p>冰蝎与webshell建立连接的同时，javaw也与目的主机建立tcp连接，每次连接使用本地端口在<code>49700</code>左右，每连接一次，每建立一次新的连接，端口就依次增加。</p>
+<ul>
+<li>PHP webshell 中存在固定代码</li>
+</ul>
+<div class="hextra-code-block hx-relative hx-mt-6 first:hx-mt-0 hx-group/code">
+  
+
+<div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="line"><span class="cl"><span class="nv">$post</span><span class="o">=</span><span class="nx">Decrypt</span><span class="p">(</span><span class="nx">file_get_contents</span><span class="p">(</span><span class="s2">&#34;php://input&#34;</span><span class="p">));</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">eval</span><span class="p">(</span><span class="nv">$post</span><span class="p">);</span></span></span></code></pre></div></div><div class="hextra-code-copy-btn-container hx-opacity-0 hx-transition group-hover/code:hx-opacity-100 hx-flex hx-gap-1 hx-absolute hx-m-[11px] hx-right-0 hx-top-0">
+  <button
+    class="hextra-code-copy-btn hx-group/copybtn hx-transition-all active:hx-opacity-50 hx-bg-primary-700/5 hx-border hx-border-black/5 hx-text-gray-600 hover:hx-text-gray-900 hx-rounded-md hx-p-1.5 dark:hx-bg-primary-300/10 dark:hx-border-white/10 dark:hx-text-gray-400 dark:hover:hx-text-gray-50"
+    title="Copy code"
+  >
+    <div class="copy-icon group-[.copied]/copybtn:hx-hidden hx-pointer-events-none hx-h-4 hx-w-4"></div>
+    <div class="success-icon hx-hidden group-[.copied]/copybtn:hx-block hx-pointer-events-none hx-h-4 hx-w-4"></div>
+  </button>
+</div>
+
+  
+</div>
+<p>固定的请求头和响应头</p>
+<p>请求字节头：<code>dFAXQV1LORcHRQtLRlwMAhwFTAg/M</code></p>
+<p>响应字节头：<code>TxcWR1NNExZAD0ZaAWMIPAZjH1BFBFtHThcJSlUXWEd</code></p>
+<h2>哥斯拉<span class="hx-absolute -hx-mt-20" id="哥斯拉"></span>
+    <a href="#%e5%93%a5%e6%96%af%e6%8b%89" class="subheading-anchor" aria-label="Permalink for this section"></a></h2><h3>静态特征<span class="hx-absolute -hx-mt-20" id="静态特征-1"></span>
+    <a href="#%e9%9d%99%e6%80%81%e7%89%b9%e5%be%81-1" class="subheading-anchor" aria-label="Permalink for this section"></a></h3><p>在默认脚本编码的情况下，</p>
+<ul>
+<li>php、asp为普通的一句话木马</li>
+<li>jsp会出现xc、pass字符和Java反射(ClassLoader，getClass().getClassLoader())，base64加解码等特征</li>
+</ul>
+<h3>动态特征<span class="hx-absolute -hx-mt-20" id="动态特征"></span>
+    <a href="#%e5%8a%a8%e6%80%81%e7%89%b9%e5%be%81" class="subheading-anchor" aria-label="Permalink for this section"></a></h3><p>哥斯拉<strong>支持多种加密方式</strong>，采用了和冰蝎 2.0 类似的密钥交换方式。它的webshell需要动态生成，可以根据需求选择不同的加密方式。哥斯拉建立连接时会发起三次请求，第一次请求数据超级长，建立 session，第二三次请求确认连接</p>
+<p>请求中的Accept头（弱特征）是</p>
+<p><code>Accept:text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,/;q=0.8</code></p>
+<p>相应头中的Cache-Control头（弱特征）是</p>
+<p><code>Cache-Control: no-store, no-cache, must-revalidate</code></p>
+<p>Cookie的结尾有分号</p>
+<h2>参考<span class="hx-absolute -hx-mt-20" id="参考"></span>
+    <a href="#%e5%8f%82%e8%80%83" class="subheading-anchor" aria-label="Permalink for this section"></a></h2><p><a href="https://zhuanlan.zhihu.com/p/637348549" target="_blank" rel="noopener">知乎 - WebShell流量特征</a></p>
+<p><a href="https://www.yuque.com/zeobijane/vhwogy/zsqbk586wrmcbs49?singleDoc#" target="_blank" rel="noopener">语雀 - Webshell相关知识</a></p>
+
+        </div>
+        <div class="hx-mt-16"></div>
+        <script>
+  
+
+  function getGiscusTheme() {
+    return localStorage.getItem("color-theme");
+  }
+
+  function setGiscusTheme() {
+    function sendMessage(message) {
+      const iframe = document.querySelector('iframe.giscus-frame');
+      if (!iframe) return;
+      iframe.contentWindow.postMessage({ giscus: message }, 'https://giscus.app');
+    }
+    sendMessage({
+      setConfig: {
+        theme: getGiscusTheme(),
+      },
+    });
+  }
+
+  document.addEventListener('DOMContentLoaded', function () {
+    const giscusAttributes = {
+      "src": "https://giscus.app/client.js",
+      "data-repo": "perfsky\/perfsky.github.io",
+      "data-repo-id": "R_kgDOM-0keg",
+      "data-category": "General",
+      "data-category-id": "DIC_kwDOM-0kes4CjT0r",
+      "data-mapping": "pathname",
+      "data-strict": "0",
+      "data-reactions-enabled": "0",
+      "data-emit-metadata": "0",
+      "data-input-position": "top",
+      "data-theme": getGiscusTheme(),
+      "data-lang": "zh-CN",
+      "crossorigin": "anonymous",
+      "async": "",
+    };
+
+    
+    const giscusScript = document.createElement("script");
+    Object.entries(giscusAttributes).forEach(([key, value]) => giscusScript.setAttribute(key, value));
+    document.getElementById('giscus').appendChild(giscusScript);
+
+    
+    const toggles = document.querySelectorAll(".theme-toggle");
+    if (toggles) {
+      toggles.forEach(toggle => toggle.addEventListener('click', setGiscusTheme));
+    }
+  });
+</script>
+
+<div id="giscus"></div>
+      </main>
+    </article>
+  </div>
+
+      <footer class="hextra-footer hx-bg-gray-100 hx-pb-[env(safe-area-inset-bottom)] dark:hx-bg-neutral-900 print:hx-bg-transparent"><div class="hx-mx-auto hx-flex hx-gap-2 hx-py-2 hx-px-4 hx-max-w-[90rem]"><button
+  title="切换主题"
+  data-theme="light"
+  class="theme-toggle hx-group hx-h-7 hx-rounded-md hx-px-2 hx-text-left hx-text-xs hx-font-medium hx-text-gray-600 hx-transition-colors dark:hx-text-gray-400 hover:hx-bg-gray-100 hover:hx-text-gray-900 dark:hover:hx-bg-primary-100/5 dark:hover:hx-text-gray-50"
+  type="button"
+  aria-label="切换主题"
+>
+  <div class="hx-flex hx-items-center hx-gap-2 hx-capitalize"><svg height=12 class="group-data-[theme=light]:hx-hidden" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z"/></svg><span class="group-data-[theme=light]:hx-hidden">浅色</span><svg height=12 class="group-data-[theme=dark]:hx-hidden" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"/></svg><span class="group-data-[theme=dark]:hx-hidden">深色</span></div>
+</button>
+</div><hr class="dark:hx-border-neutral-800" /><div
+    class="hx-max-w-[90rem] hx-mx-auto hx-flex hx-justify-center hx-py-12 hx-pl-[max(env(safe-area-inset-left),1.5rem)] hx-pr-[max(env(safe-area-inset-right),1.5rem)] hx-text-gray-600 dark:hx-text-gray-400 md:hx-justify-start"
+  >
+    <div class="hx-flex hx-w-full hx-flex-col hx-items-center sm:hx-items-start"><div class="hx-font-semibold"><a class="hx-flex hx-text-sm hx-items-center hx-gap-1 hx-text-current" target="_blank" rel="noopener noreferrer" title="Hextra GitHub Homepage" href="https://github.com/imfing/hextra">
+    <span>由 Hextra 驱动<svg height=1em class="hx-inline-block ltr:hx-ml-1 rtl:hx-mr-1 hx-align-[-2.5px]" viewBox="0 0 180 180" xmlns="http://www.w3.org/2000/svg" fill="currentColor"><path fill-rule="evenodd" clip-rule="evenodd" d="m 105.50024,22.224647 c -9.59169,-5.537563 -21.40871,-5.537563 -31.000093,0 L 39.054693,42.689119 C 29.463353,48.226675 23.55484,58.460531 23.55484,69.535642 v 40.928918 c 0,11.07542 5.908513,21.3092 15.499853,26.84652 l 35.445453,20.46446 c 9.591313,5.53732 21.408404,5.53732 31.000094,0 l 35.44507,-20.46446 c 9.59131,-5.53732 15.49985,-15.7711 15.49985,-26.84652 V 69.535642 c 0,-11.075111 -5.90854,-21.308967 -15.49985,-26.846523 z M 34.112797,85.737639 c -1.384445,2.397827 -1.384445,5.352099 0,7.749927 l 24.781554,42.922974 c 1.38437,2.39783 3.942853,3.87496 6.711592,3.87496 h 49.563107 c 2.76905,0 5.3273,-1.47713 6.71144,-3.87496 l 24.78194,-42.922974 c 1.38414,-2.397828 1.38414,-5.3521 0,-7.749927 L 121.88049,42.814746 c -1.38414,-2.397828 -3.94239,-3.874964 -6.71144,-3.874964 H 65.605944 c -2.768739,0 -5.327223,1.477059 -6.711592,3.874964 z" style="stroke-width:0.774993" /></svg></span>
+  </a></div><div class="hx-mt-6 hx-text-xs">© 2024 PerfSakuya.</div>
+    </div>
+  </div>
+</footer>
+    
+    <script defer src="/js/main.min.998f7d6b2520d6d9875145cbe14b35964b365b44b3b1bfa6b797a74a9c173b07.js" integrity="sha256-mY99ayUg1tmHUUXL4Us1lks2W0Szsb&#43;mt5enSpwXOwc="></script>
+
+
+<script defer src="/lib/flexsearch/flexsearch.bundle.min.0425860527cc9968f9f049421c7a56b39327d475e2e3a8f550416be3a9134327.js" integrity="sha256-BCWGBSfMmWj58ElCHHpWs5Mn1HXi46j1UEFr46kTQyc="></script>
+    <script defer src="/zh-cn.search.min.0b03589064701a063d0ffb6007f705c8007e015930a3cb1d339a389374d4d7c1.js" integrity="sha256-CwNYkGRwGgY9D/tgB/cFyAB&#43;AVkwo8sdM5o4k3TU18E="></script>
+
+
+  </body>
+</html>

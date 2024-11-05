@@ -2,8 +2,11 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
+    <loc>https://perfsky.github.io/matches/</loc>
+    <lastmod>2024-11-05T10:52:58+08:00</lastmod>
+  </url><url>
     <loc>https://perfsky.github.io/misc/raspi-simulator-tutorial/</loc>
-    <lastmod>2024-10-27T00:00:00+00:00</lastmod>
+    <lastmod>2024-10-28T16:43:52+08:00</lastmod>
   </url><url>
     <loc>https://perfsky.github.io/blogs/hextra-setup-tutorial/</loc>
     <lastmod>2024-10-14T17:49:30+08:00</lastmod>
@@ -12,34 +15,31 @@
     <lastmod>2024-10-24T15:48:51+08:00</lastmod>
   </url><url>
     <loc>https://perfsky.github.io/about/</loc>
-    <lastmod>2024-10-15T12:55:57+08:00</lastmod>
+    <lastmod>2024-10-28T16:43:52+08:00</lastmod>
   </url><url>
     <loc>https://perfsky.github.io/blogs/</loc>
-    <lastmod>2024-10-16T20:35:20+08:00</lastmod>
+    <lastmod>2024-10-28T16:43:52+08:00</lastmod>
   </url><url>
     <loc>https://perfsky.github.io/misc/</loc>
-    <lastmod>2024-10-16T20:35:20+08:00</lastmod>
+    <lastmod>2024-10-28T16:43:52+08:00</lastmod>
   </url><url>
-    <loc>https://perfsky.github.io/thoughts/</loc>
-    <lastmod>2024-10-14T17:49:30+08:00</lastmod>
-  </url><url>
-    <loc>https://perfsky.github.io/blogs/ctf-cheatsheet-traffic-analysis/</loc>
-    <lastmod>2024-10-15T12:55:57+08:00</lastmod>
+    <loc>https://perfsky.github.io/matches/ctf-cheatsheet-traffic-analysis/</loc>
+    <lastmod>2024-05-24T00:00:00+00:00</lastmod>
   </url><url>
     <loc>https://perfsky.github.io/blogs/useless-gdb-cheatsheet/</loc>
     <lastmod>2024-10-14T17:49:30+08:00</lastmod>
   </url><url>
-    <loc>https://perfsky.github.io/blogs/xihu2024-initial-misc/</loc>
-    <lastmod>2024-10-15T12:55:57+08:00</lastmod>
+    <loc>https://perfsky.github.io/matches/xihu2024-initial-misc/</loc>
+    <lastmod>2024-02-01T00:00:00+00:00</lastmod>
   </url><url>
-    <loc>https://perfsky.github.io/blogs/hitctf2023-misc/</loc>
-    <lastmod>2024-10-14T17:49:30+08:00</lastmod>
+    <loc>https://perfsky.github.io/matches/hitctf2023-misc/</loc>
+    <lastmod>2023-11-26T00:00:00+00:00</lastmod>
   </url><url>
-    <loc>https://perfsky.github.io/blogs/iscc2023-beijing-fin-misc/</loc>
-    <lastmod>2024-10-14T17:49:30+08:00</lastmod>
+    <loc>https://perfsky.github.io/matches/iscc2023-beijing-fin-misc/</loc>
+    <lastmod>2023-10-21T00:00:00+00:00</lastmod>
   </url><url>
-    <loc>https://perfsky.github.io/blogs/ctf-misc-tools/</loc>
-    <lastmod>2024-10-14T17:49:30+08:00</lastmod>
+    <loc>https://perfsky.github.io/matches/ctf-misc-tools/</loc>
+    <lastmod>2023-10-01T00:00:00+00:00</lastmod>
   </url><url>
     <loc>https://perfsky.github.io/categories/</loc>
   </url><url>
