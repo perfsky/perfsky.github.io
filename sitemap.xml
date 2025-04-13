@@ -2,50 +2,50 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
-    <loc>https://perfsky.github.io/matches/qiangwang2024-misc/</loc>
-    <lastmod>2024-11-10T00:00:00+00:00</lastmod>
+    <loc>http://localhost:1313/matches/qiangwang2024-misc/</loc>
+    <lastmod>2024-11-10T21:05:31+08:00</lastmod>
   </url><url>
-    <loc>https://perfsky.github.io/matches/</loc>
-    <lastmod>2024-11-05T11:02:11+08:00</lastmod>
+    <loc>http://localhost:1313/matches/</loc>
+    <lastmod>2024-11-10T21:05:31+08:00</lastmod>
   </url><url>
-    <loc>https://perfsky.github.io/misc/raspi-simulator-tutorial/</loc>
+    <loc>http://localhost:1313/misc/raspi-simulator-tutorial/</loc>
     <lastmod>2024-10-28T16:43:52+08:00</lastmod>
   </url><url>
-    <loc>https://perfsky.github.io/blogs/hextra-setup-tutorial/</loc>
+    <loc>http://localhost:1313/blogs/hextra-setup-tutorial/</loc>
     <lastmod>2024-11-05T11:02:11+08:00</lastmod>
   </url><url>
-    <loc>https://perfsky.github.io/</loc>
+    <loc>http://localhost:1313/</loc>
     <lastmod>2024-11-05T11:02:11+08:00</lastmod>
   </url><url>
-    <loc>https://perfsky.github.io/about/</loc>
+    <loc>http://localhost:1313/about/</loc>
     <lastmod>2024-10-28T16:43:52+08:00</lastmod>
   </url><url>
-    <loc>https://perfsky.github.io/blogs/</loc>
+    <loc>http://localhost:1313/blogs/</loc>
     <lastmod>2024-11-05T11:02:11+08:00</lastmod>
   </url><url>
-    <loc>https://perfsky.github.io/misc/</loc>
+    <loc>http://localhost:1313/misc/</loc>
     <lastmod>2024-10-28T16:43:52+08:00</lastmod>
   </url><url>
-    <loc>https://perfsky.github.io/matches/ctf-cheatsheet-traffic-analysis/</loc>
+    <loc>http://localhost:1313/matches/ctf-cheatsheet-traffic-analysis/</loc>
     <lastmod>2024-11-05T11:02:11+08:00</lastmod>
   </url><url>
-    <loc>https://perfsky.github.io/blogs/useless-gdb-cheatsheet/</loc>
+    <loc>http://localhost:1313/blogs/useless-gdb-cheatsheet/</loc>
     <lastmod>2024-10-14T17:49:30+08:00</lastmod>
   </url><url>
-    <loc>https://perfsky.github.io/matches/xihu2024-initial-misc/</loc>
+    <loc>http://localhost:1313/matches/xihu2024-initial-misc/</loc>
     <lastmod>2024-11-05T11:02:11+08:00</lastmod>
   </url><url>
-    <loc>https://perfsky.github.io/matches/hitctf2023-misc/</loc>
+    <loc>http://localhost:1313/matches/hitctf2023-misc/</loc>
     <lastmod>2024-11-05T11:02:11+08:00</lastmod>
   </url><url>
-    <loc>https://perfsky.github.io/matches/iscc2023-beijing-fin-misc/</loc>
+    <loc>http://localhost:1313/matches/iscc2023-beijing-fin-misc/</loc>
     <lastmod>2024-11-05T11:02:11+08:00</lastmod>
   </url><url>
-    <loc>https://perfsky.github.io/matches/ctf-misc-tools/</loc>
+    <loc>http://localhost:1313/matches/ctf-misc-tools/</loc>
     <lastmod>2024-11-05T11:02:11+08:00</lastmod>
   </url><url>
-    <loc>https://perfsky.github.io/categories/</loc>
+    <loc>http://localhost:1313/categories/</loc>
   </url><url>
-    <loc>https://perfsky.github.io/tags/</loc>
+    <loc>http://localhost:1313/tags/</loc>
   </url>
 </urlset>
