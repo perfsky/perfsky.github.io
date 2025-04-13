@@ -1,8 +1,8 @@
 <!DOCTYPE html>
-<html lang="zh-cn"><head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+<html lang="zh-cn"><head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="robots" content="noindex, nofollow" />
+  <meta name="robots" content="index, follow" />
   <link rel="icon shortcut" href="/favicon.ico" sizes="32x32" />
 <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
 <link rel="icon" href="/favicon-dark.svg" type="image/svg+xml" media="(prefers-color-scheme: dark)" />
@@ -10,24 +10,16 @@
 <link rel="icon" href="/favicon-32x32.png" type="image/png" sizes="32x32" />
 <link rel="apple-touch-icon" href="/apple-touch-icon.png" sizes="180x180" />
 <link fetchpriority="low" href="/site.webmanifest" rel="manifest" />
-
-  <title>CTF MISC常用工具集锦/使用方法简介 – Sakuya&#39;s Blog</title>
-  <meta name="description" content="一些Misc常用的工具以及使用方法总结" />
-
-  
-    <link rel="canonical" href="http://localhost:1313/matches/ctf-misc-tools/" itemprop="url" />
-  
-
-  
+<title>CTF MISC常用工具集锦/使用方法简介 – Sakuya&#39;s Blog</title>
+  <meta name="description" content="一些Misc常用的工具以及使用方法总结" /><link rel="canonical" href="https://perfsky.github.io/matches/ctf-misc-tools/" itemprop="url" />
 
 <meta property="og:title" content="CTF MISC常用工具集锦/使用方法简介" />
 <meta property="og:description" content="一些Misc常用的工具以及使用方法总结" />
 <meta property="og:type" content="article" />
-<meta property="og:url" content="http://localhost:1313/matches/ctf-misc-tools/" /><meta property="article:section" content="matches" />
+<meta property="og:url" content="https://perfsky.github.io/matches/ctf-misc-tools/" /><meta property="article:section" content="matches" />
 <meta property="article:published_time" content="2023-10-01T00:00:00+00:00" />
 <meta property="article:modified_time" content="2024-11-05T11:02:11+08:00" />
 
-  
   <meta itemprop="name" content="CTF MISC常用工具集锦/使用方法简介">
   <meta itemprop="description" content="一些Misc常用的工具以及使用方法总结">
   <meta itemprop="datePublished" content="2023-10-01T00:00:00+00:00">
@@ -38,14 +30,26 @@
   <meta name="twitter:title" content="CTF MISC常用工具集锦/使用方法简介">
   <meta name="twitter:description" content="一些Misc常用的工具以及使用方法总结">
 
-    <link href="/css/compiled/main.css" rel="stylesheet" />
+    <link rel="preload" href="/css/compiled/main.min.9a2a4c6e602ce30f10fa86afbb1ce624db853742eeccc2e954764594ee62c18f.css" as="style" integrity="sha256-mipMbmAs4w8Q&#43;oavuxzmJNuFN0LuzMLpVHZFlO5iwY8=" />
+    <link href="/css/compiled/main.min.9a2a4c6e602ce30f10fa86afbb1ce624db853742eeccc2e954764594ee62c18f.css" rel="stylesheet" integrity="sha256-mipMbmAs4w8Q&#43;oavuxzmJNuFN0LuzMLpVHZFlO5iwY8=" />
 
 
 
-  <link href="/css/custom.css" rel="stylesheet" />
+  <link href="/css/custom.min.3a4e5baa7a6f79acc5c395ecc3c64184843140004e9d9a556fcd438c6d902f1d.css" rel="stylesheet" integrity="sha256-Ok5bqnpveazFw5Xsw8ZBhIQxQABOnZpVb81DjG2QLx0=" />
 
+  <link rel="preconnect" href="https://www.googletagmanager.com" crossorigin />
+  
+  
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-XTKTFNE828"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag() {
+      dataLayer.push(arguments);
+    }
+    gtag("js", new Date());
 
-
+    gtag("config", "G-XTKTFNE828");
+  </script>
 
 
   <script>
@@ -78,9 +82,9 @@
 
   <nav class="hx-mx-auto hx-flex hx-items-center hx-justify-end hx-gap-2 hx-h-16 hx-px-6 hx-max-w-[90rem]">
     <a class="hx-flex hx-items-center hover:hx-opacity-75 ltr:hx-mr-auto rtl:hx-ml-auto" href="/">
-        <img class="hx-block dark:hx-hidden" src="/images/logo.svg" alt="Sakuya&#39;s Blog" height="20" width="20" />
-        <img class="hx-hidden dark:hx-block" src="/images/logo-dark.svg" alt="Sakuya&#39;s Blog" height="20" width="20" />
-        <span class="hx-mx-2 hx-font-extrabold hx-inline hx-select-none" title="Sakuya&#39;s Blog">Sakuya&#39;s Blog</span>
+        <img class="hx-mr-2 hx-block dark:hx-hidden" src="/images/logo.svg" alt="Sakuya&#39;s Blog" height="20" width="20" />
+        <img class="hx-mr-2 hx-hidden dark:hx-block" src="/images/logo-dark.svg" alt="Sakuya&#39;s Blog" height="20" width="20" />
+        <span class="hx-mr-2 hx-font-extrabold hx-inline hx-select-none" title="Sakuya&#39;s Blog">Sakuya&#39;s Blog</span>
     </a><a
             title="博客"
             href="/blogs"
@@ -133,7 +137,7 @@
   </div>
 </div>
 
-          <a class="hx-p-2 hx-text-current" target="_blank" rel="noreferer" href="https://github.com/perfsakuya" title="GitHub"><svg height=24 fill="currentColor" viewBox="3 3 18 18">
+          <a class="hx-p-2 hx-text-current" target="_blank" rel="noreferrer" href="https://github.com/perfsakuya" title="GitHub"><svg height=24 fill="currentColor" viewBox="3 3 18 18">
   <path d="M12 3C7.0275 3 3 7.12937 3 12.2276C3 16.3109 5.57625 19.7597 9.15374 20.9824C9.60374 21.0631 9.77249 20.7863 9.77249 20.5441C9.77249 20.3249 9.76125 19.5982 9.76125 18.8254C7.5 19.2522 6.915 18.2602 6.735 17.7412C6.63375 17.4759 6.19499 16.6569 5.8125 16.4378C5.4975 16.2647 5.0475 15.838 5.80124 15.8264C6.51 15.8149 7.01625 16.4954 7.18499 16.7723C7.99499 18.1679 9.28875 17.7758 9.80625 17.5335C9.885 16.9337 10.1212 16.53 10.38 16.2993C8.3775 16.0687 6.285 15.2728 6.285 11.7432C6.285 10.7397 6.63375 9.9092 7.20749 9.26326C7.1175 9.03257 6.8025 8.08674 7.2975 6.81794C7.2975 6.81794 8.05125 6.57571 9.77249 7.76377C10.4925 7.55615 11.2575 7.45234 12.0225 7.45234C12.7875 7.45234 13.5525 7.55615 14.2725 7.76377C15.9937 6.56418 16.7475 6.81794 16.7475 6.81794C17.2424 8.08674 16.9275 9.03257 16.8375 9.26326C17.4113 9.9092 17.76 10.7281 17.76 11.7432C17.76 15.2843 15.6563 16.0687 13.6537 16.2993C13.98 16.5877 14.2613 17.1414 14.2613 18.0065C14.2613 19.2407 14.25 20.2326 14.25 20.5441C14.25 20.7863 14.4188 21.0746 14.8688 20.9824C16.6554 20.364 18.2079 19.1866 19.3078 17.6162C20.4077 16.0457 20.9995 14.1611 21 12.2276C21 7.12937 16.9725 3 12 3Z"></path>
 </svg>
 <span class="hx-sr-only">GitHub</span>
@@ -346,19 +350,17 @@
       <li class="[word-break:break-word] hx-mt-5 hx-mb-2 hx-px-2 hx-py-1.5 hx-text-sm hx-font-semibold hx-text-gray-900 first:hx-mt-0 dark:hx-text-gray-100">
         <span class="hx-cursor-default">More</span>
       </li>
-    
-      <li><a
+    <li><a
     class="hx-flex hx-items-center hx-justify-between hx-gap-2 hx-cursor-pointer hx-rounded hx-px-2 hx-py-1.5 hx-text-sm hx-transition-colors [-webkit-tap-highlight-color:transparent] [-webkit-touch-callout:none] [word-break:break-word]
       hx-text-gray-500 hover:hx-bg-gray-100 hover:hx-text-gray-900 contrast-more:hx-border contrast-more:hx-border-transparent contrast-more:hx-text-gray-900 contrast-more:hover:hx-border-gray-900 dark:hx-text-neutral-400 dark:hover:hx-bg-primary-100/5 dark:hover:hx-text-gray-50 contrast-more:dark:hx-text-gray-50 contrast-more:dark:hover:hx-border-gray-50"
-    href="/about/"
+    href="/about"
     
   >关于</a></li>
-    
-      <li><a
+    <li><a
     class="hx-flex hx-items-center hx-justify-between hx-gap-2 hx-cursor-pointer hx-rounded hx-px-2 hx-py-1.5 hx-text-sm hx-transition-colors [-webkit-tap-highlight-color:transparent] [-webkit-touch-callout:none] [word-break:break-word]
       hx-text-gray-500 hover:hx-bg-gray-100 hover:hx-text-gray-900 contrast-more:hx-border contrast-more:hx-border-transparent contrast-more:hx-text-gray-900 contrast-more:hover:hx-border-gray-900 dark:hx-text-neutral-400 dark:hover:hx-bg-primary-100/5 dark:hover:hx-text-gray-50 contrast-more:dark:hx-text-gray-50 contrast-more:dark:hover:hx-border-gray-50"
     href="https://gohugo.io/documentation/"
-    target="_blank" rel="noreferer"
+    target="_blank" rel="noreferrer"
   >Hugo Docs ↗</a></li>
     
     </ul>
@@ -579,7 +581,6 @@
 仓库：<a href="https://github.com/ReFirmLabs/binwalk" target="_blank" rel="noopener">Github - binwalk</a>
 快速入门：</p>
 <div class="hextra-code-block hx-relative hx-mt-6 first:hx-mt-0 hx-group/code">
-  
 
 <div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">binwalk -e stego.zip        <span class="c1">#提取stego.zip</span></span></span></code></pre></div></div><div class="hextra-code-copy-btn-container hx-opacity-0 hx-transition group-hover/code:hx-opacity-100 hx-flex hx-gap-1 hx-absolute hx-m-[11px] hx-right-0 hx-top-0">
   <button
@@ -590,14 +591,11 @@
     <div class="success-icon hx-hidden group-[.copied]/copybtn:hx-block hx-pointer-events-none hx-h-4 hx-w-4"></div>
   </button>
 </div>
-
-  
 </div>
 <h3>steghide/stegseek<span class="hx-absolute -hx-mt-20" id="steghidestegseek"></span>
     <a href="#steghidestegseek" class="subheading-anchor" aria-label="Permalink for this section"></a></h3><p>steghide隐写和配套解密工具，配合rockyou.txt食用更佳
 快速入门：</p>
 <div class="hextra-code-block hx-relative hx-mt-6 first:hx-mt-0 hx-group/code">
-  
 
 <div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">stegseek <span class="o">[</span>stegofile.jpg<span class="o">]</span> <span class="o">[</span>wordlist.txt<span class="o">]</span>        <span class="c1">#用wordlist暴力破解stegofile</span>
 </span></span><span class="line"><span class="cl">stegseek --seed <span class="o">[</span>stegofile.jpg<span class="o">]</span>        <span class="c1"># 分析此文件是否包含steghide内容，包含多少隐藏内容，是如何加密的</span></span></span></code></pre></div></div><div class="hextra-code-copy-btn-container hx-opacity-0 hx-transition group-hover/code:hx-opacity-100 hx-flex hx-gap-1 hx-absolute hx-m-[11px] hx-right-0 hx-top-0">
@@ -609,8 +607,6 @@
     <div class="success-icon hx-hidden group-[.copied]/copybtn:hx-block hx-pointer-events-none hx-h-4 hx-w-4"></div>
   </button>
 </div>
-
-  
 </div>
 <h3>CyberChef<span class="hx-absolute -hx-mt-20" id="cyberchef"></span>
     <a href="#cyberchef" class="subheading-anchor" aria-label="Permalink for this section"></a></h3><p>赛博厨子，ctf编码神器，方便易用，可以下载本地离线使用
@@ -620,7 +616,6 @@
 仓库：<a href="https://github.com/Ciphey/Ciphey" target="_blank" rel="noopener">Github - Ciphet</a>
 快速入门：</p>
 <div class="hextra-code-block hx-relative hx-mt-6 first:hx-mt-0 hx-group/code">
-  
 
 <div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">ciphey -t <span class="s2">&#34;put_encrypted_message_here&#34;</span>
 </span></span><span class="line"><span class="cl">ciphey -f encrypted_message.txt
@@ -634,8 +629,6 @@
     <div class="success-icon hx-hidden group-[.copied]/copybtn:hx-block hx-pointer-events-none hx-h-4 hx-w-4"></div>
   </button>
 </div>
-
-  
 </div>
 <h2>图片隐写<span class="hx-absolute -hx-mt-20" id="图片隐写"></span>
     <a href="#%e5%9b%be%e7%89%87%e9%9a%90%e5%86%99" class="subheading-anchor" aria-label="Permalink for this section"></a></h2><h3>Stegsolve<span class="hx-absolute -hx-mt-20" id="stegsolve"></span>
@@ -658,7 +651,6 @@
 链接（gaps）：<a href="https://github.com/nemanja-m/gaps" target="_blank" rel="noopener">Github - gaps</a>
 快速入门：</p>
 <div class="hextra-code-block hx-relative hx-mt-6 first:hx-mt-0 hx-group/code">
-  
 
 <div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">magick.exe montage *.jpg  -tile 22x2  -geometry 64x256+0+0 abc.jpg
 </span></span><span class="line"><span class="cl"><span class="c1"># 将目录里的jpg文件按顺序拼成x轴22块，y轴2块的图 ，每个图块的大小为64X512像素，输出文件为abc.jpg</span>
@@ -676,8 +668,6 @@
     <div class="success-icon hx-hidden group-[.copied]/copybtn:hx-block hx-pointer-events-none hx-h-4 hx-w-4"></div>
   </button>
 </div>
-
-  
 </div>
 <h2>文件隐写<span class="hx-absolute -hx-mt-20" id="文件隐写"></span>
     <a href="#%e6%96%87%e4%bb%b6%e9%9a%90%e5%86%99" class="subheading-anchor" aria-label="Permalink for this section"></a></h2><h3>wbs4.3open<span class="hx-absolute -hx-mt-20" id="wbs43open"></span>
@@ -703,7 +693,6 @@
     <a href="#zipcenop" class="subheading-anchor" aria-label="Permalink for this section"></a></h3><p>zip伪加密修复
 快速入门：</p>
 <div class="hextra-code-block hx-relative hx-mt-6 first:hx-mt-0 hx-group/code">
-  
 
 <div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">java -jar ZipCenOp.jar r fake_encrypted.zip</span></span></code></pre></div></div><div class="hextra-code-copy-btn-container hx-opacity-0 hx-transition group-hover/code:hx-opacity-100 hx-flex hx-gap-1 hx-absolute hx-m-[11px] hx-right-0 hx-top-0">
   <button
@@ -714,8 +703,6 @@
     <div class="success-icon hx-hidden group-[.copied]/copybtn:hx-block hx-pointer-events-none hx-h-4 hx-w-4"></div>
   </button>
 </div>
-
-  
 </div>
 <h3>ARCHPR<span class="hx-absolute -hx-mt-20" id="archpr"></span>
     <a href="#archpr" class="subheading-anchor" aria-label="Permalink for this section"></a></h3><p>暴力破解工具，支持掩码、字典、明文攻击等手段</p>
@@ -730,9 +717,8 @@
 快速入门：</p>
 <h4>mac地址/ip/端口过滤<span class="hx-absolute -hx-mt-20" id="mac地址ip端口过滤"></span>
     <a href="#mac%e5%9c%b0%e5%9d%80ip%e7%ab%af%e5%8f%a3%e8%bf%87%e6%bb%a4" class="subheading-anchor" aria-label="Permalink for this section"></a></h4><div class="hextra-code-block hx-relative hx-mt-6 first:hx-mt-0 hx-group/code">
-  
 
-<pre><code>eth.addr==20:dc:e6:f3:78:cc   //筛选MAC地址是20:dc:e6:f3:78:cc的数据包，包括源或者目的MAC地址
+<div><pre><code>eth.addr==20:dc:e6:f3:78:cc   //筛选MAC地址是20:dc:e6:f3:78:cc的数据包，包括源或者目的MAC地址
 eth.src==20:dc:e6:f3:78:cc    //源MAC地址是20:dc:e6:f3:78:cc
 eth.dst==20:dc:e6:f3:78:cc    //目的MAC地址是20:dc:e6:f3:78:cc
 
@@ -744,7 +730,7 @@ tcp.dstport==80        //根据目的TCP端口筛选
 tcp.srcport==80        //根据源TCP端口筛选
 udp.port==4010       //根据UDP端口筛选数据包，包括源端口或者目的端口
 udp.srcport==4010      //根据源UDP端口筛选
-udp.dstport==4010      //根据目的UDP端口筛选</code></pre><div class="hextra-code-copy-btn-container hx-opacity-0 hx-transition group-hover/code:hx-opacity-100 hx-flex hx-gap-1 hx-absolute hx-m-[11px] hx-right-0 hx-top-0">
+udp.dstport==4010      //根据目的UDP端口筛选</code></pre></div><div class="hextra-code-copy-btn-container hx-opacity-0 hx-transition group-hover/code:hx-opacity-100 hx-flex hx-gap-1 hx-absolute hx-m-[11px] hx-right-0 hx-top-0">
   <button
     class="hextra-code-copy-btn hx-group/copybtn hx-transition-all active:hx-opacity-50 hx-bg-primary-700/5 hx-border hx-border-black/5 hx-text-gray-600 hover:hx-text-gray-900 hx-rounded-md hx-p-1.5 dark:hx-bg-primary-300/10 dark:hx-border-white/10 dark:hx-text-gray-400 dark:hover:hx-text-gray-50"
     title="Copy code"
@@ -753,15 +739,12 @@ udp.dstport==4010      //根据目的UDP端口筛选</code></pre><div class="hex
     <div class="success-icon hx-hidden group-[.copied]/copybtn:hx-block hx-pointer-events-none hx-h-4 hx-w-4"></div>
   </button>
 </div>
-
-  
 </div>
 <h4>协议筛选<span class="hx-absolute -hx-mt-20" id="协议筛选"></span>
     <a href="#%e5%8d%8f%e8%ae%ae%e7%ad%9b%e9%80%89" class="subheading-anchor" aria-label="Permalink for this section"></a></h4><p>常见协议：udp，tcp，arp，icmp，smtp，pop，dns，ip，ssl，http，ftp，ssh</p>
 <div class="hextra-code-block hx-relative hx-mt-6 first:hx-mt-0 hx-group/code">
-  
 
-<pre><code>http //过滤http流量
+<div><pre><code>http //过滤http流量
 http.request.method==GET/POST
 http.response
 http.response.code &gt;=400（包含错误码）
@@ -773,7 +756,7 @@ http.content_encoding == “gzip” //过滤content_encoding是gzip的http包
 http.transfer_encoding == “chunked” //根据transfer_encoding过滤
 http.content_length == 279
 http.content_length_header == “279” //根据content_length的数值过滤
-http.server //过滤所有含有http头中含有server字段的数据包</code></pre><div class="hextra-code-copy-btn-container hx-opacity-0 hx-transition group-hover/code:hx-opacity-100 hx-flex hx-gap-1 hx-absolute hx-m-[11px] hx-right-0 hx-top-0">
+http.server //过滤所有含有http头中含有server字段的数据包</code></pre></div><div class="hextra-code-copy-btn-container hx-opacity-0 hx-transition group-hover/code:hx-opacity-100 hx-flex hx-gap-1 hx-absolute hx-m-[11px] hx-right-0 hx-top-0">
   <button
     class="hextra-code-copy-btn hx-group/copybtn hx-transition-all active:hx-opacity-50 hx-bg-primary-700/5 hx-border hx-border-black/5 hx-text-gray-600 hover:hx-text-gray-900 hx-rounded-md hx-p-1.5 dark:hx-bg-primary-300/10 dark:hx-border-white/10 dark:hx-text-gray-400 dark:hover:hx-text-gray-50"
     title="Copy code"
@@ -782,8 +765,6 @@ http.server //过滤所有含有http头中含有server字段的数据包</code><
     <div class="success-icon hx-hidden group-[.copied]/copybtn:hx-block hx-pointer-events-none hx-h-4 hx-w-4"></div>
   </button>
 </div>
-
-  
 </div>
 <p>也可参考：<a href="https://zhuanlan.zhihu.com/p/631821119" target="_blank" rel="noopener">知乎 - Wireshark教程</a></p>
 <h2>MISC^2<span class="hx-absolute -hx-mt-20" id="misc2"></span>
@@ -809,8 +790,17 @@ http.server //过滤所有含有http头中含有server字段的数据包</code><
         <script>
   
 
-  function getGiscusTheme() {
+  function getHugoTheme() {
     return localStorage.getItem("color-theme");
+  }
+  
+  function getGiscusTheme() {
+    let giscusTheme = "light";
+    if(getHugoTheme() == 'light') {
+      return giscusTheme.replace('dark', 'light');
+    } else {
+      return giscusTheme.replace('light', 'dark');
+    }
   }
 
   function setGiscusTheme() {
@@ -872,21 +862,17 @@ http.server //过滤所有含有http头中含有server字段的数据包</code><
   <div class="hx-flex hx-items-center hx-gap-2 hx-capitalize"><svg height=12 class="group-data-[theme=light]:hx-hidden" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z"/></svg><span class="group-data-[theme=light]:hx-hidden">浅色</span><svg height=12 class="group-data-[theme=dark]:hx-hidden" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"/></svg><span class="group-data-[theme=dark]:hx-hidden">深色</span></div>
 </button>
 </div><hr class="dark:hx-border-neutral-800" /><div
-    class="hx-max-w-[90rem] hx-mx-auto hx-flex hx-justify-center hx-py-12 hx-pl-[max(env(safe-area-inset-left),1.5rem)] hx-pr-[max(env(safe-area-inset-right),1.5rem)] hx-text-gray-600 dark:hx-text-gray-400 md:hx-justify-start"
-  >
-    <div class="hx-flex hx-w-full hx-flex-col hx-items-center sm:hx-items-start"><div class="hx-font-semibold"><a class="hx-flex hx-text-sm hx-items-center hx-gap-1 hx-text-current" target="_blank" rel="noopener noreferrer" title="Hextra GitHub Homepage" href="https://github.com/imfing/hextra">
+      class="hextra-custom-footer hx-max-w-[90rem] hx-pl-[max(env(safe-area-inset-left),1.5rem)] hx-pr-[max(env(safe-area-inset-right),1.5rem)] hx-text-gray-600 dark:hx-text-gray-400"
+    ></div><div
+        class="hx-max-w-[90rem] hx-mx-auto hx-flex hx-justify-center hx-py-12 hx-pl-[max(env(safe-area-inset-left),1.5rem)] hx-pr-[max(env(safe-area-inset-right),1.5rem)] hx-text-gray-600 dark:hx-text-gray-400 md:hx-justify-start"
+      >
+        <div class="hx-flex hx-w-full hx-flex-col hx-items-center sm:hx-items-start"><div class="hx-font-semibold"><a class="hx-flex hx-text-sm hx-items-center hx-gap-1 hx-text-current" target="_blank" rel="noopener noreferrer" title="Hextra GitHub Homepage" href="https://github.com/imfing/hextra">
     <span>由 Hextra 驱动<svg height=1em class="hx-inline-block ltr:hx-ml-1 rtl:hx-mr-1 hx-align-[-2.5px]" viewBox="0 0 180 180" xmlns="http://www.w3.org/2000/svg" fill="currentColor"><path fill-rule="evenodd" clip-rule="evenodd" d="m 105.50024,22.224647 c -9.59169,-5.537563 -21.40871,-5.537563 -31.000093,0 L 39.054693,42.689119 C 29.463353,48.226675 23.55484,58.460531 23.55484,69.535642 v 40.928918 c 0,11.07542 5.908513,21.3092 15.499853,26.84652 l 35.445453,20.46446 c 9.591313,5.53732 21.408404,5.53732 31.000094,0 l 35.44507,-20.46446 c 9.59131,-5.53732 15.49985,-15.7711 15.49985,-26.84652 V 69.535642 c 0,-11.075111 -5.90854,-21.308967 -15.49985,-26.846523 z M 34.112797,85.737639 c -1.384445,2.397827 -1.384445,5.352099 0,7.749927 l 24.781554,42.922974 c 1.38437,2.39783 3.942853,3.87496 6.711592,3.87496 h 49.563107 c 2.76905,0 5.3273,-1.47713 6.71144,-3.87496 l 24.78194,-42.922974 c 1.38414,-2.397828 1.38414,-5.3521 0,-7.749927 L 121.88049,42.814746 c -1.38414,-2.397828 -3.94239,-3.874964 -6.71144,-3.874964 H 65.605944 c -2.768739,0 -5.327223,1.477059 -6.711592,3.874964 z" style="stroke-width:0.774993" /></svg></span>
-  </a></div><div class="hx-mt-6 hx-text-xs">© 2024 PerfSakuya.</div>
-    </div>
-  </div>
-</footer>
+  </a></div><div class="hx-mt-6 hx-text-xs">© 2024 PerfSakuya.</div></div>
+      </div></footer>
     
-    <script defer src="/js/main.js" integrity=""></script>
-
-
+    <script defer src="/js/main.min.0942239592f0795dc7213dd1057fd229d7edc19c0ef1a285396eb292d9ca9842.js" integrity="sha256-CUIjlZLweV3HIT3RBX/SKdftwZwO8aKFOW6yktnKmEI="></script>
 <script defer src="/lib/flexsearch/flexsearch.bundle.min.0425860527cc9968f9f049421c7a56b39327d475e2e3a8f550416be3a9134327.js" integrity="sha256-BCWGBSfMmWj58ElCHHpWs5Mn1HXi46j1UEFr46kTQyc="></script>
-    <script defer src="/zh-cn.search.js" integrity=""></script>
-
-
+    <script defer src="/zh-cn.search.min.953518fb98d96698003a75f3cad61d5f86bf3a76e24d0d4cdc5fd96295928c15.js" integrity="sha256-lTUY&#43;5jZZpgAOnXzytYdX4a/OnbiTQ1M3F/ZYpWSjBU="></script>
   </body>
 </html>

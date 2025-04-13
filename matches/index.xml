@@ -1,13 +1,13 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Sakuya&#39;s Blog – Matches</title>
-    <link>http://localhost:1313/matches/</link>
+    <link>https://perfsky.github.io/matches/</link>
     <description>Recent content in Matches on Sakuya&#39;s Blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-CN</language>
     <lastBuildDate>Tue, 05 Nov 2024 10:52:58 +0800</lastBuildDate>
     
-	  <atom:link href="http://localhost:1313/matches/index.xml" rel="self" type="application/rss+xml" />
+	  <atom:link href="https://perfsky.github.io/matches/index.xml" rel="self" type="application/rss+xml" />
     
     
       
@@ -17,10 +17,10 @@
     
     <item>
       <title>[强网2024初赛] MISC-谍影重重5.0 WriteUp</title>
-      <link>http://localhost:1313/matches/qiangwang2024-misc/</link>
+      <link>https://perfsky.github.io/matches/qiangwang2024-misc/</link>
       <pubDate>Sun, 10 Nov 2024 00:00:00 +0000</pubDate>
       
-      <guid>http://localhost:1313/matches/qiangwang2024-misc/</guid>
+      <guid>https://perfsky.github.io/matches/qiangwang2024-misc/</guid>
       <description>
         
         
@@ -32,7 +32,6 @@
     &lt;img src=&#34;.././qiangwang2024-misc/00.png&#34; alt=&#34;image&#34; loading=&#34;lazy&#34; /&gt;
 先从开头的SMB2建立会话入手，可知进行过一次成功的连接，并有加密流量传输。从包121、122中可提取出相关信息进行爆破：&lt;/p&gt;
 &lt;div class=&#34;hextra-code-block hx-relative hx-mt-6 first:hx-mt-0 hx-group/code&#34;&gt;
-  
 
 &lt;div&gt;&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;Domain name: .
 &lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;User name: tom
@@ -51,8 +50,6 @@
     &lt;div class=&#34;success-icon hx-hidden group-[.copied]/copybtn:hx-block hx-pointer-events-none hx-h-4 hx-w-4&#34;&gt;&lt;/div&gt;
   &lt;/button&gt;
 &lt;/div&gt;
-
-  
 &lt;/div&gt;
 &lt;p&gt;使用组合后的hash在hashcat中爆破。这里尝试了很多自定义掩码都没能解出，最后用133MB的rockyou成功爆破出来：
 
@@ -60,7 +57,6 @@
 最后得出SMB账号密码：&lt;code&gt;tom:babygirl233&lt;/code&gt;，随后使用用户名、域、密码和其他内容计算Session Key。
 &lt;a href=&#34;https://malwarelab.eu/posts/tryhackme-smb-decryption/#method-2-decrypting-smb-with-the-ntlm-ha&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;SMB Decryption - TryHackMe&lt;/a&gt;&lt;/p&gt;
 &lt;div class=&#34;hextra-code-block hx-relative hx-mt-6 first:hx-mt-0 hx-group/code&#34;&gt;
-  
 
 &lt;div&gt;&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-python&#34; data-lang=&#34;python&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;kn&#34;&gt;from&lt;/span&gt; &lt;span class=&#34;nn&#34;&gt;Crypto.Cipher&lt;/span&gt; &lt;span class=&#34;kn&#34;&gt;import&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;ARC4&lt;/span&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;kn&#34;&gt;from&lt;/span&gt; &lt;span class=&#34;nn&#34;&gt;Crypto.Hash&lt;/span&gt; &lt;span class=&#34;kn&#34;&gt;import&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;MD4&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;MD5&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;HMAC&lt;/span&gt;
@@ -85,8 +81,6 @@
     &lt;div class=&#34;success-icon hx-hidden group-[.copied]/copybtn:hx-block hx-pointer-events-none hx-h-4 hx-w-4&#34;&gt;&lt;/div&gt;
   &lt;/button&gt;
 &lt;/div&gt;
-
-  
 &lt;/div&gt;
 &lt;p&gt;得到Session Key为&lt;code&gt;a3abe4d64394909a641062342ffe291b&lt;/code&gt;，和Session ID&lt;code&gt;0900000000100000&lt;/code&gt;组合起来，放入Wireshark中的SMB2解密。（这里的Session ID要转换为小端序）
 Wireshark提取SMB文件，得到flag压缩包和某个机器的某证书
@@ -114,7 +108,6 @@ Wireshark提取SMB文件，得到flag压缩包和某个机器的某证书
     &lt;img src=&#34;.././qiangwang2024-misc/06.png&#34; alt=&#34;image&#34; loading=&#34;lazy&#34; /&gt;
 这里我直接把RDP流全部转存为文本然后正则提取出了对应的键盘输入流，并和Scan Code的Set 1进行匹配：&lt;/p&gt;
 &lt;div class=&#34;hextra-code-block hx-relative hx-mt-6 first:hx-mt-0 hx-group/code&#34;&gt;
-  
 
 &lt;div&gt;&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-python&#34; data-lang=&#34;python&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;kn&#34;&gt;import&lt;/span&gt; &lt;span class=&#34;nn&#34;&gt;re&lt;/span&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;n&#34;&gt;input_file_path&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;s1&#34;&gt;&amp;#39;rdp.txt&amp;#39;&lt;/span&gt; &lt;span class=&#34;c1&#34;&gt;# 这里为导出RDP分组（解密后）的txt&lt;/span&gt;
@@ -145,12 +138,9 @@ Wireshark提取SMB文件，得到flag压缩包和某个机器的某证书
     &lt;div class=&#34;success-icon hx-hidden group-[.copied]/copybtn:hx-block hx-pointer-events-none hx-h-4 hx-w-4&#34;&gt;&lt;/div&gt;
   &lt;/button&gt;
 &lt;/div&gt;
-
-  
 &lt;/div&gt;
 &lt;p&gt;得到&lt;/p&gt;
 &lt;div class=&#34;hextra-code-block hx-relative hx-mt-6 first:hx-mt-0 hx-group/code&#34;&gt;
-  
 
 &lt;div&gt;&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;Tab LShift RShift LCtrl LCtrl Tab LAlt Tab LAlt
 &lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;Tab Tab LShift RShift LCtrl LCtrl Tab LAlt Tab LAlt
@@ -172,8 +162,6 @@ Wireshark提取SMB文件，得到flag压缩包和某个机器的某证书
     &lt;div class=&#34;success-icon hx-hidden group-[.copied]/copybtn:hx-block hx-pointer-events-none hx-h-4 hx-w-4&#34;&gt;&lt;/div&gt;
   &lt;/button&gt;
 &lt;/div&gt;
-
-  
 &lt;/div&gt;
 &lt;p&gt;windows password即SMB协议的用户密码&lt;code&gt;babygirl233&lt;/code&gt;，合并得到解压密码为&lt;code&gt;babygirl2339347013182&lt;/code&gt;，解压flag.7z即可得到flag&lt;/p&gt;
 
@@ -182,10 +170,10 @@ Wireshark提取SMB文件，得到flag压缩包和某个机器的某证书
     
     <item>
       <title>CTF CheatSheet之WebShell流量分析</title>
-      <link>http://localhost:1313/matches/ctf-cheatsheet-traffic-analysis/</link>
+      <link>https://perfsky.github.io/matches/ctf-cheatsheet-traffic-analysis/</link>
       <pubDate>Fri, 24 May 2024 00:00:00 +0000</pubDate>
       
-      <guid>http://localhost:1313/matches/ctf-cheatsheet-traffic-analysis/</guid>
+      <guid>https://perfsky.github.io/matches/ctf-cheatsheet-traffic-analysis/</guid>
       <description>
         
         
@@ -202,7 +190,6 @@ Wireshark提取SMB文件，得到flag压缩包和某个机器的某证书
     &lt;a href=&#34;#%e8%af%b7%e6%b1%82%e5%8c%85&#34; class=&#34;subheading-anchor&#34; aria-label=&#34;Permalink for this section&#34;&gt;&lt;/a&gt;&lt;/h4&gt;&lt;p&gt;UA中存在baidu或firefox&lt;/p&gt;
 &lt;p&gt;请求体中存在&lt;code&gt;eval&lt;/code&gt;，&lt;code&gt;base64&lt;/code&gt;等特征，payload为base64编码，存在固定的编码串&lt;/p&gt;
 &lt;div class=&#34;hextra-code-block hx-relative hx-mt-6 first:hx-mt-0 hx-group/code&#34;&gt;
-  
 
 &lt;div&gt;&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-php&#34; data-lang=&#34;php&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;// base64
 &lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;QGluaV9zZXQoImRpc3BsYXlfZXJyb3JzIiwiMCIpO0BzZXRfdGltZV9saW1pdCgwKTtpZihQSFBfVkVSU0lPTjwnNS4zLjAnKXtAc2V0X21hZ2ljX3F1b3Rlc19ydW50aW1lKDApO307ZWNobygiWEBZIik7&lt;/span&gt;
@@ -216,8 +203,6 @@ Wireshark提取SMB文件，得到flag压缩包和某个机器的某证书
     &lt;div class=&#34;success-icon hx-hidden group-[.copied]/copybtn:hx-block hx-pointer-events-none hx-h-4 hx-w-4&#34;&gt;&lt;/div&gt;
   &lt;/button&gt;
 &lt;/div&gt;
-
-  
 &lt;/div&gt;
 &lt;p&gt;同时可能存在部分未加密函数，比如&lt;code&gt;z0&lt;/code&gt;、&lt;code&gt;assert&lt;/code&gt;(用于拼接)等&lt;/p&gt;
 &lt;h4&gt;响应包&lt;span class=&#34;hx-absolute -hx-mt-20&#34; id=&#34;响应包&#34;&gt;&lt;/span&gt;
@@ -278,7 +263,6 @@ Wireshark提取SMB文件，得到flag压缩包和某个机器的某证书
 &lt;p&gt;少了动态密钥的获取的请求，不再使用随机生成 key，改为取连接密码的 md5 前 16 位作为密钥 一次请求为判断是否可以建立连接，少了两次 get 获取冰蝎动态密钥的行为，第二次发送 phpinfo 等代码执行。去除了动态密钥协商机制，采用预共享密钥，全程无明文交互，密钥格式为&lt;code&gt;md5(“admin”)[0:16]&lt;/code&gt;&lt;/p&gt;
 &lt;h4&gt;请求头&lt;span class=&#34;hx-absolute -hx-mt-20&#34; id=&#34;请求头&#34;&gt;&lt;/span&gt;
     &lt;a href=&#34;#%e8%af%b7%e6%b1%82%e5%a4%b4&#34; class=&#34;subheading-anchor&#34; aria-label=&#34;Permalink for this section&#34;&gt;&lt;/a&gt;&lt;/h4&gt;&lt;div class=&#34;hextra-code-block hx-relative hx-mt-6 first:hx-mt-0 hx-group/code&#34;&gt;
-  
 
 &lt;div&gt;&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-html&#34; data-lang=&#34;html&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;Pragma: no-cache
 &lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;Cache-Control: no-cache
@@ -296,13 +280,10 @@ Wireshark提取SMB文件，得到flag压缩包和某个机器的某证书
     &lt;div class=&#34;success-icon hx-hidden group-[.copied]/copybtn:hx-block hx-pointer-events-none hx-h-4 hx-w-4&#34;&gt;&lt;/div&gt;
   &lt;/button&gt;
 &lt;/div&gt;
-
-  
 &lt;/div&gt;
 &lt;h4&gt;User-Agent&lt;span class=&#34;hx-absolute -hx-mt-20&#34; id=&#34;user-agent&#34;&gt;&lt;/span&gt;
     &lt;a href=&#34;#user-agent&#34; class=&#34;subheading-anchor&#34; aria-label=&#34;Permalink for this section&#34;&gt;&lt;/a&gt;&lt;/h4&gt;&lt;p&gt;内置16个UA头，比较老旧&lt;/p&gt;
 &lt;div class=&#34;hextra-code-block hx-relative hx-mt-6 first:hx-mt-0 hx-group/code&#34;&gt;
-  
 
 &lt;div&gt;&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;Mozilla/5.0 &lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;Windows NT 6.1&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt; WOW64&lt;span class=&#34;o&#34;&gt;)&lt;/span&gt; AppleWebKit/535.1 &lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;KHTML, like Gecko&lt;span class=&#34;o&#34;&gt;)&lt;/span&gt; Chrome/14.0.835.163 Safari/535.1
 &lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;
@@ -345,8 +326,6 @@ Wireshark提取SMB文件，得到flag压缩包和某个机器的某证书
     &lt;div class=&#34;success-icon hx-hidden group-[.copied]/copybtn:hx-block hx-pointer-events-none hx-h-4 hx-w-4&#34;&gt;&lt;/div&gt;
   &lt;/button&gt;
 &lt;/div&gt;
-
-  
 &lt;/div&gt;
 &lt;h4&gt;Contetnt-Length&lt;span class=&#34;hx-absolute -hx-mt-20&#34; id=&#34;contetnt-length&#34;&gt;&lt;/span&gt;
     &lt;a href=&#34;#contetnt-length&#34; class=&#34;subheading-anchor&#34; aria-label=&#34;Permalink for this section&#34;&gt;&lt;/a&gt;&lt;/h4&gt;&lt;p&gt;命令执行时，请求包中&lt;code&gt;content-length&lt;/code&gt;为5740或5720（可能会根据Java版本而改变）&lt;/p&gt;
@@ -355,7 +334,6 @@ Wireshark提取SMB文件，得到flag压缩包和某个机器的某证书
 &lt;h4&gt;HTTP头特征&lt;span class=&#34;hx-absolute -hx-mt-20&#34; id=&#34;http头特征&#34;&gt;&lt;/span&gt;
     &lt;a href=&#34;#http%e5%a4%b4%e7%89%b9%e5%be%81&#34; class=&#34;subheading-anchor&#34; aria-label=&#34;Permalink for this section&#34;&gt;&lt;/a&gt;&lt;/h4&gt;&lt;h5&gt;Accept 头通常固定&lt;span class=&#34;hx-absolute -hx-mt-20&#34; id=&#34;accept-头通常固定&#34;&gt;&lt;/span&gt;
     &lt;a href=&#34;#accept-%e5%a4%b4%e9%80%9a%e5%b8%b8%e5%9b%ba%e5%ae%9a&#34; class=&#34;subheading-anchor&#34; aria-label=&#34;Permalink for this section&#34;&gt;&lt;/a&gt;&lt;/h5&gt;&lt;div class=&#34;hextra-code-block hx-relative hx-mt-6 first:hx-mt-0 hx-group/code&#34;&gt;
-  
 
 &lt;div&gt;&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;Accept: application/json, text/javascript, */*&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt; &lt;span class=&#34;nv&#34;&gt;q&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;0.01 意思是浏览器可接受任何文件，但最倾向application/json 和 text/javascript。
 &lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;
@@ -370,8 +348,6 @@ Wireshark提取SMB文件，得到flag压缩包和某个机器的某证书
     &lt;div class=&#34;success-icon hx-hidden group-[.copied]/copybtn:hx-block hx-pointer-events-none hx-h-4 hx-w-4&#34;&gt;&lt;/div&gt;
   &lt;/button&gt;
 &lt;/div&gt;
-
-  
 &lt;/div&gt;
 &lt;h5&gt;Content-Length 较大&lt;span class=&#34;hx-absolute -hx-mt-20&#34; id=&#34;content-length-较大&#34;&gt;&lt;/span&gt;
     &lt;a href=&#34;#content-length-%e8%be%83%e5%a4%a7&#34; class=&#34;subheading-anchor&#34; aria-label=&#34;Permalink for this section&#34;&gt;&lt;/a&gt;&lt;/h5&gt;&lt;p&gt;&lt;code&gt;Content-Length: 8244&lt;/code&gt; 作为辅助特征&lt;/p&gt;
@@ -387,7 +363,6 @@ Wireshark提取SMB文件，得到flag压缩包和某个机器的某证书
     &lt;img src=&#34;.././ctf-cheatsheet-traffic-analysis/behinder06.jpg&#34; alt=&#34;landscape&#34; loading=&#34;lazy&#34; /&gt;&lt;/p&gt;
 &lt;h5&gt;响应头字段&lt;span class=&#34;hx-absolute -hx-mt-20&#34; id=&#34;响应头字段&#34;&gt;&lt;/span&gt;
     &lt;a href=&#34;#%e5%93%8d%e5%ba%94%e5%a4%b4%e5%ad%97%e6%ae%b5&#34; class=&#34;subheading-anchor&#34; aria-label=&#34;Permalink for this section&#34;&gt;&lt;/a&gt;&lt;/h5&gt;&lt;div class=&#34;hextra-code-block hx-relative hx-mt-6 first:hx-mt-0 hx-group/code&#34;&gt;
-  
 
 &lt;div&gt;&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;Set-Cookie: &lt;span class=&#34;nv&#34;&gt;PHPSESSID&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;a59734f13f1fe73947e0b3b01ea2aabe&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt; &lt;span class=&#34;nv&#34;&gt;path&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;/
 &lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;
@@ -400,8 +375,6 @@ Wireshark提取SMB文件，得到flag压缩包和某个机器的某证书
     &lt;div class=&#34;success-icon hx-hidden group-[.copied]/copybtn:hx-block hx-pointer-events-none hx-h-4 hx-w-4&#34;&gt;&lt;/div&gt;
   &lt;/button&gt;
 &lt;/div&gt;
-
-  
 &lt;/div&gt;
 &lt;h5&gt;流量特征&lt;span class=&#34;hx-absolute -hx-mt-20&#34; id=&#34;流量特征&#34;&gt;&lt;/span&gt;
     &lt;a href=&#34;#%e6%b5%81%e9%87%8f%e7%89%b9%e5%be%81&#34; class=&#34;subheading-anchor&#34; aria-label=&#34;Permalink for this section&#34;&gt;&lt;/a&gt;&lt;/h5&gt;&lt;ul&gt;
@@ -416,7 +389,6 @@ Wireshark提取SMB文件，得到flag压缩包和某个机器的某证书
 &lt;li&gt;PHP webshell 中存在固定代码&lt;/li&gt;
 &lt;/ul&gt;
 &lt;div class=&#34;hextra-code-block hx-relative hx-mt-6 first:hx-mt-0 hx-group/code&#34;&gt;
-  
 
 &lt;div&gt;&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-php&#34; data-lang=&#34;php&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;nv&#34;&gt;$post&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;Decrypt&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;file_get_contents&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;&amp;#34;php://input&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;));&lt;/span&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;
@@ -429,8 +401,6 @@ Wireshark提取SMB文件，得到flag压缩包和某个机器的某证书
     &lt;div class=&#34;success-icon hx-hidden group-[.copied]/copybtn:hx-block hx-pointer-events-none hx-h-4 hx-w-4&#34;&gt;&lt;/div&gt;
   &lt;/button&gt;
 &lt;/div&gt;
-
-  
 &lt;/div&gt;
 &lt;p&gt;固定的请求头和响应头&lt;/p&gt;
 &lt;p&gt;请求字节头：&lt;code&gt;dFAXQV1LORcHRQtLRlwMAhwFTAg/M&lt;/code&gt;&lt;/p&gt;
@@ -458,10 +428,10 @@ Wireshark提取SMB文件，得到flag压缩包和某个机器的某证书
     
     <item>
       <title>[西湖论剑2024初赛] MISC3-easy_rawraw WriteUp</title>
-      <link>http://localhost:1313/matches/xihu2024-initial-misc/</link>
+      <link>https://perfsky.github.io/matches/xihu2024-initial-misc/</link>
       <pubDate>Thu, 01 Feb 2024 00:00:00 +0000</pubDate>
       
-      <guid>http://localhost:1313/matches/xihu2024-initial-misc/</guid>
+      <guid>https://perfsky.github.io/matches/xihu2024-initial-misc/</guid>
       <description>
         
         
@@ -494,10 +464,10 @@ mysecretfile用了veracrypt加密，需要另一个密码，所以继续找线�
     
     <item>
       <title>[HITCTF2023] MISC1&amp;2 WP</title>
-      <link>http://localhost:1313/matches/hitctf2023-misc/</link>
+      <link>https://perfsky.github.io/matches/hitctf2023-misc/</link>
       <pubDate>Sun, 26 Nov 2023 00:00:00 +0000</pubDate>
       
-      <guid>http://localhost:1313/matches/hitctf2023-misc/</guid>
+      <guid>https://perfsky.github.io/matches/hitctf2023-misc/</guid>
       <description>
         
         
@@ -537,10 +507,10 @@ GGQ?O@+())pA#VSebM`[J]XGZUDIDUZ]
     
     <item>
       <title>[ISCC2023线下] MISC1 WP</title>
-      <link>http://localhost:1313/matches/iscc2023-beijing-fin-misc/</link>
+      <link>https://perfsky.github.io/matches/iscc2023-beijing-fin-misc/</link>
       <pubDate>Sat, 21 Oct 2023 00:00:00 +0000</pubDate>
       
-      <guid>http://localhost:1313/matches/iscc2023-beijing-fin-misc/</guid>
+      <guid>https://perfsky.github.io/matches/iscc2023-beijing-fin-misc/</guid>
       <description>
         
         
@@ -570,7 +540,6 @@ GGQ?O@+())pA#VSebM`[J]XGZUDIDUZ]
     &lt;img src=&#34;.././iscc2023-beijing-fin-misc/06.bmp&#34; alt=&#34;image&#34; loading=&#34;lazy&#34; /&gt;
 还好队友见过原题，直接把脚本放了上来，参数甚至一点没变就可以用&lt;/p&gt;
 &lt;div class=&#34;hextra-code-block hx-relative hx-mt-6 first:hx-mt-0 hx-group/code&#34;&gt;
-  
 
 &lt;div&gt;&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
 &lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
@@ -830,8 +799,6 @@ GGQ?O@+())pA#VSebM`[J]XGZUDIDUZ]
     &lt;div class=&#34;success-icon hx-hidden group-[.copied]/copybtn:hx-block hx-pointer-events-none hx-h-4 hx-w-4&#34;&gt;&lt;/div&gt;
   &lt;/button&gt;
 &lt;/div&gt;
-
-  
 &lt;/div&gt;
 &lt;p&gt;解密后读取二维码即可&lt;/p&gt;
 &lt;h2&gt;后话&lt;span class=&#34;hx-absolute -hx-mt-20&#34; id=&#34;后话&#34;&gt;&lt;/span&gt;
@@ -843,10 +810,10 @@ GGQ?O@+())pA#VSebM`[J]XGZUDIDUZ]
     
     <item>
       <title>CTF MISC常用工具集锦/使用方法简介</title>
-      <link>http://localhost:1313/matches/ctf-misc-tools/</link>
+      <link>https://perfsky.github.io/matches/ctf-misc-tools/</link>
       <pubDate>Sun, 01 Oct 2023 00:00:00 +0000</pubDate>
       
-      <guid>http://localhost:1313/matches/ctf-misc-tools/</guid>
+      <guid>https://perfsky.github.io/matches/ctf-misc-tools/</guid>
       <description>
         
         
@@ -872,7 +839,6 @@ GGQ?O@+())pA#VSebM`[J]XGZUDIDUZ]
 仓库：&lt;a href=&#34;https://github.com/ReFirmLabs/binwalk&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;Github - binwalk&lt;/a&gt;
 快速入门：&lt;/p&gt;
 &lt;div class=&#34;hextra-code-block hx-relative hx-mt-6 first:hx-mt-0 hx-group/code&#34;&gt;
-  
 
 &lt;div&gt;&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;binwalk -e stego.zip        &lt;span class=&#34;c1&#34;&gt;#提取stego.zip&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;&lt;div class=&#34;hextra-code-copy-btn-container hx-opacity-0 hx-transition group-hover/code:hx-opacity-100 hx-flex hx-gap-1 hx-absolute hx-m-[11px] hx-right-0 hx-top-0&#34;&gt;
   &lt;button
@@ -883,14 +849,11 @@ GGQ?O@+())pA#VSebM`[J]XGZUDIDUZ]
     &lt;div class=&#34;success-icon hx-hidden group-[.copied]/copybtn:hx-block hx-pointer-events-none hx-h-4 hx-w-4&#34;&gt;&lt;/div&gt;
   &lt;/button&gt;
 &lt;/div&gt;
-
-  
 &lt;/div&gt;
 &lt;h3&gt;steghide/stegseek&lt;span class=&#34;hx-absolute -hx-mt-20&#34; id=&#34;steghidestegseek&#34;&gt;&lt;/span&gt;
     &lt;a href=&#34;#steghidestegseek&#34; class=&#34;subheading-anchor&#34; aria-label=&#34;Permalink for this section&#34;&gt;&lt;/a&gt;&lt;/h3&gt;&lt;p&gt;steghide隐写和配套解密工具，配合rockyou.txt食用更佳
 快速入门：&lt;/p&gt;
 &lt;div class=&#34;hextra-code-block hx-relative hx-mt-6 first:hx-mt-0 hx-group/code&#34;&gt;
-  
 
 &lt;div&gt;&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;stegseek &lt;span class=&#34;o&#34;&gt;[&lt;/span&gt;stegofile.jpg&lt;span class=&#34;o&#34;&gt;]&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;[&lt;/span&gt;wordlist.txt&lt;span class=&#34;o&#34;&gt;]&lt;/span&gt;        &lt;span class=&#34;c1&#34;&gt;#用wordlist暴力破解stegofile&lt;/span&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;stegseek --seed &lt;span class=&#34;o&#34;&gt;[&lt;/span&gt;stegofile.jpg&lt;span class=&#34;o&#34;&gt;]&lt;/span&gt;        &lt;span class=&#34;c1&#34;&gt;# 分析此文件是否包含steghide内容，包含多少隐藏内容，是如何加密的&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;&lt;div class=&#34;hextra-code-copy-btn-container hx-opacity-0 hx-transition group-hover/code:hx-opacity-100 hx-flex hx-gap-1 hx-absolute hx-m-[11px] hx-right-0 hx-top-0&#34;&gt;
@@ -902,8 +865,6 @@ GGQ?O@+())pA#VSebM`[J]XGZUDIDUZ]
     &lt;div class=&#34;success-icon hx-hidden group-[.copied]/copybtn:hx-block hx-pointer-events-none hx-h-4 hx-w-4&#34;&gt;&lt;/div&gt;
   &lt;/button&gt;
 &lt;/div&gt;
-
-  
 &lt;/div&gt;
 &lt;h3&gt;CyberChef&lt;span class=&#34;hx-absolute -hx-mt-20&#34; id=&#34;cyberchef&#34;&gt;&lt;/span&gt;
     &lt;a href=&#34;#cyberchef&#34; class=&#34;subheading-anchor&#34; aria-label=&#34;Permalink for this section&#34;&gt;&lt;/a&gt;&lt;/h3&gt;&lt;p&gt;赛博厨子，ctf编码神器，方便易用，可以下载本地离线使用
@@ -913,7 +874,6 @@ GGQ?O@+())pA#VSebM`[J]XGZUDIDUZ]
 仓库：&lt;a href=&#34;https://github.com/Ciphey/Ciphey&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;Github - Ciphet&lt;/a&gt;
 快速入门：&lt;/p&gt;
 &lt;div class=&#34;hextra-code-block hx-relative hx-mt-6 first:hx-mt-0 hx-group/code&#34;&gt;
-  
 
 &lt;div&gt;&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;ciphey -t &lt;span class=&#34;s2&#34;&gt;&amp;#34;put_encrypted_message_here&amp;#34;&lt;/span&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;ciphey -f encrypted_message.txt
@@ -927,8 +887,6 @@ GGQ?O@+())pA#VSebM`[J]XGZUDIDUZ]
     &lt;div class=&#34;success-icon hx-hidden group-[.copied]/copybtn:hx-block hx-pointer-events-none hx-h-4 hx-w-4&#34;&gt;&lt;/div&gt;
   &lt;/button&gt;
 &lt;/div&gt;
-
-  
 &lt;/div&gt;
 &lt;h2&gt;图片隐写&lt;span class=&#34;hx-absolute -hx-mt-20&#34; id=&#34;图片隐写&#34;&gt;&lt;/span&gt;
     &lt;a href=&#34;#%e5%9b%be%e7%89%87%e9%9a%90%e5%86%99&#34; class=&#34;subheading-anchor&#34; aria-label=&#34;Permalink for this section&#34;&gt;&lt;/a&gt;&lt;/h2&gt;&lt;h3&gt;Stegsolve&lt;span class=&#34;hx-absolute -hx-mt-20&#34; id=&#34;stegsolve&#34;&gt;&lt;/span&gt;
@@ -951,7 +909,6 @@ GGQ?O@+())pA#VSebM`[J]XGZUDIDUZ]
 链接（gaps）：&lt;a href=&#34;https://github.com/nemanja-m/gaps&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;Github - gaps&lt;/a&gt;
 快速入门：&lt;/p&gt;
 &lt;div class=&#34;hextra-code-block hx-relative hx-mt-6 first:hx-mt-0 hx-group/code&#34;&gt;
-  
 
 &lt;div&gt;&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;magick.exe montage *.jpg  -tile 22x2  -geometry 64x256+0+0 abc.jpg
 &lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# 将目录里的jpg文件按顺序拼成x轴22块，y轴2块的图 ，每个图块的大小为64X512像素，输出文件为abc.jpg&lt;/span&gt;
@@ -969,8 +926,6 @@ GGQ?O@+())pA#VSebM`[J]XGZUDIDUZ]
     &lt;div class=&#34;success-icon hx-hidden group-[.copied]/copybtn:hx-block hx-pointer-events-none hx-h-4 hx-w-4&#34;&gt;&lt;/div&gt;
   &lt;/button&gt;
 &lt;/div&gt;
-
-  
 &lt;/div&gt;
 &lt;h2&gt;文件隐写&lt;span class=&#34;hx-absolute -hx-mt-20&#34; id=&#34;文件隐写&#34;&gt;&lt;/span&gt;
     &lt;a href=&#34;#%e6%96%87%e4%bb%b6%e9%9a%90%e5%86%99&#34; class=&#34;subheading-anchor&#34; aria-label=&#34;Permalink for this section&#34;&gt;&lt;/a&gt;&lt;/h2&gt;&lt;h3&gt;wbs4.3open&lt;span class=&#34;hx-absolute -hx-mt-20&#34; id=&#34;wbs43open&#34;&gt;&lt;/span&gt;
@@ -996,7 +951,6 @@ GGQ?O@+())pA#VSebM`[J]XGZUDIDUZ]
     &lt;a href=&#34;#zipcenop&#34; class=&#34;subheading-anchor&#34; aria-label=&#34;Permalink for this section&#34;&gt;&lt;/a&gt;&lt;/h3&gt;&lt;p&gt;zip伪加密修复
 快速入门：&lt;/p&gt;
 &lt;div class=&#34;hextra-code-block hx-relative hx-mt-6 first:hx-mt-0 hx-group/code&#34;&gt;
-  
 
 &lt;div&gt;&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;java -jar ZipCenOp.jar r fake_encrypted.zip&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;&lt;div class=&#34;hextra-code-copy-btn-container hx-opacity-0 hx-transition group-hover/code:hx-opacity-100 hx-flex hx-gap-1 hx-absolute hx-m-[11px] hx-right-0 hx-top-0&#34;&gt;
   &lt;button
@@ -1007,8 +961,6 @@ GGQ?O@+())pA#VSebM`[J]XGZUDIDUZ]
     &lt;div class=&#34;success-icon hx-hidden group-[.copied]/copybtn:hx-block hx-pointer-events-none hx-h-4 hx-w-4&#34;&gt;&lt;/div&gt;
   &lt;/button&gt;
 &lt;/div&gt;
-
-  
 &lt;/div&gt;
 &lt;h3&gt;ARCHPR&lt;span class=&#34;hx-absolute -hx-mt-20&#34; id=&#34;archpr&#34;&gt;&lt;/span&gt;
     &lt;a href=&#34;#archpr&#34; class=&#34;subheading-anchor&#34; aria-label=&#34;Permalink for this section&#34;&gt;&lt;/a&gt;&lt;/h3&gt;&lt;p&gt;暴力破解工具，支持掩码、字典、明文攻击等手段&lt;/p&gt;
@@ -1023,9 +975,8 @@ GGQ?O@+())pA#VSebM`[J]XGZUDIDUZ]
 快速入门：&lt;/p&gt;
 &lt;h4&gt;mac地址/ip/端口过滤&lt;span class=&#34;hx-absolute -hx-mt-20&#34; id=&#34;mac地址ip端口过滤&#34;&gt;&lt;/span&gt;
     &lt;a href=&#34;#mac%e5%9c%b0%e5%9d%80ip%e7%ab%af%e5%8f%a3%e8%bf%87%e6%bb%a4&#34; class=&#34;subheading-anchor&#34; aria-label=&#34;Permalink for this section&#34;&gt;&lt;/a&gt;&lt;/h4&gt;&lt;div class=&#34;hextra-code-block hx-relative hx-mt-6 first:hx-mt-0 hx-group/code&#34;&gt;
-  
 
-&lt;pre&gt;&lt;code&gt;eth.addr==20:dc:e6:f3:78:cc   //筛选MAC地址是20:dc:e6:f3:78:cc的数据包，包括源或者目的MAC地址
+&lt;div&gt;&lt;pre&gt;&lt;code&gt;eth.addr==20:dc:e6:f3:78:cc   //筛选MAC地址是20:dc:e6:f3:78:cc的数据包，包括源或者目的MAC地址
 eth.src==20:dc:e6:f3:78:cc    //源MAC地址是20:dc:e6:f3:78:cc
 eth.dst==20:dc:e6:f3:78:cc    //目的MAC地址是20:dc:e6:f3:78:cc
 
@@ -1037,7 +988,7 @@ tcp.dstport==80        //根据目的TCP端口筛选
 tcp.srcport==80        //根据源TCP端口筛选
 udp.port==4010       //根据UDP端口筛选数据包，包括源端口或者目的端口
 udp.srcport==4010      //根据源UDP端口筛选
-udp.dstport==4010      //根据目的UDP端口筛选&lt;/code&gt;&lt;/pre&gt;&lt;div class=&#34;hextra-code-copy-btn-container hx-opacity-0 hx-transition group-hover/code:hx-opacity-100 hx-flex hx-gap-1 hx-absolute hx-m-[11px] hx-right-0 hx-top-0&#34;&gt;
+udp.dstport==4010      //根据目的UDP端口筛选&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;div class=&#34;hextra-code-copy-btn-container hx-opacity-0 hx-transition group-hover/code:hx-opacity-100 hx-flex hx-gap-1 hx-absolute hx-m-[11px] hx-right-0 hx-top-0&#34;&gt;
   &lt;button
     class=&#34;hextra-code-copy-btn hx-group/copybtn hx-transition-all active:hx-opacity-50 hx-bg-primary-700/5 hx-border hx-border-black/5 hx-text-gray-600 hover:hx-text-gray-900 hx-rounded-md hx-p-1.5 dark:hx-bg-primary-300/10 dark:hx-border-white/10 dark:hx-text-gray-400 dark:hover:hx-text-gray-50&#34;
     title=&#34;Copy code&#34;
@@ -1046,15 +997,12 @@ udp.dstport==4010      //根据目的UDP端口筛选&lt;/code&gt;&lt;/pre&gt;&lt
     &lt;div class=&#34;success-icon hx-hidden group-[.copied]/copybtn:hx-block hx-pointer-events-none hx-h-4 hx-w-4&#34;&gt;&lt;/div&gt;
   &lt;/button&gt;
 &lt;/div&gt;
-
-  
 &lt;/div&gt;
 &lt;h4&gt;协议筛选&lt;span class=&#34;hx-absolute -hx-mt-20&#34; id=&#34;协议筛选&#34;&gt;&lt;/span&gt;
     &lt;a href=&#34;#%e5%8d%8f%e8%ae%ae%e7%ad%9b%e9%80%89&#34; class=&#34;subheading-anchor&#34; aria-label=&#34;Permalink for this section&#34;&gt;&lt;/a&gt;&lt;/h4&gt;&lt;p&gt;常见协议：udp，tcp，arp，icmp，smtp，pop，dns，ip，ssl，http，ftp，ssh&lt;/p&gt;
 &lt;div class=&#34;hextra-code-block hx-relative hx-mt-6 first:hx-mt-0 hx-group/code&#34;&gt;
-  
 
-&lt;pre&gt;&lt;code&gt;http //过滤http流量
+&lt;div&gt;&lt;pre&gt;&lt;code&gt;http //过滤http流量
 http.request.method==GET/POST
 http.response
 http.response.code &amp;gt;=400（包含错误码）
@@ -1066,7 +1014,7 @@ http.content_encoding == “gzip” //过滤content_encoding是gzip的http包
 http.transfer_encoding == “chunked” //根据transfer_encoding过滤
 http.content_length == 279
 http.content_length_header == “279” //根据content_length的数值过滤
-http.server //过滤所有含有http头中含有server字段的数据包&lt;/code&gt;&lt;/pre&gt;&lt;div class=&#34;hextra-code-copy-btn-container hx-opacity-0 hx-transition group-hover/code:hx-opacity-100 hx-flex hx-gap-1 hx-absolute hx-m-[11px] hx-right-0 hx-top-0&#34;&gt;
+http.server //过滤所有含有http头中含有server字段的数据包&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;div class=&#34;hextra-code-copy-btn-container hx-opacity-0 hx-transition group-hover/code:hx-opacity-100 hx-flex hx-gap-1 hx-absolute hx-m-[11px] hx-right-0 hx-top-0&#34;&gt;
   &lt;button
     class=&#34;hextra-code-copy-btn hx-group/copybtn hx-transition-all active:hx-opacity-50 hx-bg-primary-700/5 hx-border hx-border-black/5 hx-text-gray-600 hover:hx-text-gray-900 hx-rounded-md hx-p-1.5 dark:hx-bg-primary-300/10 dark:hx-border-white/10 dark:hx-text-gray-400 dark:hover:hx-text-gray-50&#34;
     title=&#34;Copy code&#34;
@@ -1075,8 +1023,6 @@ http.server //过滤所有含有http头中含有server字段的数据包&lt;/cod
     &lt;div class=&#34;success-icon hx-hidden group-[.copied]/copybtn:hx-block hx-pointer-events-none hx-h-4 hx-w-4&#34;&gt;&lt;/div&gt;
   &lt;/button&gt;
 &lt;/div&gt;
-
-  
 &lt;/div&gt;
 &lt;p&gt;也可参考：&lt;a href=&#34;https://zhuanlan.zhihu.com/p/631821119&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;知乎 - Wireshark教程&lt;/a&gt;&lt;/p&gt;
 &lt;h2&gt;MISC^2&lt;span class=&#34;hx-absolute -hx-mt-20&#34; id=&#34;misc2&#34;&gt;&lt;/span&gt;
