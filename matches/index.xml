@@ -178,7 +178,7 @@ Wireshark提取SMB文件，得到flag压缩包和某个机器的某证书
         
         
         &lt;blockquote&gt;
-&lt;p&gt;三种WebShell的特征，供流量分析用，AWD也可以参考&lt;/p&gt;
+  &lt;p&gt;三种WebShell的特征，供流量分析用，AWD也可以参考&lt;/p&gt;
 &lt;/blockquote&gt;
 &lt;h2&gt;菜刀&lt;span class=&#34;hx-absolute -hx-mt-20&#34; id=&#34;菜刀&#34;&gt;&lt;/span&gt;
     &lt;a href=&#34;#%e8%8f%9c%e5%88%80&#34; class=&#34;subheading-anchor&#34; aria-label=&#34;Permalink for this section&#34;&gt;&lt;/a&gt;&lt;/h2&gt;&lt;h3&gt;特征&lt;span class=&#34;hx-absolute -hx-mt-20&#34; id=&#34;特征&#34;&gt;&lt;/span&gt;
@@ -436,7 +436,7 @@ Wireshark提取SMB文件，得到flag压缩包和某个机器的某证书
         
         
         &lt;blockquote&gt;
-&lt;p&gt;easy raw! many passwords!&lt;/p&gt;
+  &lt;p&gt;easy raw! many passwords!&lt;/p&gt;
 &lt;/blockquote&gt;
 &lt;h2&gt;内存取证&lt;span class=&#34;hx-absolute -hx-mt-20&#34; id=&#34;内存取证&#34;&gt;&lt;/span&gt;
     &lt;a href=&#34;#%e5%86%85%e5%ad%98%e5%8f%96%e8%af%81&#34; class=&#34;subheading-anchor&#34; aria-label=&#34;Permalink for this section&#34;&gt;&lt;/a&gt;&lt;/h2&gt;&lt;p&gt;
@@ -473,7 +473,7 @@ mysecretfile用了veracrypt加密，需要另一个密码，所以继续找线�
         
         &lt;h2&gt;MISC1 - leftover file&lt;span class=&#34;hx-absolute -hx-mt-20&#34; id=&#34;misc1---leftover-file&#34;&gt;&lt;/span&gt;
     &lt;a href=&#34;#misc1---leftover-file&#34; class=&#34;subheading-anchor&#34; aria-label=&#34;Permalink for this section&#34;&gt;&lt;/a&gt;&lt;/h2&gt;&lt;blockquote&gt;
-&lt;p&gt;There is traffic packet captured by engineers on the intranet on the controlled machine. Please analyze the traffic packet and obtain the flag.&lt;/p&gt;
+  &lt;p&gt;There is traffic packet captured by engineers on the intranet on the controlled machine. Please analyze the traffic packet and obtain the flag.&lt;/p&gt;
 &lt;/blockquote&gt;
 &lt;p&gt;拿到一个捕获文件，有大量Modbus/TCP协议的流量，并且从192.168.181.132 &amp;lt;&amp;ndash;&amp;gt; 192.168.181.5的最多。
 应用过滤：(modbus) &amp;amp;&amp;amp;(ip.src==192.168.181.132)&amp;amp;&amp;amp;(modbus.func_code==3)，这个的意思是过滤modbus协议，ip来源为192.168.181.132，且功能码为读保持的流量。
@@ -489,7 +489,7 @@ GGQ?O@+())pA#VSebM`[J]XGZUDIDUZ]
     &lt;img src=&#34;.././hitctf2023-misc/02.png&#34; alt=&#34;image&#34; loading=&#34;lazy&#34; /&gt;&lt;/p&gt;
 &lt;h2&gt;MISC2 - H1F1&lt;span class=&#34;hx-absolute -hx-mt-20&#34; id=&#34;misc2---h1f1&#34;&gt;&lt;/span&gt;
     &lt;a href=&#34;#misc2---h1f1&#34; class=&#34;subheading-anchor&#34; aria-label=&#34;Permalink for this section&#34;&gt;&lt;/a&gt;&lt;/h2&gt;&lt;blockquote&gt;
-&lt;p&gt;Some audiophiles claim they can hear the difference between 320K mp3 and lossless audio.
+  &lt;p&gt;Some audiophiles claim they can hear the difference between 320K mp3 and lossless audio.
 &lt;del&gt;无损听不出来，但是192k和320k的mp3还是很容易分辨的&lt;/del&gt;&lt;/p&gt;
 &lt;/blockquote&gt;
 &lt;p&gt;给了一首歌的flac和mp3版本，根据描述应该是让我们从两个音频的差别来找线索
