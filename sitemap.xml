@@ -2,11 +2,14 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
+    <loc>https://perfsky.github.io/myblog/react-fiber-reconciliation/</loc>
+    <lastmod>2025-04-16T00:00:00+00:00</lastmod>
+  </url><url>
     <loc>https://perfsky.github.io/myblog/</loc>
-    <lastmod>2025-04-13T23:11:58+08:00</lastmod>
+    <lastmod>2025-04-14T19:21:49+08:00</lastmod>
   </url><url>
     <loc>https://perfsky.github.io/myblog/how-raf-and-frame-works/</loc>
-    <lastmod>2025-04-13T00:00:00+00:00</lastmod>
+    <lastmod>2025-04-14T19:21:49+08:00</lastmod>
   </url><url>
     <loc>https://perfsky.github.io/matches/qiangwang2024-misc/</loc>
     <lastmod>2025-04-14T01:50:52+08:00</lastmod>
@@ -18,10 +21,10 @@
     <lastmod>2024-10-28T16:43:52+08:00</lastmod>
   </url><url>
     <loc>https://perfsky.github.io/myblog/hextra-setup-tutorial/</loc>
-    <lastmod>2024-10-13T00:00:00+00:00</lastmod>
+    <lastmod>2025-04-14T19:21:49+08:00</lastmod>
   </url><url>
     <loc>https://perfsky.github.io/</loc>
-    <lastmod>2024-11-05T11:02:11+08:00</lastmod>
+    <lastmod>2025-04-14T19:21:49+08:00</lastmod>
   </url><url>
     <loc>https://perfsky.github.io/about/</loc>
     <lastmod>2024-10-28T16:43:52+08:00</lastmod>
@@ -33,7 +36,7 @@
     <lastmod>2024-11-05T11:02:11+08:00</lastmod>
   </url><url>
     <loc>https://perfsky.github.io/myblog/useless-gdb-cheatsheet/</loc>
-    <lastmod>2024-05-23T00:00:00+00:00</lastmod>
+    <lastmod>2025-04-14T19:21:49+08:00</lastmod>
   </url><url>
     <loc>https://perfsky.github.io/matches/xihu2024-initial-misc/</loc>
     <lastmod>2024-11-05T11:02:11+08:00</lastmod>
