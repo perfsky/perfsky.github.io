@@ -16,6 +16,23 @@
     
     
     <item>
+      <title>高版本Hugo的一个注意事项</title>
+      <link>https://perfsky.github.io/misc/why-my-blog-misfunctions/</link>
+      <pubDate>Sun, 20 Apr 2025 00:00:00 +0000</pubDate>
+      
+      <guid>https://perfsky.github.io/misc/why-my-blog-misfunctions/</guid>
+      <description>
+        
+        
+        &lt;h2&gt;起因&lt;span class=&#34;hx-absolute -hx-mt-20&#34; id=&#34;起因&#34;&gt;&lt;/span&gt;
+    &lt;a href=&#34;#%e8%b5%b7%e5%9b%a0&#34; class=&#34;subheading-anchor&#34; aria-label=&#34;Permalink for this section&#34;&gt;&lt;/a&gt;&lt;/h2&gt;&lt;p&gt;之前一直用的是Hugo 0.126.1版本，并且我的一个博客子页面放在文件夹&lt;code&gt;/blogs&lt;/code&gt;下。最近换了电脑，顺带升级到最新的Hugo版本，编译的时候发现生成的网页在/blogs下会出现显示错位的问题。排查一番发现，新版本的Hugo会默认将生成的所有网页创建一个副本放在&lt;code&gt;/blogs&lt;/code&gt;下，和我的子页面冲突了。&lt;/p&gt;
+&lt;h2&gt;解决方案&lt;span class=&#34;hx-absolute -hx-mt-20&#34; id=&#34;解决方案&#34;&gt;&lt;/span&gt;
+    &lt;a href=&#34;#%e8%a7%a3%e5%86%b3%e6%96%b9%e6%a1%88&#34; class=&#34;subheading-anchor&#34; aria-label=&#34;Permalink for this section&#34;&gt;&lt;/a&gt;&lt;/h2&gt;&lt;p&gt;解决方案是将&lt;code&gt;/blogs&lt;/code&gt;文件夹重命名为其他名字，比如&lt;code&gt;/myblog&lt;/code&gt;，然后执行&lt;code&gt;hugo --gc&lt;/code&gt;重新生成。&lt;/p&gt;
+
+      </description>
+    </item>
+    
+    <item>
       <title>在树莓派上运行怀旧游戏——Lakka模拟器部署教程</title>
       <link>https://perfsky.github.io/misc/raspi-simulator-tutorial/</link>
       <pubDate>Sun, 27 Oct 2024 00:00:00 +0000</pubDate>
