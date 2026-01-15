@@ -269,6 +269,7 @@
         
         &lt;blockquote&gt;
   &lt;p&gt;摘自自己的前端笔记&lt;/p&gt;
+
 &lt;/blockquote&gt;
 &lt;h2&gt;简要概括&lt;span class=&#34;hx-absolute -hx-mt-20&#34; id=&#34;简要概括&#34;&gt;&lt;/span&gt;
     &lt;a href=&#34;#%e7%ae%80%e8%a6%81%e6%a6%82%e6%8b%ac&#34; class=&#34;subheading-anchor&#34; aria-label=&#34;Permalink for this section&#34;&gt;&lt;/a&gt;&lt;/h2&gt;&lt;p&gt;&lt;strong&gt;协调算法&lt;/strong&gt;是 React 在更新 UI 时的工作流程，目的是确定哪些部分的UI需要更新。React Fiber是React 16引入的新的&lt;strong&gt;协调算法&lt;/strong&gt;。&lt;/p&gt;
@@ -410,6 +411,7 @@
 &lt;p&gt;使用&lt;code&gt;window.cancelAnimationFrame(rafId)&lt;/code&gt;作用于&lt;code&gt;rAF()&lt;/code&gt;的返回值，取消回调函数执行操作。&lt;/p&gt;
 &lt;blockquote&gt;
   &lt;p&gt;若你想在浏览器下次重绘之前继续更新下一帧动画，那么回调函数自身必须再次调用 &lt;code&gt;requestAnimationFrame()&lt;/code&gt;。&lt;code&gt;requestAnimationFrame()&lt;/code&gt; 是一次性的。&lt;/p&gt;
+
 &lt;/blockquote&gt;
 &lt;p&gt;&lt;code&gt;requestAnimationFrame()&lt;/code&gt; 是一个宏任务。&lt;/p&gt;
 &lt;p&gt;使用示例：&lt;/p&gt;
@@ -602,6 +604,7 @@
         
         &lt;blockquote&gt;
   &lt;p&gt;以Hextra主题为例的Hugo博客搭建指南&lt;/p&gt;
+
 &lt;/blockquote&gt;
 &lt;h2&gt;准备工作&lt;span class=&#34;hx-absolute -hx-mt-20&#34; id=&#34;准备工作&#34;&gt;&lt;/span&gt;
     &lt;a href=&#34;#%e5%87%86%e5%a4%87%e5%b7%a5%e4%bd%9c&#34; class=&#34;subheading-anchor&#34; aria-label=&#34;Permalink for this section&#34;&gt;&lt;/a&gt;&lt;/h2&gt;&lt;ul&gt;
@@ -745,6 +748,7 @@
 &lt;p&gt;&lt;code&gt;jump &amp;lt;lineno/location&amp;gt;&lt;/code&gt; 直接跳到行数或者函数地址（不停止，需要自行设置断点）&lt;/p&gt;
 &lt;blockquote&gt;
   &lt;p&gt;GDB空行直接回车默认为执行最近一次的命令。&lt;/p&gt;
+
 &lt;/blockquote&gt;
 &lt;h3&gt;12. set args/show args&lt;span class=&#34;hx-absolute -hx-mt-20&#34; id=&#34;12-set-argsshow-args&#34;&gt;&lt;/span&gt;
     &lt;a href=&#34;#12-set-argsshow-args&#34; class=&#34;subheading-anchor&#34; aria-label=&#34;Permalink for this section&#34;&gt;&lt;/a&gt;&lt;/h3&gt;&lt;p&gt;在使用run命令之前，使用&lt;code&gt;set args&lt;/code&gt;命令行参数来指定.&lt;/p&gt;

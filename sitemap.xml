@@ -2,17 +2,20 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
+    <loc>https://perfsky.github.io/misc/cf-worker-redirects/</loc>
+    <lastmod>2026-01-15T14:03:19+08:00</lastmod>
+  </url><url>
     <loc>https://perfsky.github.io/misc/why-my-blog-misfunctions/</loc>
-    <lastmod>2025-04-20T00:00:00+00:00</lastmod>
+    <lastmod>2025-04-20T19:56:25+08:00</lastmod>
   </url><url>
     <loc>https://perfsky.github.io/myblog/js-promise-deepdive/</loc>
-    <lastmod>2025-04-20T00:00:00+00:00</lastmod>
+    <lastmod>2025-04-20T19:56:25+08:00</lastmod>
   </url><url>
     <loc>https://perfsky.github.io/myblog/react-fiber-reconciliation/</loc>
     <lastmod>2025-04-16T15:00:29+08:00</lastmod>
   </url><url>
     <loc>https://perfsky.github.io/myblog/</loc>
-    <lastmod>2025-04-16T15:00:29+08:00</lastmod>
+    <lastmod>2025-04-20T19:56:25+08:00</lastmod>
   </url><url>
     <loc>https://perfsky.github.io/myblog/how-raf-and-frame-works/</loc>
     <lastmod>2025-04-14T19:21:49+08:00</lastmod>
@@ -30,13 +33,13 @@
     <lastmod>2025-04-14T19:21:49+08:00</lastmod>
   </url><url>
     <loc>https://perfsky.github.io/</loc>
-    <lastmod>2025-04-14T19:21:49+08:00</lastmod>
+    <lastmod>2026-01-15T14:03:19+08:00</lastmod>
   </url><url>
     <loc>https://perfsky.github.io/about/</loc>
     <lastmod>2024-10-28T16:43:52+08:00</lastmod>
   </url><url>
     <loc>https://perfsky.github.io/misc/</loc>
-    <lastmod>2024-10-28T16:43:52+08:00</lastmod>
+    <lastmod>2026-01-15T14:03:19+08:00</lastmod>
   </url><url>
     <loc>https://perfsky.github.io/matches/ctf-cheatsheet-traffic-analysis/</loc>
     <lastmod>2024-11-05T11:02:11+08:00</lastmod>
