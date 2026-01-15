@@ -1,11 +1,11 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Sakuya&#39;s Blog – About Me</title>
+    <title>Sakuya&#39;s Blog – </title>
     <link>https://perfsky.github.io/about/</link>
-    <description>Recent content in About Me on Sakuya&#39;s Blog</description>
+    <description>Recent content on Sakuya&#39;s Blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-CN</language>
-    <lastBuildDate>Fri, 11 Oct 2024 21:11:58 +0800</lastBuildDate>
+    <lastBuildDate>Thu, 15 Jan 2026 14:15:58 +0800</lastBuildDate>
     
 	  <atom:link href="https://perfsky.github.io/about/index.xml" rel="self" type="application/rss+xml" />
     
