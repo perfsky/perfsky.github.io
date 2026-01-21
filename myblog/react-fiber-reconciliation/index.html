@@ -502,50 +502,50 @@
 </span></span><span class="line"><span class="cl">  <span class="nx">mode</span><span class="o">:</span> <span class="nx">TypeOfMode</span><span class="p">,</span>
 </span></span><span class="line"><span class="cl"><span class="p">)</span> <span class="p">{</span>
 </span></span><span class="line"><span class="cl">  <span class="c1">// 基本属性
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="k">this</span><span class="p">.</span><span class="nx">tag</span> <span class="o">=</span> <span class="nx">tag</span><span class="p">;</span> <span class="c1">// 描述此Fiber的启动模式的值（LegacyRoot = 0; ConcurrentRoot = 1）
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="k">this</span><span class="p">.</span><span class="nx">key</span> <span class="o">=</span> <span class="nx">key</span><span class="p">;</span> <span class="c1">// React key
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="k">this</span><span class="p">.</span><span class="nx">elementType</span> <span class="o">=</span> <span class="kc">null</span><span class="p">;</span> <span class="c1">// 描述React元素的类型。例如，对于JSX&lt;App /&gt;，elementType是App
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="k">this</span><span class="p">.</span><span class="nx">type</span> <span class="o">=</span> <span class="kc">null</span><span class="p">;</span> <span class="c1">// 组件类型
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="k">this</span><span class="p">.</span><span class="nx">stateNode</span> <span class="o">=</span> <span class="kc">null</span><span class="p">;</span> <span class="c1">// 对于类组件，这是类的实例；对于DOM元素，它是对应的DOM节点。
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>
+</span></span></span><span class="line"><span class="cl">  <span class="k">this</span><span class="p">.</span><span class="nx">tag</span> <span class="o">=</span> <span class="nx">tag</span><span class="p">;</span> <span class="c1">// 描述此Fiber的启动模式的值（LegacyRoot = 0; ConcurrentRoot = 1）
+</span></span></span><span class="line"><span class="cl">  <span class="k">this</span><span class="p">.</span><span class="nx">key</span> <span class="o">=</span> <span class="nx">key</span><span class="p">;</span> <span class="c1">// React key
+</span></span></span><span class="line"><span class="cl">  <span class="k">this</span><span class="p">.</span><span class="nx">elementType</span> <span class="o">=</span> <span class="kc">null</span><span class="p">;</span> <span class="c1">// 描述React元素的类型。例如，对于JSX&lt;App /&gt;，elementType是App
+</span></span></span><span class="line"><span class="cl">  <span class="k">this</span><span class="p">.</span><span class="nx">type</span> <span class="o">=</span> <span class="kc">null</span><span class="p">;</span> <span class="c1">// 组件类型
+</span></span></span><span class="line"><span class="cl">  <span class="k">this</span><span class="p">.</span><span class="nx">stateNode</span> <span class="o">=</span> <span class="kc">null</span><span class="p">;</span> <span class="c1">// 对于类组件，这是类的实例；对于DOM元素，它是对应的DOM节点。
+</span></span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl">  <span class="c1">// Fiber链接
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="k">this</span><span class="p">.</span><span class="k">return</span> <span class="o">=</span> <span class="kc">null</span><span class="p">;</span> <span class="c1">// 指向父Fiber
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="k">this</span><span class="p">.</span><span class="nx">child</span> <span class="o">=</span> <span class="kc">null</span><span class="p">;</span> <span class="c1">// 指向第一个子Fiber
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="k">this</span><span class="p">.</span><span class="nx">sibling</span> <span class="o">=</span> <span class="kc">null</span><span class="p">;</span> <span class="c1">// 指向其兄弟Fiber
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="k">this</span><span class="p">.</span><span class="nx">index</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="c1">// 子Fiber中的索引位置
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>
+</span></span></span><span class="line"><span class="cl">  <span class="k">this</span><span class="p">.</span><span class="k">return</span> <span class="o">=</span> <span class="kc">null</span><span class="p">;</span> <span class="c1">// 指向父Fiber
+</span></span></span><span class="line"><span class="cl">  <span class="k">this</span><span class="p">.</span><span class="nx">child</span> <span class="o">=</span> <span class="kc">null</span><span class="p">;</span> <span class="c1">// 指向第一个子Fiber
+</span></span></span><span class="line"><span class="cl">  <span class="k">this</span><span class="p">.</span><span class="nx">sibling</span> <span class="o">=</span> <span class="kc">null</span><span class="p">;</span> <span class="c1">// 指向其兄弟Fiber
+</span></span></span><span class="line"><span class="cl">  <span class="k">this</span><span class="p">.</span><span class="nx">index</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="c1">// 子Fiber中的索引位置
+</span></span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl">  <span class="k">this</span><span class="p">.</span><span class="nx">ref</span> <span class="o">=</span> <span class="kc">null</span><span class="p">;</span> <span class="c1">// 如果组件上有ref属性，则该属性指向它
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="k">this</span><span class="p">.</span><span class="nx">refCleanup</span> <span class="o">=</span> <span class="kc">null</span><span class="p">;</span> <span class="c1">// 如果组件上的ref属性在更新中被删除或更改，此字段会用于追踪需要清理的旧ref
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>
+</span></span></span><span class="line"><span class="cl">  <span class="k">this</span><span class="p">.</span><span class="nx">refCleanup</span> <span class="o">=</span> <span class="kc">null</span><span class="p">;</span> <span class="c1">// 如果组件上的ref属性在更新中被删除或更改，此字段会用于追踪需要清理的旧ref
+</span></span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl">    <span class="c1">// Props &amp; State
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="k">this</span><span class="p">.</span><span class="nx">pendingProps</span> <span class="o">=</span> <span class="nx">pendingProps</span><span class="p">;</span> <span class="c1">// 正在等待处理的新props
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="k">this</span><span class="p">.</span><span class="nx">memoizedProps</span> <span class="o">=</span> <span class="kc">null</span><span class="p">;</span> <span class="c1">// 上一次渲染时的props
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="k">this</span><span class="p">.</span><span class="nx">updateQueue</span> <span class="o">=</span> <span class="kc">null</span><span class="p">;</span> <span class="c1">// 一个队列，包含了该Fiber上的状态更新和副作用
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="k">this</span><span class="p">.</span><span class="nx">memoizedState</span> <span class="o">=</span> <span class="kc">null</span><span class="p">;</span> <span class="c1">// 上一次渲染时的state
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="k">this</span><span class="p">.</span><span class="nx">dependencies</span> <span class="o">=</span> <span class="kc">null</span><span class="p">;</span> <span class="c1">// 该Fiber订阅的上下文或其他资源的描述
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>
+</span></span></span><span class="line"><span class="cl">  <span class="k">this</span><span class="p">.</span><span class="nx">pendingProps</span> <span class="o">=</span> <span class="nx">pendingProps</span><span class="p">;</span> <span class="c1">// 正在等待处理的新props
+</span></span></span><span class="line"><span class="cl">  <span class="k">this</span><span class="p">.</span><span class="nx">memoizedProps</span> <span class="o">=</span> <span class="kc">null</span><span class="p">;</span> <span class="c1">// 上一次渲染时的props
+</span></span></span><span class="line"><span class="cl">  <span class="k">this</span><span class="p">.</span><span class="nx">updateQueue</span> <span class="o">=</span> <span class="kc">null</span><span class="p">;</span> <span class="c1">// 一个队列，包含了该Fiber上的状态更新和副作用
+</span></span></span><span class="line"><span class="cl">  <span class="k">this</span><span class="p">.</span><span class="nx">memoizedState</span> <span class="o">=</span> <span class="kc">null</span><span class="p">;</span> <span class="c1">// 上一次渲染时的state
+</span></span></span><span class="line"><span class="cl">  <span class="k">this</span><span class="p">.</span><span class="nx">dependencies</span> <span class="o">=</span> <span class="kc">null</span><span class="p">;</span> <span class="c1">// 该Fiber订阅的上下文或其他资源的描述
+</span></span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl">    <span class="c1">// 工作模式
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="k">this</span><span class="p">.</span><span class="nx">mode</span> <span class="o">=</span> <span class="nx">mode</span><span class="p">;</span> <span class="c1">// 描述Fiber工作模式的标志（例如Concurrent模式、Blocking模式等）。
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>
+</span></span></span><span class="line"><span class="cl">  <span class="k">this</span><span class="p">.</span><span class="nx">mode</span> <span class="o">=</span> <span class="nx">mode</span><span class="p">;</span> <span class="c1">// 描述Fiber工作模式的标志（例如Concurrent模式、Blocking模式等）。
+</span></span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl">  <span class="c1">// Effects
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="k">this</span><span class="p">.</span><span class="nx">flags</span> <span class="o">=</span> <span class="nx">NoFlags</span><span class="p">;</span> <span class="c1">// 描述该Fiber发生的副作用的标志（十六进制的标识）
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="k">this</span><span class="p">.</span><span class="nx">subtreeFlags</span> <span class="o">=</span> <span class="nx">NoFlags</span><span class="p">;</span> <span class="c1">// 描述该Fiber子树中发生的副作用的标志（十六进制的标识）
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="k">this</span><span class="p">.</span><span class="nx">deletions</span> <span class="o">=</span> <span class="kc">null</span><span class="p">;</span> <span class="c1">// 在commit阶段要删除的子Fiber数组
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>
+</span></span></span><span class="line"><span class="cl">  <span class="k">this</span><span class="p">.</span><span class="nx">flags</span> <span class="o">=</span> <span class="nx">NoFlags</span><span class="p">;</span> <span class="c1">// 描述该Fiber发生的副作用的标志（十六进制的标识）
+</span></span></span><span class="line"><span class="cl">  <span class="k">this</span><span class="p">.</span><span class="nx">subtreeFlags</span> <span class="o">=</span> <span class="nx">NoFlags</span><span class="p">;</span> <span class="c1">// 描述该Fiber子树中发生的副作用的标志（十六进制的标识）
+</span></span></span><span class="line"><span class="cl">  <span class="k">this</span><span class="p">.</span><span class="nx">deletions</span> <span class="o">=</span> <span class="kc">null</span><span class="p">;</span> <span class="c1">// 在commit阶段要删除的子Fiber数组
+</span></span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl">  <span class="k">this</span><span class="p">.</span><span class="nx">lanes</span> <span class="o">=</span> <span class="nx">NoLanes</span><span class="p">;</span> <span class="c1">// 与React的并发模式有关的调度概念。
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="k">this</span><span class="p">.</span><span class="nx">childLanes</span> <span class="o">=</span> <span class="nx">NoLanes</span><span class="p">;</span> <span class="c1">// 与React的并发模式有关的调度概念。
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>
+</span></span></span><span class="line"><span class="cl">  <span class="k">this</span><span class="p">.</span><span class="nx">childLanes</span> <span class="o">=</span> <span class="nx">NoLanes</span><span class="p">;</span> <span class="c1">// 与React的并发模式有关的调度概念。
+</span></span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl">  <span class="k">this</span><span class="p">.</span><span class="nx">alternate</span> <span class="o">=</span> <span class="kc">null</span><span class="p">;</span> <span class="c1">// Current Tree和Work-in-progress (WIP) Tree的互相指向对方tree里的对应单元
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>
+</span></span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl">    <span class="c1">// 如果启用了性能分析
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="k">if</span> <span class="p">(</span><span class="nx">enableProfilerTimer</span><span class="p">)</span> <span class="p">{</span>
+</span></span></span><span class="line"><span class="cl">  <span class="k">if</span> <span class="p">(</span><span class="nx">enableProfilerTimer</span><span class="p">)</span> <span class="p">{</span>
 </span></span><span class="line"><span class="cl">    <span class="c1">// ……
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="p">}</span>
+</span></span></span><span class="line"><span class="cl">  <span class="p">}</span>
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl">    <span class="c1">// 开发模式中
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="k">if</span> <span class="p">(</span><span class="nx">__DEV__</span><span class="p">)</span> <span class="p">{</span>
+</span></span></span><span class="line"><span class="cl">  <span class="k">if</span> <span class="p">(</span><span class="nx">__DEV__</span><span class="p">)</span> <span class="p">{</span>
 </span></span><span class="line"><span class="cl">    <span class="c1">// ……
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="p">}</span>
+</span></span></span><span class="line"><span class="cl">  <span class="p">}</span>
 </span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></div></div><div class="hextra-code-copy-btn-container hx-opacity-0 hx-transition group-hover/code:hx-opacity-100 hx-flex hx-gap-1 hx-absolute hx-m-[11px] hx-right-0 hx-top-0">
   <button
     class="hextra-code-copy-btn hx-group/copybtn hx-transition-all active:hx-opacity-50 hx-bg-primary-700/5 hx-border hx-border-black/5 hx-text-gray-600 hover:hx-text-gray-900 hx-rounded-md hx-p-1.5 dark:hx-bg-primary-300/10 dark:hx-border-white/10 dark:hx-text-gray-400 dark:hover:hx-text-gray-50"

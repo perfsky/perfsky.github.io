@@ -467,7 +467,7 @@
 </span></span><span class="line"><span class="cl"><span class="kd">function</span> <span class="nx">init</span><span class="p">(</span><span class="nx">val</span><span class="p">)</span> <span class="p">{</span>
 </span></span><span class="line"><span class="cl">  <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">&#34;回调发生在时间:&#34;</span><span class="p">,</span> <span class="nx">val</span><span class="p">);</span>
 </span></span><span class="line"><span class="cl">  <span class="c1">// rAF执行的回调函数只有一个参数val，是上一帧渲染的结束时间戳
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="nx">requestId</span> <span class="o">=</span> <span class="nx">requestAnimationFrame</span><span class="p">(</span><span class="nx">init</span><span class="p">);</span>
+</span></span></span><span class="line"><span class="cl">  <span class="nx">requestId</span> <span class="o">=</span> <span class="nx">requestAnimationFrame</span><span class="p">(</span><span class="nx">init</span><span class="p">);</span>
 </span></span><span class="line"><span class="cl"><span class="p">}</span>
 </span></span><span class="line"><span class="cl"><span class="nx">requestAnimationFrame</span><span class="p">(</span><span class="nx">init</span><span class="p">);</span>
 </span></span><span class="line"><span class="cl">
@@ -592,10 +592,10 @@
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl"><span class="nx">testButton</span><span class="p">.</span><span class="nx">addEventListener</span><span class="p">(</span><span class="s2">&#34;click&#34;</span><span class="p">,</span> <span class="p">()</span> <span class="p">=&gt;</span> <span class="p">{</span>
 </span></span><span class="line"><span class="cl">  <span class="c1">// 重置状态
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="nx">test</span><span class="p">.</span><span class="nx">style</span><span class="p">.</span><span class="nx">transition</span> <span class="o">=</span> <span class="s2">&#34;none&#34;</span><span class="p">;</span>
+</span></span></span><span class="line"><span class="cl">  <span class="nx">test</span><span class="p">.</span><span class="nx">style</span><span class="p">.</span><span class="nx">transition</span> <span class="o">=</span> <span class="s2">&#34;none&#34;</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl">  <span class="c1">// 设置初始变换
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="nx">test</span><span class="p">.</span><span class="nx">style</span><span class="p">.</span><span class="nx">transform</span> <span class="o">=</span> <span class="s2">&#34;translate(400px, 0)&#34;</span><span class="p">;</span>
+</span></span></span><span class="line"><span class="cl">  <span class="nx">test</span><span class="p">.</span><span class="nx">style</span><span class="p">.</span><span class="nx">transform</span> <span class="o">=</span> <span class="s2">&#34;translate(400px, 0)&#34;</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl">  <span class="nx">requestAnimationFrame</span><span class="p">(()</span> <span class="p">=&gt;</span> <span class="p">{</span>
 </span></span><span class="line"><span class="cl">    <span class="nx">test</span><span class="p">.</span><span class="nx">style</span><span class="p">.</span><span class="nx">transition</span> <span class="o">=</span> <span class="s2">&#34;transform 3s linear&#34;</span><span class="p">;</span>
